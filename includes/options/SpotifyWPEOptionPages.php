@@ -22,6 +22,8 @@ if ( ! defined( 'WPINC' ) ) {
 class SpotifyWPEOptionPages {
 
 	/**
+	 * Array of option pages.
+	 *
 	 * @var array
 	 */
 	protected $attributes = array(
@@ -50,6 +52,8 @@ class SpotifyWPEOptionPages {
 		),
 	);
 	/**
+	 * Default options for the class.
+	 *
 	 * @var array[]
 	 */
 	protected $defaults = array(
@@ -76,6 +80,7 @@ class SpotifyWPEOptionPages {
 			'title'    => 'Settings Section',
 			'callback' => false,
 			'page'     => 'option_page',
+			'args'     => array(),
 		),
 		'add_submenu_page'     => array(
 			'parent_slug' => 'option_page',
@@ -84,13 +89,20 @@ class SpotifyWPEOptionPages {
 			'capability'  => 'manage_options',
 			'menu_slug'   => 'sub_option_page',
 			'callback'    => false,
+			'position'    => null,
 		),
 	);
+
 	/**
-	 * @var
+	 * Error messages.
+	 *
+	 * @var array
 	 */
 	protected $errors;
+
 	/**
+	 * Fields array.
+	 *
 	 * @var array[]
 	 */
 	protected $fields = array(
@@ -124,40 +136,54 @@ class SpotifyWPEOptionPages {
 			'drag_drop_upload' => false,
 		),
 	);
+
 	/**
+	 * Media script flag.
+	 *
 	 * @var bool
 	 */
 	protected $media_script = false;
+
 	/**
-	 * @var
+	 * Notices array.
+	 *
+	 * @var array
 	 */
 	protected $notices;
+
 	/**
-	 * @var
+	 * Options array.
+	 *
+	 * @var array
 	 */
 	protected $options;
+
 	/**
+	 * Pages array.
+	 *
 	 * @var array
 	 */
 	protected $pages = array();
+
 	/**
+	 * Subpages array.
+	 *
 	 * @var array
 	 */
 	protected $subpages = array();
+
 	/**
-	 * @var
+	 * Points array.
+	 *
+	 * @var array
 	 */
 	protected $points;
 
-	/*
-	 ==========================================================================
-	   Magic methods
-	   ========================================================================== */
 	/**
 	 * Catches unknown method calls
 	 *
-	 * @param   string $method     The method being requested
-	 * @param   array  $arguments  Array of arguments passed to the method
+	 * @param   string $method     The method being requested.
+	 * @param   array  $arguments  Array of arguments passed to the method.
 	 */
 	public function __call( $method, $arguments ) {
 		$request     = explode( '|', $method );
@@ -180,7 +206,6 @@ class SpotifyWPEOptionPages {
 			case 'register_setting':
 				$input = $this->sanitize_setting( $page_key, $arguments[0] );
 				return $input;
-				break;
 			default:
 				$this->submit_notice( $method );
 		}
@@ -189,7 +214,7 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Class construct method. Configures class and hooks into WordPress.
 	 *
-	 * @param   array $pages  Array of option pages
+	 * @param   array $pages  Array of option pages.
 	 */
 	public function __construct( $pages = array() ) {
 		foreach ( $pages as $page_key => $page_params ) {
@@ -204,10 +229,6 @@ class SpotifyWPEOptionPages {
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
-	/*
-	 ==========================================================================
-	   WordPress hooks
-	   ========================================================================== */
 	/**
 	 * Action: admin_enqueue_scripts
 	 * Conditionally queue's up jQuery and the media uploader script
@@ -270,7 +291,19 @@ class SpotifyWPEOptionPages {
 	 */
 	public function admin_init() {
 		foreach ( $this->pages as $page_key => $page_params ) {
-			// Finalize sanitize
+			// Ensures that when WP checks if `current_user_can( $capability )`, that
+			// $capability is set to the capability given for the specific page in the
+			// $pages array.
+			add_filter(
+				"option_page_capability_$page_key",
+				function ( $capability ) {
+					return $this->pages[ $GLOBALS['option_page'] ]['capability'];
+				},
+				10,
+				1
+			);
+
+			// Finalize sanitize.
 			if ( empty( $page_params['custom'] ) && ! is_array( $page_params['sanitize'] ) ) {
 				$page_params['sanitize'] = array( $this, $page_params['sanitize'] );
 			}
@@ -286,7 +319,7 @@ class SpotifyWPEOptionPages {
 			if ( ! empty( $page_params['sections'] ) ) {
 				if ( $page_params['sections_as_tabs'] ) {
 					foreach ( $page_params['sections'] as $section ) {
-						if ( $section['id'] == $tab ) {
+						if ( $section['id'] === $tab ) {
 							$sections[] = $section;
 						}
 					}
@@ -299,44 +332,49 @@ class SpotifyWPEOptionPages {
 
 			if ( $sections ) {
 				foreach ( $sections as $section_key => $section_params ) {
-					// Sort and trim the array for the function
+					// Sort and trim the array for the function.
 					$sort_order = array_keys( $this->defaults['add_settings_section'] );
 					$params     = $this->sort_array( $section_params, $sort_order );
 					$params     = array_slice( $params, 0, count( $this->defaults['add_settings_section'] ) );
 
-					// Finalize callback
+					// Finalize callback.
 					if ( empty( $params['custom'] ) && ! is_array( $params['callback'] ) ) {
 						$params['callback'] = array( $this, $params['callback'] );
 					}
 
-					call_user_func_array( 'add_settings_section', $params );
+					// Filter out unused params for PHP 8 Compatibility.
+					$valid_keys   = array_keys( $this->defaults['add_settings_section'] );
+					$valid_params = array_intersect_key( $params, array_flip( $valid_keys ) );
+
+					call_user_func_array( 'add_settings_section', array_values( $valid_params ) );
 
 					if ( ! empty( $section_params['fields'] ) ) {
 						foreach ( $section_params['fields'] as $field_key => $field_params ) {
-							// Check for "media" type for adding script
-							if ( ! $this->media_script && $field_params['type'] === 'media' ) {
+							// Check for "media" type for adding script.
+							if ( 'media' === $field_params['type'] && ! $this->media_script ) {
 								$this->media_script = true;
 							}
 
-							// Sort and trim the array for the function
+							// Sort and trim the array for the function.
 							$sort_order = array_keys( $this->defaults['add_settings_field'] );
 							$params     = $this->sort_array( $field_params, $sort_order );
 							$params     = array_slice( $params, 0, count( $this->defaults['add_settings_field'] ) );
 
-							// Add label wrapper on title
-							if (
-								! in_array( $field_params['type'], array( 'radio' ) ) &&
-								( empty( $field_params['no_label'] ) || $field_params['no_label'] === false )
-							) {
-								$params['title'] = '<label for="{$params["id"]}">' . __( $params['title'], 'sfwe' ) . '</label>';
+							// Add label wrapper on title.
+							if ( ! in_array( $field_params['type'], array( 'radio' ) ) && ( empty( $field_params['no_label'] ) || $field_params['no_label'] === false ) ) { //phpcs:ignore
+								$params['title'] = '<label for="{$params["id"]}">' . __( $params['title'], 'sfwe' ) . '</label>';   //phpcs:ignore
 							}
 
-							// Finalize callback
+							// Finalize callback.
 							if ( empty( $params['custom'] ) && ! is_array( $params['callback'] ) ) {
 								$params['callback'] = array( $this, $params['callback'] );
 							}
 
-							call_user_func_array( 'add_settings_field', $params );
+							// Filter out unused params for PHP 8 Compatibility.
+							$valid_keys   = array_keys( $this->defaults['add_settings_field'] );
+							$valid_params = array_intersect_key( $params, array_flip( $valid_keys ) );
+
+							call_user_func_array( 'add_settings_field', array_values( $valid_params ) );
 						}
 					}
 				}
@@ -351,15 +389,19 @@ class SpotifyWPEOptionPages {
 		$all_pages = array_merge( $this->pages, $this->subpages );
 
 		foreach ( $all_pages as $page ) {
-			// Sort and trim the array for the function
+			// Sort and trim the array for the function.
 			$sort_order = array_keys( $this->defaults[ $page['function'] ] );
 			$params     = $this->sort_array( $page, $sort_order );
 			$params     = array_slice( $params, 0, count( $this->defaults[ $page['function'] ] ) );
 
-			// Finalize callback
+			// Finalize callback.
 			$params['callback'] = array( $this, $params['callback'] );
 
-			call_user_func_array( $page['function'], $params );
+			// Filter out unused params for PHP 8 Compatibility.
+			$valid_keys   = array_keys( $this->defaults[ $page['function'] ] );
+			$valid_params = array_intersect_key( $params, array_flip( $valid_keys ) );
+
+			call_user_func_array( $page['function'], array_values( $valid_params ) );
 		}
 	}
 
@@ -370,26 +412,24 @@ class SpotifyWPEOptionPages {
 		// notice-error, notice-warning, notice-success, or notice-info.
 		if ( ! empty( $this->errors ) ) {
 			foreach ( $this->errors as $error ) {
-				echo $error;
+				echo $error;    //phpcs:ignore
 			}
 		}
 		if ( ! empty( $this->notices ) ) {
 			foreach ( $this->notices as $notice ) {
-				echo $notice;
+				echo $notice;   //phpcs:ignore
 			}
 		}
 
-		// update point in array for future reference
+		// update point in array for future reference.
 		$this->points['admin_notices'] = true;
 	}
 
-	/*
-	 ==========================================================================
-	   Helpers
-	   ========================================================================== */
 	/**
-	 * @param $page_key
-	 * @param $page_params
+	 * Adds a new menu page.
+	 *
+	 * @param string $page_key Key of the page needing built.
+	 * @param array  $page_params Array of page parameters.
 	 *
 	 * @return void
 	 */
@@ -400,7 +440,7 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Builds the menu page
 	 *
-	 * @param   string $page_key   The array key of the page needing built
+	 * @param   string $page_key   The array key of the page needing built.
 	 */
 	protected function build_menu_page( $page_key ) {
 		$page          = $this->pages[ $page_key ];
@@ -409,15 +449,15 @@ class SpotifyWPEOptionPages {
 		$tab = $this->get_current_tab( $page );
 		?>
 		<div class="wrap">
-		<h1><?php _e( $GLOBALS['title'], 'sfwe' ); ?></h1>
+		<h1><?php _e( $GLOBALS['title'], 'sfwe' );  //phpcs:ignore ?></h1>
 		<?php if ( $page['sections_as_tabs'] ) { ?>
 			<nav class="nav-tab-wrapper">
 				<?php foreach ( (array) $page['sections'] as $section ) { ?>
-					<a href="?page=<?php echo $page['menu_slug']; ?>&tab=<?php echo $section['id']; ?>" class="nav-tab 
-											  <?php
-												if ( $tab === $section['id'] ) :
-													?>
-						nav-tab-active<?php endif; ?>"><?php echo $section['title']; ?></a>
+					<a href="?page=<?php echo $page['menu_slug']; ?>&tab=<?php echo $section['id']; //phpcs:ignore ?>" class="nav-tab
+													<?php
+													if ( $tab === $section['id'] ) :
+														?>
+						nav-tab-active<?php endif; ?>"><?php echo $section['title']; //phpcs:ignore ?></a>
 				<?php } ?>
 			</nav>
 		<?php } ?>
@@ -444,20 +484,20 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Builds the fields themselves
 	 *
-	 * @param   string $page_key       The array key of the page
-	 * @param   string $section_key    The array key of the section
-	 * @param   string $field_key      The array key of the field
+	 * @param   string $page_key       The array key of the page.
+	 * @param   string $section_key    The array key of the section.
+	 * @param   string $field_key      The array key of the field.
 	 */
 	protected function build_settings_field( $page_key, $section_key, $field_key ) {
 		$page    = $this->pages[ $page_key ];
 		$section = $page['sections'][ $section_key ];
 		$field   = $section['fields'][ $field_key ];
 
-		if ( isset( $field['value'] ) && $field['type'] !== 'checkbox' ) {
+		if ( isset( $field['value'] ) && 'checkbox' !== $field['type'] ) {
 			$field['value'] = ! empty( $this->options[ $field['id'] ] ) ? $this->options[ $field['id'] ] : $field['value'];
 		}
 
-		// Additional attributes
+		// Additional attributes.
 		if ( ! empty( $field['attributes'] ) ) {
 			$attributes = array();
 			foreach ( $field['attributes'] as $attribute => $value ) {
@@ -468,15 +508,15 @@ class SpotifyWPEOptionPages {
 		}
 
 		// Sanitize field values, unless 'sanitize' was set to false for this field.
-		if ( ( ! isset( $field['sanitize'] ) || $field['sanitize'] ) && $field['type'] !== 'wp_editor' ) {
+		if ( ( ! isset( $field['sanitize'] ) || $field['sanitize'] ) && 'wp_editor' !== $field['type'] ) {
 			if ( ! empty( $field['attributes'] ) && isset( $field['attributes']['multiple'] ) && $field['attributes']['multiple'] ) {
-				for ( $i = 0; $i < count( $field['value'] ); $i++ ) {
-					$field['value'][ $i ] = strip_tags( $field['value'][ $i ] );      // Removes HTML tags
-					$field['value'][ $i ] = esc_attr( $field['value'][ $i ] );        // Escapes field for HTML attributes
+				for ( $i = 0; $i < count( $field['value'] ); $i++ ) {   //phpcs:ignore
+					$field['value'][ $i ] = wp_strip_all_tags( $field['value'][ $i ] );      // Removes HTML tags.
+					$field['value'][ $i ] = esc_attr( $field['value'][ $i ] );        // Escapes field for HTML attributes.
 				}
 			} else {
-				$field['value'] = strip_tags( $field['value'] );      // Removes HTML tags
-				$field['value'] = esc_attr( $field['value'] );        // Escapes field for HTML attributes
+				$field['value'] = wp_strip_all_tags( $field['value'] );      // Removes HTML tags.
+				$field['value'] = esc_attr( $field['value'] );        // Escapes field for HTML attributes.
 			}
 		}
 
@@ -488,6 +528,7 @@ class SpotifyWPEOptionPages {
 				}
 				printf(
 					'<label><input %s %s id="%s" name="%s" title="%s" type="checkbox" value="%s">&nbsp; %s</label>',
+					// phpcs:disable
 					$checked,                                                                           // checked
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
@@ -495,6 +536,7 @@ class SpotifyWPEOptionPages {
 					$field['title_attr'],                                                               // title
 					$field['value'],                                                                    // value
 					! empty( $field['text'] ) ? __( $field['text'], 'sfwe' ) : ''                                        // text
+				// phpcs:enable
 				);
 				break;
 			case 'media':
@@ -503,6 +545,7 @@ class SpotifyWPEOptionPages {
 				);
 				printf(
 					'<input %s id="%s" name="%s" %s title="%s" type="text" value="%s" %s>%s%s',
+					// phpcs:disable
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
 					"{$page_key}[{$field['id']}]",                                                      // name
@@ -512,10 +555,11 @@ class SpotifyWPEOptionPages {
 					! empty( $attributes ) ? implode( ' ', $attributes ) : '',                           // additional attributes
 					$upload_button,                                                                     // upload button
 					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : ''              // text
+				// phpcs:enable
 				);
 				break;
 			case 'radio':
-				echo '<fieldset><legend class="screen-reader-text">' . __( $field['title'], 'sfwe' ) . '</legend>';
+				echo '<fieldset><legend class="screen-reader-text">' . __( $field['title'], 'sfwe' ) . '</legend>'; //phpcs:ignore
 				$c = 0;
 				foreach ( $field['choices'] as $value => $label ) {
 					$checked = $value === $field['value'] ? 'checked' : '';
@@ -524,6 +568,7 @@ class SpotifyWPEOptionPages {
 					}
 					printf(
 						'<label><input %s %s id="%s" name="%s" type="radio" title="%s" value="%s">&nbsp; %s</label>%s',
+						// phpcs:disable
 						$checked,                                                                           // checked
 						! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 						$field['id'],                                                                       // id
@@ -532,6 +577,7 @@ class SpotifyWPEOptionPages {
 						$value,                                                                             // value
 						__( $label, 'sfwe' ),                                                                               // label
 						$c < count( $field['choices'] ) - 1 ? '<br>' : ''                                   // line-break
+					// phpcs:enable
 					);
 					$c++;
 				}
@@ -547,11 +593,13 @@ class SpotifyWPEOptionPages {
 				}
 				printf(
 					'<select %s %s id="%s" name="%s" title="%s">',
+					// phpcs:disable
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					! empty( $attributes ) ? implode( ' ', $attributes ) : '',
 					$field['id'],                                                                       // id
 					$field_tag_name,                                                        // name
 					__( $field['title_attr'], 'sfwe' )                                                              // title
+				// phpcs:enable
 				);
 				foreach ( $field['choices'] as $value => $text ) {
 					$selected = $value === $field['value'] ? 'selected' : '';
@@ -559,14 +607,14 @@ class SpotifyWPEOptionPages {
 						if ( ! is_array( $this->options[ $field['id'] ] ) ) {
 							$selected = $value === $this->options[ $field['id'] ] ? 'selected="selected"' : '';
 						} else {
-							$selected = in_array( $value, $this->options[ $field['id'] ] ) ? 'selected="selected"' : '';
+							$selected = in_array( $value, $this->options[ $field['id'] ] ) ? 'selected="selected"' : '';    //phpcs:ignore
 						}
 					}
 					printf(
 						'<option %s value="%s">%s</option>',
-						$selected,                                                                          // selected
-						$value,                                                                             // value
-						__( $text, 'sfwe' )                                                                             // text
+						$selected,                                                                          //phpcs:ignore
+						$value,                                                                             //phpcs:ignore
+						__( $text, 'sfwe' )                                                          //phpcs:ignore
 					);
 				}
 				echo '</select>';
@@ -574,6 +622,7 @@ class SpotifyWPEOptionPages {
 			case 'textarea':
 				printf(
 					'<textarea %s id="%s" name="%s" %s %s %s %s title="%s">%s</textarea>%s',
+					// phpcs:disable
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
 					"{$page_key}[{$field['id']}]",                                                      // name
@@ -584,6 +633,7 @@ class SpotifyWPEOptionPages {
 					$field['title_attr'],                                                               // title
 					$field['value'],                                                                    // value
 					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : ''              // text
+				// phpcs:enable
 				);
 				break;
 			case 'wp_editor':
@@ -595,11 +645,12 @@ class SpotifyWPEOptionPages {
 						'textarea_name' => $field['textarea_name'],
 					)
 				);
-				echo ! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : '';
+				echo ! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : '';    //phpcs:ignore
 				break;
 			default:
 				printf(
 					'<input %s id="%s" name="%s" %s title="%s" type="%s" value="%s" %s>%s',
+					//phpcs:disable
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
 					"{$page_key}[{$field['id']}]",                                                      // name
@@ -609,6 +660,7 @@ class SpotifyWPEOptionPages {
 					$field['value'],                                                                    // value
 					! empty( $attributes ) ? implode( ' ', $attributes ) : '',                           // additional attributes
 					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : ''              // text
+				// phpcs:enable
 				);
 		}
 	}
@@ -616,14 +668,14 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Builds the settings sections
 	 *
-	 * @param   string $page_key       The array key of the page
-	 * @param   type   $section_key    The array key of the section
+	 * @param   string $page_key       The array key of the page.
+	 * @param   type   $section_key    The array key of the section.
 	 */
 	protected function build_settings_section( $page_key, $section_key ) {
 		$page    = $this->pages[ $page_key ];
 		$section = $page['sections'][ $section_key ];
 
-		echo ! empty( $section['text'] ) ? $section['text'] : '';
+		echo ! empty( $section['text'] ) ? $section['text'] : ''; //phpcs:ignore
 
 		if ( ! empty( $section['include'] ) ) {
 			include $section['include'];
@@ -633,7 +685,7 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Determines if the option page has fields or not
 	 *
-	 * @param   array $page   The page array
+	 * @param   array $page   The page array.
 	 *
 	 * @return  boolean         True if fields are found, false otherwise
 	 */
@@ -651,8 +703,8 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Cleans up the option page submissions before submitting to the DB
 	 *
-	 * @param   string $page_key   The array key of the page
-	 *
+	 * @param   string $page_key   The array key of the page.
+	 * @param   array  $input      The submitted input.
 	 * @return  array               The sanitized post input
 	 */
 	protected function sanitize_setting( $page_key, $input ) {
@@ -694,15 +746,15 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Converts human-readable strings into more machine-friendly formats
 	 *
-	 * @param   string $text       String to be formatted
-	 * @param   string $separator  The character that fills in spaces
+	 * @param   string $text       String to be formatted.
+	 * @param   string $separator  The character that fills in spaces.
 	 *
 	 * @return  string              Formatted text
 	 */
 	protected function slugify( $text, $separator = '_' ) {
 		$text = preg_replace( '~[^\\pL\d]+~u', $separator, $text );
 		$text = trim( $text, $separator );
-		$text = iconv( 'utf-8', 'us-ascii//TRANSLIT', $text );
+		$text = iconv( 'utf-8', 'windows-1251//TRANSLIT', $text );
 		$text = strtolower( $text );
 		$text = preg_replace( '~[^-\w]+~', '', $text );
 		if ( empty( $text ) ) {
@@ -714,8 +766,8 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Sorts one array using a second as a guide
 	 *
-	 * @param   array $array          Array to be sorted
-	 * @param   array $order_array    Guide array
+	 * @param   array $array          Array to be sorted.
+	 * @param   array $order_array    Guide array.
 	 *
 	 * @return  array                   Sorted array
 	 */
@@ -733,81 +785,81 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Conditionally outputs an error in WordPress admin
 	 *
-	 * @param   string $error  The error to be output
+	 * @param   string $error  The error to be output.
 	 */
 	public function submit_error( $error ) {
 		$error = sprintf(
 			'<div class="notice notice-error"><p>%s</p></div>',
-			is_array( $error ) || is_object( $error ) ? '<pre>' . htmlspecialchars( print_r( $error, true ) ) . '</pre>' : $error
+			is_array( $error ) || is_object( $error ) ? '<pre>' . htmlspecialchars( print_r( $error, true ) ) . '</pre>' : $error   //phpcs:ignore
 		);
 		if ( empty( $this->points['admin_notices'] ) ) {
 			$this->errors[] = $error;
 		} else {
-			echo $error;
+			echo $error;    //phpcs:ignore
 		}
 	}
 
 	/**
 	 * Conditionally outputs a notice in WordPress admin
 	 *
-	 * @param   string $notice The text to be output
+	 * @param   string $notice The text to be output.
 	 */
 	public function submit_notice( $notice ) {
 		$notice = sprintf(
 			'<div class="notice notice-info"><p>%s</p></div>',
-			is_array( $notice ) || is_object( $notice ) ? '<pre>' . htmlspecialchars( print_r( $notice, true ) ) . '</pre>' : $notice
+			is_array( $notice ) || is_object( $notice ) ? '<pre>' . htmlspecialchars( print_r( $notice, true ) ) . '</pre>' : $notice   //phpcs:ignore
 		);
 		if ( empty( $this->points['admin_notices'] ) ) {
 			$this->notices[] = $notice;
 		} else {
-			echo $notice;
+			echo $notice;   //phpcs:ignore
 		}
 	}
 
 	/**
 	 * Validates the field data submitted to the class
 	 *
-	 * @param   array  $field          Field array
-	 * @param   string $page_key       Array key of the associated page
-	 * @param   string $section_key    Array key of the associated section
-	 * @param   string $field_key      Array key of the field
-	 * @param   string $page           ID of the associated page
-	 * @param   type   $section        ID of the associated section
+	 * @param   array  $field          Field array.
+	 * @param   string $page_key       Array key of the associated page.
+	 * @param   string $section_key    Array key of the associated section.
+	 * @param   string $field_key      Array key of the field.
+	 * @param   string $page           ID of the associated page.
+	 * @param   type   $section        ID of the associated section.
 	 *
 	 * @return  array                   The validated field array
 	 */
 	protected function validate_field( $field, $page_key, $section_key, $field_key, $page, $section ) {
-		// Label
+		// Label.
 		if ( empty( $field['title'] ) ) {
 			$this->submit_error( __( 'Field parameter "title" is required', 'sfwe' ) );
 		}
 
-		// ID
+		// ID.
 		if ( empty( $field['id'] ) ) {
 			$field['id'] = $this->slugify( $field['title'] );
 		}
 
-		// Callback
+		// Callback.
 		$field['callback'] = empty( $field['callback'] ) ? "add_settings_field|{$page_key}|{$section_key}|{$field_key}" : $field['callback'];
 
-		// Page
+		// Page.
 		$field['page'] = $page;
 
-		// Section
+		// Section.
 		$field['section'] = $section;
 
-		// Type
+		// Type.
 		$field['type'] = empty( $field['type'] ) ? 'text' : $field['type'];
 
-		// Title attribute
-		$field['title_attr'] = empty( $field['title_attr'] ) ? __( $field['title'], 'sfwe' ) : $field['title_attr'];
+		// Title attribute.
+		$field['title_attr'] = empty( $field['title_attr'] ) ? __( $field['title'], 'sfwe' ) : $field['title_attr'];    //phpcs:ignore
 
-		// Choices
-		if ( empty( $field['choices'] ) && in_array( $field['type'], array( 'radio', 'select' ) ) ) {
+		// Choices.
+		if ( empty( $field['choices'] ) && in_array( $field['type'], array( 'radio', 'select' ) ) ) {   //phpcs:ignore
 			$this->submit_error( 'Field parameter "choices" is required for the "radio" and "select" type' );
 		}
 
-		// Other attributes
+		// Other attributes.
 		if ( ! empty( $field['attributes'] ) ) {
 			switch ( $field['type'] ) {
 				case 'select':
@@ -819,7 +871,7 @@ class SpotifyWPEOptionPages {
 			}
 		}
 
-		// Making sure we haven't missed anything
+		// Making sure we haven't missed anything.
 		switch ( $field['type'] ) {
 			case 'checkbox':
 				$field = wp_parse_args( $field, $this->fields['checkbox'] );
@@ -829,27 +881,27 @@ class SpotifyWPEOptionPages {
 			case 'range':
 				break;
 			case 'date':
-				$field['value'] = date( 'Y-m-d', strtotime( $field['value'] ) );
+				$field['value'] = gmdate( 'Y-m-d', strtotime( $field['value'] ) );
 				$field          = wp_parse_args( $field, $this->fields['text'] );
 				break;
 			case 'datetime':
 			case 'datetime-local':
-				$field['value'] = date( 'Y-m-d\TH:i:s', strtotime( $field['value'] ) );
+				$field['value'] = gmdate( 'Y-m-d\TH:i:s', strtotime( $field['value'] ) );
 				$field          = wp_parse_args( $field, $this->fields['text'] );
 				break;
 			case 'month':
-				$field['value'] = date( 'Y-m', strtotime( $field['value'] ) );
+				$field['value'] = gmdate( 'Y-m', strtotime( $field['value'] ) );
 				$field          = wp_parse_args( $field, $this->fields['text'] );
 				break;
 			case 'textarea':
 				$field = wp_parse_args( $field, $this->fields[ $field['type'] ] );
 				break;
 			case 'time':
-				$field['value'] = date( 'H:i:s', strtotime( $field['value'] ) );
+				$field['value'] = gmdate( 'H:i:s', strtotime( $field['value'] ) );
 				$field          = wp_parse_args( $field, $this->fields['text'] );
 				break;
 			case 'week':
-				$field['value'] = date( 'Y-\WW', strtotime( $field['value'] ) );
+				$field['value'] = gmdate( 'Y-\WW', strtotime( $field['value'] ) );
 				$field          = wp_parse_args( $field, $this->fields['text'] );
 				break;
 			case 'wp_editor':
@@ -863,28 +915,28 @@ class SpotifyWPEOptionPages {
 	}
 
 	/**
-	 * Validates the information submitted to the class
+	 * Validates the information submitted to the class.
 	 *
-	 * @param   string $page_key       Array key of the page
-	 * @param   array  $page           Array of page parameters
-	 * @param   string $parent_slug    Menu slug of the parent page if there is one
+	 * @param   string $page_key       Array key of the page.
+	 * @param   array  $page_params    Array of page parameters.
+	 * @param   string $parent_slug    Menu slug of the parent page if there is one.
 	 *
-	 * @return  array                   Validated array of page parameters
+	 * @return  array                   Validated array of page parameters.
 	 */
 	protected function validate_page( $page_key, $page_params, $parent_slug = false ) {
-		// Page title
+		// Page title.
 		if ( empty( $page_params['page_title'] ) ) {
 			$this->submit_error( __( 'Page parameter "page_title" is required', 'sfwe' ) );
 		}
 
-		// Menu title
+		// Menu title.
 		if ( empty( $page_params['menu_title'] ) ) {
 			$page_params['menu_title'] = __( $page_params['page_title'], 'sfwe' );
 		}
 
-		// Menu slug
+		// Menu slug.
 		if ( empty( $page_params['menu_slug'] ) ) {
-			// Basing it off the page title cause it's likely to be more unique than the menu title
+			// Basing it off the page title cause it's likely to be more unique than the menu title.
 			$page_params['menu_slug'] = $this->slugify( $page_params['page_title'] );
 		}
 
@@ -896,13 +948,13 @@ class SpotifyWPEOptionPages {
 			$page_params['parent_slug'] = $parent_slug ? $parent_slug : $page_params['parent_slug'];
 		}
 
-		// Callback
+		// Callback.
 		$page_params['callback'] = "{$page_params['function']}|{$page_key}";
 
-		// Sanitize
+		// Sanitize.
 		$page_params['sanitize'] = empty( $page_params['sanitize'] ) ? "register_setting|{$page_key}" : $page_params['sanitize'];
 
-		// Make sure we haven't missed anything
+		// Make sure we haven't missed anything.
 		$page_params = wp_parse_args( $page_params, $this->defaults[ $page_params['function'] ] );
 
 		// Subpages?
@@ -926,28 +978,28 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Validates the section data submitted to the class
 	 *
-	 * @param   array  $section        Section array
-	 * @param   string $page_key       Array key of the associated page
-	 * @param   string $section_key    Array key of the associated page
-	 * @param   string $page           ID of the associated page
+	 * @param   array  $section        Section array.
+	 * @param   string $page_key       Array key of the associated page.
+	 * @param   string $section_key    Array key of the associated page.
+	 * @param   string $page           ID of the associated page.
 	 *
 	 * @return  array                   Validated section array
 	 */
 	protected function validate_section( $section, $page_key, $section_key, $page ) {
-		// Title
+		// Title.
 		if ( empty( $section['title'] ) ) {
 			$this->submit_error( __( 'Section parameter "title" is required', 'sfwe' ) );
 		}
 
-		// ID
+		// ID.
 		if ( empty( $section['id'] ) ) {
 			$section['id'] = $this->slugify( $section['title'] );
 		}
 
-		// Callback
+		// Callback.
 		$section['callback'] = empty( $section['callback'] ) ? "add_settings_section|{$page_key}|{$section_key}" : $section['callback'];
 
-		// Page
+		// Page.
 		$section['page'] = $page;
 
 		// Fields?
@@ -964,7 +1016,7 @@ class SpotifyWPEOptionPages {
 	/**
 	 * Gets the current active tab
 	 *
-	 * @param   string $page_params    Array of page paramters
+	 * @param   string $page_params    Array of page paramters.
 	 *
 	 * @return  string                  id of the tab
 	 */
@@ -972,8 +1024,8 @@ class SpotifyWPEOptionPages {
 		if ( ! $page_params['sections_as_tabs'] ) {
 			return false;
 		}
-		if ( isset( $_GET['tab'] ) ) {
-			return $_GET['tab'];
+		if ( isset( $_GET['tab'] ) ) {  //phpcs:ignore
+			return $_GET['tab'];    //phpcs:ignore
 		} elseif ( count( $page_params['sections'] ) > 0 ) {
 			return reset( $page_params['sections'] )['id'];
 		} else {
