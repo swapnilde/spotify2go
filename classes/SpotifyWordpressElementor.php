@@ -127,7 +127,7 @@ class SpotifyWordpressElementor {
 	 */
 	private function load_dependencies() {
 
-	$this->loader = SpotifyWordpressElementorLoader::get_instance();
+		$this->loader = SpotifyWordpressElementorLoader::get_instance();
 
 	}
 
@@ -201,7 +201,7 @@ class SpotifyWordpressElementor {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @return    SpotifyWordpressElementorLoader    Orchestrates the hooks of the plugin.
-	 *@since     1.0.0
+	 * @since     1.0.0
 	 */
 	public function get_loader() {
 		return $this->loader;
