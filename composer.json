@@ -7,7 +7,6 @@
             "email": "hello@swapnild.com"
         }
     ],
-    "require": {},
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
