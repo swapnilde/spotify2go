@@ -4,11 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5bdc35f-4a0a-4691-97ae-4ae45ef2e572" name="Changes" comment="" />
+    <list default="true" id="d5bdc35f-4a0a-4691-97ae-4ae45ef2e572" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/autoloader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/options/SpotifyWPEOptionPages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/class-spotify-wordpress-elementor-admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/SpotifyWordpressElementorAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/class-spotify-wordpress-elementor-activator.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/SpotifyWordpressElementorActivator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/class-spotify-wordpress-elementor-deactivator.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/SpotifyWordpressElementorDeactivator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/class-spotify-wordpress-elementor-i18n.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/SpotifyWordpressElementorI18n.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/class-spotify-wordpress-elementor-loader.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/SpotifyWordpressElementorLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/class-spotify-wordpress-elementor.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/SpotifyWordpressElementor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/class-spotify-wordpress-elementor-public.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/SpotifyWordpressElementorFrontend.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/spotify-wordpress-elementor-public.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/css/spotify-wordpress-elementor-public.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/spotify-wordpress-elementor-public.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/js/spotify-wordpress-elementor-public.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/partials/spotify-wordpress-elementor-public-display.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/partials/spotify-wordpress-elementor-public-display.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spotify-wordpress-elementor.php" beforeDir="false" afterPath="$PROJECT_DIR$/spotify-wordpress-elementor.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <execution>
@@ -22,8 +48,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="641cd67e-f4ac-4907-9729-2c8c1666830f" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="Local PHP 8.2">
     <include_path>
@@ -43,6 +75,7 @@
     "WebServerToolWindowFactoryState": "false",
     "javascript.nodejs.core.library.configured.version": "18.13.0",
     "javascript.nodejs.core.library.typings.version": "18.11.18",
+    "last_opened_file_path": "/home/swapnil/Local Sites/swapnil/app/public/wp-content/plugins/spotify-wordpress-elementor/includes/options",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.standard": "",
     "node.js.selected.package.stylelint": "",
@@ -53,6 +86,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/includes/options" />
+      <recent name="$PROJECT_DIR$/includes" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -62,6 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1695455351755</updated>
       <workItem from="1695455353277" duration="842000" />
+      <workItem from="1695464242299" duration="5009000" />
     </task>
     <servers />
   </component>

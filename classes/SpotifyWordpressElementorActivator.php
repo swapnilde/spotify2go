@@ -5,10 +5,15 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- *
  * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/includes
  */
+
+namespace SpotifyWPE\Classes;
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 /**
  * Fired during plugin activation.
@@ -16,16 +21,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/includes
- * @author     Swapnil Deshpande <hello@swapnild.com>
  */
-class Spotify_Wordpress_Elementor_Activator {
+class SpotifyWordpressElementorActivator {
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Activation function.
 	 *
 	 * @since    1.0.0
 	 */

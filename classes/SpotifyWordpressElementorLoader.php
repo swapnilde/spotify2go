@@ -5,10 +5,15 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- *
  * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/includes
  */
+
+namespace SpotifyWPE\Classes;
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 /**
  * Register all actions and filters for the plugin.
@@ -16,12 +21,8 @@
  * Maintain a list of all hooks that are registered throughout
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
- *
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/includes
- * @author     Swapnil Deshpande <hello@swapnild.com>
  */
-class Spotify_Wordpress_Elementor_Loader {
+class SpotifyWordpressElementorLoader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -42,6 +43,15 @@ class Spotify_Wordpress_Elementor_Loader {
 	protected $filters;
 
 	/**
+	 * The current instance of the SpotifyWordpressElementorLoader class.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var object $instance The current instance of the SpotifyWordpressElementorLoader class.
+	 */
+	private static $instance;
+
+	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *
 	 * @since    1.0.0
@@ -51,6 +61,36 @@ class Spotify_Wordpress_Elementor_Loader {
 		$this->actions = array();
 		$this->filters = array();
 
+	}
+
+	/**
+	 * Singletons should not be cloneable.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function __clone() { }
+
+	/**
+	 * Singletons should not be restorable from strings.
+	 *
+	 * @since 1.0.0
+	 * @throws \Exception The exception class.
+	 */
+	public function __wakeup() {
+		throw new \Exception( 'Cannot unserialize singleton SpotifyWordpressElementorLoader' );
+	}
+
+	/**
+	 * This is the static method that controls the access to the SpotifyWordpressElementorLoader class instance.
+	 *
+	 * @since 1.0.0
+	 * @return SpotifyWordpressElementorLoader
+	 */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new SpotifyWordpressElementorLoader();
+		}
+		return self::$instance;
 	}
 
 	/**

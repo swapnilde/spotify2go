@@ -3,9 +3,6 @@
 /**
  * The file that defines the core plugin class
  *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
  * @link       https://swapnild.com
  * @since      1.0.0
  *
@@ -13,21 +10,27 @@
  * @subpackage Spotify_Wordpress_Elementor/includes
  */
 
+namespace SpotifyWPE\Classes;
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
+use SpotifyWPE\Classes\SpotifyWordpressElementorLoader;
+use SpotifyWPE\Classes\SpotifyWordpressElementorI18n;
+use SpotifyWPE\Admin\SpotifyWordpressElementorAdmin;
+use SpotifyWPE\Frontend\SpotifyWordpressElementorFrontend;
+
 /**
  * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
  *
  * @since      1.0.0
  * @package    Spotify_Wordpress_Elementor
  * @subpackage Spotify_Wordpress_Elementor/includes
  * @author     Swapnil Deshpande <hello@swapnild.com>
  */
-class Spotify_Wordpress_Elementor {
+class SpotifyWordpressElementor {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +38,7 @@ class Spotify_Wordpress_Elementor {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Spotify_Wordpress_Elementor_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      SpotifyWordpressElementorLoader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -58,11 +61,16 @@ class Spotify_Wordpress_Elementor {
 	protected $version;
 
 	/**
-	 * Define the core functionality of the plugin.
+	 * The current instance of the SpotifyWordpressElementor class.
 	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
+	 * @since 1.0.0
+	 * @access private
+	 * @var object $instance The current instance of the SpotifyWordpressElementor class.
+	 */
+	private static $instance;
+
+	/**
+	 * Define the core functionality of the plugin.
 	 *
 	 * @since    1.0.0
 	 */
@@ -82,62 +90,56 @@ class Spotify_Wordpress_Elementor {
 	}
 
 	/**
+	 * Singletons should not be cloneable.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function __clone() { }
+
+	/**
+	 * Singletons should not be restorable from strings.
+	 *
+	 * @since 1.0.0
+	 * @throws \Exception The exception class.
+	 */
+	public function __wakeup() {
+		throw new \Exception( 'Cannot unserialize singleton SpotifyWordpressElementor' );
+	}
+
+	/**
+	 * This is the static method that controls the access to the SpotifyWordpressElementor class instance.
+	 *
+	 * @since 1.0.0
+	 * @return SpotifyWordpressElementor
+	 */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new SpotifyWordpressElementor();
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Load the required dependencies for this plugin.
-	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - Spotify_Wordpress_Elementor_Loader. Orchestrates the hooks of the plugin.
-	 * - Spotify_Wordpress_Elementor_i18n. Defines internationalization functionality.
-	 * - Spotify_Wordpress_Elementor_Admin. Defines all hooks for the admin area.
-	 * - Spotify_Wordpress_Elementor_Public. Defines all hooks for the public side of the site.
-	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function load_dependencies() {
 
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-spotify-wordpress-elementor-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-spotify-wordpress-elementor-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-spotify-wordpress-elementor-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-spotify-wordpress-elementor-public.php';
-
-		$this->loader = new Spotify_Wordpress_Elementor_Loader();
+	$this->loader = SpotifyWordpressElementorLoader::get_instance();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Spotify_Wordpress_Elementor_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Spotify_Wordpress_Elementor_i18n();
+		$plugin_i18n = new SpotifyWordpressElementorI18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -152,7 +154,7 @@ class Spotify_Wordpress_Elementor {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Spotify_Wordpress_Elementor_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -168,7 +170,7 @@ class Spotify_Wordpress_Elementor {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Spotify_Wordpress_Elementor_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new SpotifyWordpressElementorFrontend( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -198,8 +200,8 @@ class Spotify_Wordpress_Elementor {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
-	 * @return    Spotify_Wordpress_Elementor_Loader    Orchestrates the hooks of the plugin.
+	 * @return    SpotifyWordpressElementorLoader    Orchestrates the hooks of the plugin.
+	 *@since     1.0.0
 	 */
 	public function get_loader() {
 		return $this->loader;
