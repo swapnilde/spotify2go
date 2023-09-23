@@ -60,18 +60,34 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function enqueue_styles( $hook ) {
 
-		wp_enqueue_style( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'css/spotify-wordpress-elementor-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/admin/css/spotify-wordpress-elementor-admin.css', array(), $this->version, 'all' );
 
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
+	 * @param string $hook Name of the hook.
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts( $hook ) {
 
-		wp_enqueue_script( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'js/spotify-wordpress-elementor-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-manifest', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js', array(), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-vendor', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js', array(), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/admin/js/spotify-wordpress-elementor-admin.js', array( 'jquery' ), $this->version, true );
+
+		wp_localize_script(
+			$this->plugin_name,
+			'SpotifyWPEAdminVars',
+			array(
+				'home_url'    => get_home_url(),
+				'site_url'    => esc_url_raw( get_site_url() ),
+				'ajax_url'    => admin_url( 'admin-ajax.php' ),
+				'rest_url'    => esc_url_raw( get_rest_url() ),
+				'user'        => wp_get_current_user(),
+				'user_avatar' => get_avatar_url( wp_get_current_user()->ID ),
+			)
+		);
 
 	}
 
