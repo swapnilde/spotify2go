@@ -328,7 +328,7 @@ class SpotifyWPEOptionPages {
 								! in_array( $field_params['type'], array( 'radio' ) ) &&
 								( empty( $field_params['no_label'] ) || $field_params['no_label'] === false )
 							) {
-								$params['title'] = '<label for="{$params["id"]}">' . __( $params['title'], 'text-domain' ) . '</label>';
+								$params['title'] = '<label for="{$params["id"]}">' . __( $params['title'], 'sfwe' ) . '</label>';
 							}
 
 							// Finalize callback
@@ -409,7 +409,7 @@ class SpotifyWPEOptionPages {
 		$tab = $this->get_current_tab( $page );
 		?>
 		<div class="wrap">
-		<h1><?php _e( $GLOBALS['title'], 'text-domain' ); ?></h1>
+		<h1><?php _e( $GLOBALS['title'], 'sfwe' ); ?></h1>
 		<?php if ( $page['sections_as_tabs'] ) { ?>
 			<nav class="nav-tab-wrapper">
 				<?php foreach ( (array) $page['sections'] as $section ) { ?>
@@ -494,7 +494,7 @@ class SpotifyWPEOptionPages {
 					"{$page_key}[{$field['id']}]",                                                      // name
 					$field['title_attr'],                                                               // title
 					$field['value'],                                                                    // value
-					! empty( $field['text'] ) ? __( $field['text'], 'text-domain' ) : ''                                        // text
+					! empty( $field['text'] ) ? __( $field['text'], 'sfwe' ) : ''                                        // text
 				);
 				break;
 			case 'media':
@@ -506,16 +506,16 @@ class SpotifyWPEOptionPages {
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
 					"{$page_key}[{$field['id']}]",                                                      // name
-					! empty( $field['placeholder'] ) ? 'placeholder="' . __( $field['placeholder'], 'text-domain' ) . '"' : '',     // placeholder
+					! empty( $field['placeholder'] ) ? 'placeholder="' . __( $field['placeholder'], 'sfwe' ) . '"' : '',     // placeholder
 					$field['title_attr'],                                                               // title
 					$field['value'],                                                                    // value
 					! empty( $attributes ) ? implode( ' ', $attributes ) : '',                           // additional attributes
 					$upload_button,                                                                     // upload button
-					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'text-domain' ) . '</p>' : ''              // text
+					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : ''              // text
 				);
 				break;
 			case 'radio':
-				echo '<fieldset><legend class="screen-reader-text">' . __( $field['title'], 'text-domain' ) . '</legend>';
+				echo '<fieldset><legend class="screen-reader-text">' . __( $field['title'], 'sfwe' ) . '</legend>';
 				$c = 0;
 				foreach ( $field['choices'] as $value => $label ) {
 					$checked = $value === $field['value'] ? 'checked' : '';
@@ -528,9 +528,9 @@ class SpotifyWPEOptionPages {
 						! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 						$field['id'],                                                                       // id
 						"{$page_key}[{$field['id']}]",                                                      // name
-						__( $label, 'text-domain' ),                                                                               // title
+						__( $label, 'sfwe' ),                                                                               // title
 						$value,                                                                             // value
-						__( $label, 'text-domain' ),                                                                               // label
+						__( $label, 'sfwe' ),                                                                               // label
 						$c < count( $field['choices'] ) - 1 ? '<br>' : ''                                   // line-break
 					);
 					$c++;
@@ -551,7 +551,7 @@ class SpotifyWPEOptionPages {
 					! empty( $attributes ) ? implode( ' ', $attributes ) : '',
 					$field['id'],                                                                       // id
 					$field_tag_name,                                                        // name
-					__( $field['title_attr'], 'text-domain' )                                                              // title
+					__( $field['title_attr'], 'sfwe' )                                                              // title
 				);
 				foreach ( $field['choices'] as $value => $text ) {
 					$selected = $value === $field['value'] ? 'selected' : '';
@@ -566,7 +566,7 @@ class SpotifyWPEOptionPages {
 						'<option %s value="%s">%s</option>',
 						$selected,                                                                          // selected
 						$value,                                                                             // value
-						__( $text, 'text-domain' )                                                                             // text
+						__( $text, 'sfwe' )                                                                             // text
 					);
 				}
 				echo '</select>';
@@ -577,13 +577,13 @@ class SpotifyWPEOptionPages {
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
 					"{$page_key}[{$field['id']}]",                                                      // name
-					! empty( $field['placeholder'] ) ? 'placeholder="' . __( $field['placeholder'], 'text-domain' ) . '"' : '',     // placeholder
+					! empty( $field['placeholder'] ) ? 'placeholder="' . __( $field['placeholder'], 'sfwe' ) . '"' : '',     // placeholder
 					! empty( $field['rows'] ) ? "rows='{$field['rows']}'" : '',                          // rows
 					! empty( $field['cols'] ) ? "cols='{$field['cols']}'" : '', // cols
 					! empty( $field['wrap'] ) ? "wrap='{$field['wrap']}'" : '', // wrap
 					$field['title_attr'],                                                               // title
 					$field['value'],                                                                    // value
-					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'text-domain' ) . '</p>' : ''              // text
+					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : ''              // text
 				);
 				break;
 			case 'wp_editor':
@@ -595,7 +595,7 @@ class SpotifyWPEOptionPages {
 						'textarea_name' => $field['textarea_name'],
 					)
 				);
-				echo ! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'text-domain' ) . '</p>' : '';
+				echo ! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : '';
 				break;
 			default:
 				printf(
@@ -603,12 +603,12 @@ class SpotifyWPEOptionPages {
 					! empty( $field['class'] ) ? "class='{$field['class']}'" : '',                       // class
 					$field['id'],                                                                       // id
 					"{$page_key}[{$field['id']}]",                                                      // name
-					! empty( $field['placeholder'] ) ? 'placeholder="' . __( $field['placeholder'], 'text-domain' ) . '"' : '',     // placeholder
+					! empty( $field['placeholder'] ) ? 'placeholder="' . __( $field['placeholder'], 'sfwe' ) . '"' : '',     // placeholder
 					$field['title_attr'],                                                               // title
 					$field['type'],                                                                     // type
 					$field['value'],                                                                    // value
 					! empty( $attributes ) ? implode( ' ', $attributes ) : '',                           // additional attributes
-					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'text-domain' ) . '</p>' : ''              // text
+					! empty( $field['text'] ) ? '<p class="help">' . __( $field['text'], 'sfwe' ) . '</p>' : ''              // text
 				);
 		}
 	}
@@ -779,7 +779,7 @@ class SpotifyWPEOptionPages {
 	protected function validate_field( $field, $page_key, $section_key, $field_key, $page, $section ) {
 		// Label
 		if ( empty( $field['title'] ) ) {
-			$this->submit_error( __( 'Field parameter "title" is required', 'text-domain' ) );
+			$this->submit_error( __( 'Field parameter "title" is required', 'sfwe' ) );
 		}
 
 		// ID
@@ -800,7 +800,7 @@ class SpotifyWPEOptionPages {
 		$field['type'] = empty( $field['type'] ) ? 'text' : $field['type'];
 
 		// Title attribute
-		$field['title_attr'] = empty( $field['title_attr'] ) ? __( $field['title'], 'text-domain' ) : $field['title_attr'];
+		$field['title_attr'] = empty( $field['title_attr'] ) ? __( $field['title'], 'sfwe' ) : $field['title_attr'];
 
 		// Choices
 		if ( empty( $field['choices'] ) && in_array( $field['type'], array( 'radio', 'select' ) ) ) {
@@ -874,12 +874,12 @@ class SpotifyWPEOptionPages {
 	protected function validate_page( $page_key, $page_params, $parent_slug = false ) {
 		// Page title
 		if ( empty( $page_params['page_title'] ) ) {
-			$this->submit_error( __( 'Page parameter "page_title" is required', 'text-domain' ) );
+			$this->submit_error( __( 'Page parameter "page_title" is required', 'sfwe' ) );
 		}
 
 		// Menu title
 		if ( empty( $page_params['menu_title'] ) ) {
-			$page_params['menu_title'] = __( $page_params['page_title'], 'text-domain' );
+			$page_params['menu_title'] = __( $page_params['page_title'], 'sfwe' );
 		}
 
 		// Menu slug
@@ -936,7 +936,7 @@ class SpotifyWPEOptionPages {
 	protected function validate_section( $section, $page_key, $section_key, $page ) {
 		// Title
 		if ( empty( $section['title'] ) ) {
-			$this->submit_error( __( 'Section parameter "title" is required', 'text-domain' ) );
+			$this->submit_error( __( 'Section parameter "title" is required', 'sfwe' ) );
 		}
 
 		// ID
