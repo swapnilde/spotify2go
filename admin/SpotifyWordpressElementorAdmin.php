@@ -10,7 +10,7 @@
 
 namespace SpotifyWPE\Admin;
 
-use SpotifyWPE\Includes\Options\SpotifyWPEOptionPages;
+use SpotifyWPE\Includes\Options\SFWEOptionsPanel;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -52,7 +52,8 @@ class SpotifyWordpressElementorAdmin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$option_page = new SpotifyWPEOptionPages( $this->get_pages() );
+		$options_panel = $this->get_options_page();
+		new SFWEOptionsPanel( $options_panel['args'], $options_panel['settings'] );
 	}
 
 	/**
@@ -100,52 +101,56 @@ class SpotifyWordpressElementorAdmin {
 	 * @since    1.0.0
 	 * @return array Array of pages configuration.
 	 */
-	private function get_pages() {
-		$pages = array(
-			'spotify-wordpress-elementor' => array(
-				'page_title' => __( 'Spotify For WP', 'sample-domain' ),
-				// TODO: Change this and its css to your own icon.
-				'icon_url'   => 'dashicons-easyproposal_admin_menu_icon',
-				'sections'   => array(
-					'sfwe-api-section'         => array(
-						'id'     => 'sfwe-api-section',
-						'title'  => __( 'API Keys', 'sample-domain' ),
-						// translators: %s: URL to Spotify Developer Dashboard.
-						'text'   => sprintf( __( 'You can get your API keys from <a href="%s" target="_blank">here</a>.', 'sfwe' ), 'https://developer.spotify.com/dashboard/applications' ),
-						'fields' => array(
-							'sfwe-client-id'     => array(
-								'id'          => 'sfwe-client-id',
-								'title'       => __( 'Client ID', 'sfwe' ),
-								'placeholder' => __( 'Client ID', 'sfwe' ),
-							),
-							'sfwe-client-secret' => array(
-								'id'          => 'sfwe-client-secret',
-								'title'       => __( 'Client Secret', 'sfwe' ),
-								'placeholder' => __( 'Client Secret', 'sfwe' ),
-							),
-						),
-					),
-					'sfwe-integration-section' => array(
-						'id'     => 'sfwe-integration-section',
-						'title'  => __( 'Integrations', 'sample-domain' ),
-						'fields' => array(
-							'sfwe-show-id'  => array(
-								'id'          => 'sfwe-show-id',
-								'title'       => __( 'Podcast Show ID', 'sfwe' ),
-								'placeholder' => __( 'Podcast Show ID', 'sfwe' ),
-							),
-							'sfwe-album-id' => array(
-								'id'          => 'sfwe-album-id',
-								'title'       => __( 'Album ID', 'sfwe' ),
-								'placeholder' => __( 'Album ID', 'sfwe' ),
-							),
-						),
-					),
-				),
+	private function get_options_page() {
+
+		// Page.
+		$panel_args = array(
+			'title'           => 'Spotify For WP',
+			'option_name'     => 'sfwe_options',
+			'slug'            => 'sfwe-options-panel',
+			'user_capability' => 'manage_options',
+			'tabs'            => array(
+				'sfwe-api-tab'         => esc_html__( 'API Keys', 'sfwe' ),
+				'sfwe-integration-tab' => esc_html__( 'Integrations', 'sfwe' ),
+			),
+			'icon_url'        => 'dashicons-easyproposal_admin_menu_icon',
+			'position'        => '59.1',
+		);
+
+		// Settings.
+		$panel_settings = array(
+			// Tab 1.
+			'sfwe_client_id'     => array(
+				'label'       => esc_html__( 'Client ID', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-api-tab',
+			),
+			'sfwe_client_secret' => array(
+				'label'       => esc_html__( 'Client Secret', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-api-tab',
+			),
+			// Tab 2.
+			'sfwe_show_id'       => array(
+				'label'       => esc_html__( 'Podcast Show ID', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-integration-tab',
+			),
+			'sfwe_album_id'      => array(
+				'label'       => esc_html__( 'Album ID', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-integration-tab',
 			),
 		);
 
-		return $pages;
+		return array(
+			'args'     => $panel_args,
+			'settings' => $panel_settings,
+		);
 	}
 
 }
