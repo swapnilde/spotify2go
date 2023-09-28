@@ -153,4 +153,30 @@ class SpotifyWordpressElementorAdmin {
 		);
 	}
 
+	/**
+	 * Add block categories.
+	 *
+	 * @param array  $block_categories Array of categories.
+	 * @param object $editor_context Post object.
+	 * @since    1.0.0
+	 * @return array Array of categories.
+	 */
+	public function add_block_categories( $block_categories, $editor_context ) {
+		$block_categories[] = array(
+			'slug'  => 'spotify-wordpress-elementor',
+			'title' => __( 'Spotify For Wordpress', 'sfwe' ),
+		);
+
+		return $block_categories;
+	}
+
+	/**
+	 * Register block script.
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_block_script() {
+		register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/list-embed' );
+	}
+
 }

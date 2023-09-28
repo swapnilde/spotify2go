@@ -159,6 +159,12 @@ class SpotifyWordpressElementor {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// Add a custom category for our blocks.
+		$this->loader->add_filter( 'block_categories_all', $plugin_admin, 'add_block_categories', 10, 2 );
+
+		// Register our block script with WordPress.
+		$this->loader->add_action( 'init', $plugin_admin, 'register_block_script' );
+
 	}
 
 	/**

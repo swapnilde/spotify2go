@@ -197,7 +197,8 @@ gulp.task(
 			"!**/*.LICENSE.txt",
 			"!mix-manifest.json",
 			"!app{,/**}",
-			"!tailwind.config.js"
+			"!tailwind.config.js",
+			"!blocks{,/**}",
 			]
 		)
 		.pipe( zip( getPkgInfo().name + '-' + getPkgInfo().version + '.zip' ) )

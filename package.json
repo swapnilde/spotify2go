@@ -4,9 +4,10 @@
   "description": "Spotify For WordPress & Elementor help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
   "main": "index.js",
   "scripts": {
-    "dev": "mix",
-    "watch": "mix watch",
-    "prod": "mix --production",
+    "block:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+    "dev": "npm run block:build && mix",
+    "watch": "npm run block:build && mix watch",
+    "prod": "npm run block:build && mix --production",
     "lint:js": "gulp lintjs",
     "lint:css": "gulp lintcss",
     "domain": "gulp checkdomain",
@@ -29,6 +30,8 @@
     "> 0.25%, last 2 versions, Firefox ESR, not dead, not IE 11"
   ],
   "devDependencies": {
+    "@wordpress/scripts": "^26.13.0",
+    "classnames": "^2.3.2",
     "del": "^6.0.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
