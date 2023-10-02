@@ -1,31 +1,34 @@
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 
 /**
  * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
+ * be combined into the final markup.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
  *
- * @return {WPElement} Element to render.
+ * @return {JSX} Element to render.
  */
 export default function listEmbedSave(props) {
   const { className, attributes } = props;
-  const { blockID, episodesArray } = attributes;
+  const { blockID, currentEpisode } = attributes;
 
   const classes = classnames(className, 'list-embed');
 
   return (
     <div className={classes} id={blockID}>
       <div className="container">
-        <h1>{ __('Episodes List', 'sfwe') }</h1>
+          <div className={"sfwe-episode"}>
+              {currentEpisode && currentEpisode.id && (
+                  <iframe
+                      id={"sfwe-episode-" + currentEpisode.id}
+                      frameBorder="0"
+                      allowFullScreen=""
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy" width="100%" height="200"
+                      src={"https://open.spotify.com/embed/episode/" + currentEpisode.id}>
+                  </iframe>
+              )}
+          </div>
       </div>
     </div>
   );

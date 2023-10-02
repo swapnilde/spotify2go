@@ -22,6 +22,10 @@
     "episodesArray": {
       "type": "array",
       "default": []
+    },
+    "currentEpisode": {
+      "type": "object",
+      "default": {}
     }
   },
   "textdomain": "sfwe",

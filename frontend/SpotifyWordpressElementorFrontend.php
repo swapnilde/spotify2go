@@ -72,9 +72,11 @@ class SpotifyWordpressElementorFrontend {
 	 */
 	public function enqueue_scripts( $hook ) {
 
-		wp_enqueue_script( $this->plugin_name . '-manifest', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js', array(), $this->version, true );
-		wp_enqueue_script( $this->plugin_name . '-vendor', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js', array(), $this->version, true );
-		wp_enqueue_script( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/frontend/js/spotify-wordpress-elementor-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-manifest', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js', array(), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+
+		wp_enqueue_script( $this->plugin_name . '-vendor', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js', array(), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+
+		wp_enqueue_script( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/frontend/js/spotify-wordpress-elementor-public.js', array( 'jquery' ), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
 
 		wp_localize_script(
 			$this->plugin_name,
