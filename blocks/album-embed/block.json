@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "name": "spotify-wordpress-elementor/album-embed",
+  "version": "1.0.0",
+  "title": "Album Tracks List",
+  "category": "spotify-wordpress-elementor",
+  "description": "Display a list of album tracks to embed in your posts.",
+  "keywords": [
+    "spotify",
+    "album",
+    "track",
+    "embed"
+  ],
+  "supports": {
+	  "html": false
+  },
+  "attributes": {
+    "blockID": {
+      "type": "string",
+      "default": ""
+    },
+    "albumArray": {
+      "type": "array",
+      "default": []
+    },
+    "currentTrack": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "textdomain": "sfwe",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

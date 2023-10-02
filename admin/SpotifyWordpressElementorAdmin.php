@@ -185,6 +185,7 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function register_block_script() {
 		register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/list-embed' );
+		register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/album-embed' );
 	}
 
 }
