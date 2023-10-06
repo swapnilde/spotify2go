@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, RadioControl } from '@wordpress/components';
 const { Component } = wp.element;
 
 import classnames from 'classnames';
@@ -131,7 +131,7 @@ export default class listEmbedEdit extends Component {
 
   render() {
     const { attributes, setAttributes, className } = this.props;
-    const { blockID, episodesArray, currentEpisode } = attributes;
+    const { blockID, episodesArray, displayType, currentEpisode } = attributes;
 
     const classes = classnames(className, 'list-embed');
 
@@ -139,20 +139,35 @@ export default class listEmbedEdit extends Component {
       <>
         <div className={classes} id={blockID}>
           <div className="container">
-            <SelectControl
-                __nextHasNoMarginBottom
-                label={__('Select Episode', 'sfwe')}
-                help="Selected episode will be displayed in the frontend."
-                value={currentEpisode ? currentEpisode.id : null}
-                options={episodesArray.map((episode) => {
-                    return { label: episode.name, value: episode.id };
-                })}
-                onChange={ ( id ) => {
-                    setAttributes({ currentEpisode: episodesArray.find((episode) => episode.id === id) });
-                }}
-            />
+              <RadioControl
+                  label={__('Display Type', 'sfwe')}
+                  help="Select the display type for the episode."
+                  selected={ displayType ? displayType : 'full'}
+                  options={[
+                      { label: 'Full Show', value: 'full' },
+                      { label: 'Single Episode', value: 'single' },
+                  ]}
+                  onChange={ ( type ) => {
+                      setAttributes({ displayType: type });
+                  }}
+              />
+              <br/>
+              {displayType === 'single' && (
+                  <SelectControl
+                      __nextHasNoMarginBottom
+                      label={__('Select Episode', 'sfwe')}
+                      help="Selected episode will be displayed in the frontend."
+                      value={currentEpisode ? currentEpisode.id : episodesArray[0].id}
+                      options={episodesArray.map((episode) => {
+                          return { label: episode.name, value: episode.id };
+                      })}
+                      onChange={ ( id ) => {
+                          setAttributes({ currentEpisode: episodesArray.find((episode) => episode.id === id) });
+                      }}
+                  />
+              )}
             <div className={"sfwe-episode"}>
-                {currentEpisode && currentEpisode.id && (
+                {displayType === 'single' && currentEpisode.id && (
                     <iframe
                         id={"sfwe-episode-" + currentEpisode.id}
                         frameBorder="0"
@@ -160,6 +175,16 @@ export default class listEmbedEdit extends Component {
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy" width="100%" height="200"
                         src={"https://open.spotify.com/embed/episode/" + currentEpisode.id}>
+                    </iframe>
+                )}
+                {displayType === 'full' && (
+                    <iframe
+                        id={"sfwe-show-" + SpotifyWPEAdminVars.sfwe_options.show_id}
+                        frameBorder="0"
+                        allowFullScreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy" width="100%" height="200"
+                        src={"https://open.spotify.com/embed/show/" + SpotifyWPEAdminVars.sfwe_options.show_id}>
                     </iframe>
                 )}
             </div>
