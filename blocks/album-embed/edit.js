@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, RadioControl } from '@wordpress/components';
 const { Component } = wp.element;
 
 import classnames from 'classnames';
@@ -127,7 +127,7 @@ export default class albumEmbedEdit extends Component {
 
   render() {
     const { attributes, setAttributes, className } = this.props;
-    const { blockID, albumArray, currentTrack } = attributes;
+    const { blockID, albumArray, displayType, currentTrack } = attributes;
 
     const classes = classnames(className, 'album-embed');
 
@@ -135,27 +135,52 @@ export default class albumEmbedEdit extends Component {
       <>
         <div className={classes} id={blockID}>
           <div className="container">
-            <SelectControl
-                __nextHasNoMarginBottom
-                label={__('Select Track', 'sfwe')}
-                help="Selected track will be displayed in the frontend."
-                value={currentTrack ? currentTrack.id : null}
-                options={albumArray.map((episode) => {
-                    return { label: episode.name, value: episode.id };
-                })}
-                onChange={ ( id ) => {
-                    setAttributes({ currentTrack: albumArray.find((episode) => episode.id === id) });
-                }}
-            />
+              <RadioControl
+                  label={__('Display Type', 'sfwe')}
+                  help="Select the display type for the album."
+                  selected={ displayType ? displayType : 'full'}
+                  options={[
+                      { label: 'Full Album', value: 'full' },
+                      { label: 'Single Track', value: 'single' },
+                  ]}
+                  onChange={ ( type ) => {
+                      setAttributes({ displayType: type });
+                  }}
+              />
+              <br/>
+              {displayType === 'single' && (
+                  <SelectControl
+                      __nextHasNoMarginBottom
+                      label={__('Select Track', 'sfwe')}
+                      help="Selected track will be displayed in the frontend."
+                      value={currentTrack ? currentTrack.id : albumArray[0].id}
+                      options={albumArray.map((episode) => {
+                          return { label: episode.name, value: episode.id };
+                      })}
+                      onChange={ ( id ) => {
+                          setAttributes({ currentTrack: albumArray.find((episode) => episode.id === id) });
+                      }}
+                  />
+              )}
             <div className={"sfwe-episode"}>
-                {currentTrack && currentTrack.id && (
+                {displayType === 'single' && currentTrack.id && (
                     <iframe
-                        id={"sfwe-episode-" + currentTrack.id}
+                        id={"sfwe-track-" + currentTrack.id}
                         frameBorder="0"
                         allowFullScreen=""
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy" width="100%" height="200"
                         src={"https://open.spotify.com/embed/track/" + currentTrack.id}>
+                    </iframe>
+                )}
+                {displayType === 'full' && (
+                    <iframe
+                        id={"sfwe-album-" + SpotifyWPEAdminVars.sfwe_options.album_id}
+                        frameBorder="0"
+                        allowFullScreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy" width="100%" height="380"
+                        src={"https://open.spotify.com/embed/album/" + SpotifyWPEAdminVars.sfwe_options.album_id}>
                     </iframe>
                 )}
             </div>

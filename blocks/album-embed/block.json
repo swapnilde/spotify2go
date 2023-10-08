@@ -23,6 +23,10 @@
       "type": "array",
       "default": []
     },
+    "displayType": {
+      "type": "string",
+      "default": "full"
+    },
     "currentTrack": {
       "type": "object",
       "default": {}
