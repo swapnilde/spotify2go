@@ -10,7 +10,7 @@ import classnames from 'classnames';
  */
 export default function listEmbedSave(props) {
   const { className, attributes } = props;
-  const { blockID, currentEpisode } = attributes;
+  const { blockID, currentEpisode, displayType } = attributes;
 
   const classes = classnames(className, 'list-embed');
 
@@ -18,7 +18,7 @@ export default function listEmbedSave(props) {
     <div className={classes} id={blockID}>
       <div className="container">
           <div className={"sfwe-episode"}>
-              {currentEpisode && currentEpisode.id && (
+              {displayType === 'single' && currentEpisode.id && (
                   <iframe
                       id={"sfwe-episode-" + currentEpisode.id}
                       frameBorder="0"
@@ -26,6 +26,16 @@ export default function listEmbedSave(props) {
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                       loading="lazy" width="100%" height="200"
                       src={"https://open.spotify.com/embed/episode/" + currentEpisode.id}>
+                  </iframe>
+              )}
+              {displayType === 'full' && (
+                  <iframe
+                      id={"sfwe-show-" + SpotifyWPEAdminVars.sfwe_options.show_id}
+                      frameBorder="0"
+                      allowFullScreen=""
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy" width="100%" height="200"
+                      src={"https://open.spotify.com/embed/show/" + SpotifyWPEAdminVars.sfwe_options.show_id}>
                   </iframe>
               )}
           </div>
