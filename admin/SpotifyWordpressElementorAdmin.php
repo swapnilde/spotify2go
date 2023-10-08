@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -54,6 +53,10 @@ class SpotifyWordpressElementorAdmin {
 
 		$options_panel = $this->get_options_page();
 		new SFWEOptionsPanel( $options_panel['args'], $options_panel['settings'] );
+
+		if ( $this->check_spotify_api_keys_empty() ) {
+			add_action( 'admin_notices', array( $this, 'spotify_api_keys_empty_notice' ) );
+		}
 	}
 
 	/**
@@ -93,8 +96,8 @@ class SpotifyWordpressElementorAdmin {
 				'user'        => wp_get_current_user(),
 				'user_avatar' => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
-					'client_id'     => get_option( 'sfwe_options' )['sfwe_client_id'],
-					'client_secret' => get_option( 'sfwe_options' )['sfwe_client_secret'],
+					'client_id'     => $this->check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
+					'client_secret' => $this->check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
 					'show_id'       => get_option( 'sfwe_options' )['sfwe_show_id'],
 					'album_id'      => get_option( 'sfwe_options' )['sfwe_album_id'],
 				),
@@ -107,6 +110,7 @@ class SpotifyWordpressElementorAdmin {
 	 * Register menu, submenu, options pages .
 	 *
 	 * @since    1.0.0
+	 * @access   private
 	 * @return array Array of pages configuration.
 	 */
 	private function get_options_page() {
@@ -162,6 +166,52 @@ class SpotifyWordpressElementorAdmin {
 	}
 
 	/**
+	 * Check if the spotify client id and secret are set.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @return boolean True if empty.
+	 */
+	public function check_spotify_api_keys_empty() {
+		$sfwe_options           = get_option( 'sfwe_options' );
+		$spotify_client_id      = $sfwe_options['sfwe_client_id'] ?? '';
+		$spotify_client_secret  = $sfwe_options['sfwe_client_secret'] ?? '';
+
+		return empty( $spotify_client_id ) || empty( $spotify_client_secret );
+	}
+
+	/**
+	 * Display notice if the spotify client id and secret are empty.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @return void
+	 */
+	public function spotify_api_keys_empty_notice() {
+		?>
+		<div class="notice notice-error is-dismissible">
+			<p>
+				<?php
+				printf(
+					/* translators: 1: Plugin name 2: Settings page link */
+					esc_html__( '%1$sPlease set the Spotify Client ID and Client Secret in the %2$s.', 'sfwe' ),
+					sprintf(
+						'<strong>%1$s</strong>',
+						esc_html__( 'Spotify For Wordpress: ', 'sfwe' )
+					),
+					sprintf(
+						'<a href="%1$s">%2$s</a>',
+						admin_url( 'admin.php?page=sfwe-options-panel' ),
+						esc_html__( 'settings page', 'sfwe' )
+					)
+				);
+				?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
 	 * Add block categories.
 	 *
 	 * @param array  $block_categories Array of categories.
@@ -184,8 +234,10 @@ class SpotifyWordpressElementorAdmin {
 	 * @since    1.0.0
 	 */
 	public function register_block_script() {
-		register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/list-embed' );
-		register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/album-embed' );
+		if ( ! $this->check_spotify_api_keys_empty() ) {
+			register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/list-embed' );
+			register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/album-embed' );
+		}
 	}
 
 }
