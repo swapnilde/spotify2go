@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "block:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
-    "dev": "npm run block:build && mix",
-    "watch": "npm run block:build && mix watch",
-    "prod": "npm run block:build && mix --production",
+    "dev": "mix",
+    "watch": "mix watch",
+    "prod": "mix --production",
     "lint:js": "gulp lintjs",
     "lint:css": "gulp lintcss",
     "domain": "gulp checkdomain",
