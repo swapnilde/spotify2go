@@ -15,6 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+use SpotifyWPE\includes\SFWEHelper;
+
 /**
  * The public-facing functionality of the plugin.
  */
@@ -89,29 +91,14 @@ class SpotifyWordpressElementorFrontend {
 				'user'        => wp_get_current_user(),
 				'user_avatar' => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
-					'client_id'     => $this->check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
-					'client_secret' => $this->check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
+					'client_id'     => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
+					'client_secret' => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
 					'show_id'       => get_option( 'sfwe_options' )['sfwe_show_id'],
 					'album_id'      => get_option( 'sfwe_options' )['sfwe_album_id'],
 				),
 			)
 		);
 
-	}
-
-	/**
-	 * Check if the spotify client id and secret are set.
-	 *
-	 * @since    1.0.0
-	 * @access   public
-	 * @return boolean True if empty.
-	 */
-	public function check_spotify_api_keys_empty() {
-		$sfwe_options           = get_option( 'sfwe_options' );
-		$spotify_client_id      = $sfwe_options['sfwe_client_id'] ?? '';
-		$spotify_client_secret  = $sfwe_options['sfwe_client_secret'] ?? '';
-
-		return empty( $spotify_client_id ) || empty( $spotify_client_secret );
 	}
 
 }

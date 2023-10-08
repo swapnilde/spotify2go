@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -59,6 +58,22 @@ class SpotifyWordpressElementor {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
+
+	/**
+	 * Minimum Elementor Version
+	 *
+	 * @since 1.0.0
+	 * @var string Minimum Elementor version required to run the addon.
+	 */
+	const MINIMUM_ELEMENTOR_VERSION = '3.7.0';
+
+	/**
+	 * Minimum PHP Version
+	 *
+	 * @since 1.0.0
+	 * @var string Minimum PHP version required to run the addon.
+	 */
+	const MINIMUM_PHP_VERSION = '7.3';
 
 	/**
 	 * The current instance of the SpotifyWordpressElementor class.
@@ -165,6 +180,11 @@ class SpotifyWordpressElementor {
 		// Register our block script with WordPress.
 		$this->loader->add_action( 'init', $plugin_admin, 'register_block_script' );
 
+		// Register elementor widget.
+		if ( $this->is_compatible() ) {
+			$this->loader->add_action( 'elementor/init', $plugin_admin, 'init_widgets' );
+		}
+
 	}
 
 	/**
@@ -221,6 +241,40 @@ class SpotifyWordpressElementor {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Compatibility Checks
+	 *
+	 * Checks whether the site meets the addon requirement.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function is_compatible() {
+
+		$plugin_admin = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
+
+		// Check if Elementor installed and activated
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice_missing_elementor_plugin' );
+			return false;
+		}
+
+		// Check for required Elementor version
+		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
+			$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice_minimum_elementor_version' );
+			return false;
+		}
+
+		// Check for required PHP version
+		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
+			$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice_minimum_php_version' );
+			return false;
+		}
+
+		return true;
+
 	}
 
 }

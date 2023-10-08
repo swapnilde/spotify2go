@@ -10,6 +10,9 @@
 namespace SpotifyWPE\Admin;
 
 use SpotifyWPE\Includes\Options\SFWEOptionsPanel;
+use SpotifyWPE\includes\SFWEHelper;
+use SpotifyWPE\Widgets\SpotifyWordpressElementorAlbumWidget;
+use SpotifyWPE\Widgets\SpotifyWordpressElementorPodcastWidget;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -40,6 +43,22 @@ class SpotifyWordpressElementorAdmin {
 	private $version;
 
 	/**
+	 * Minimum Elementor Version
+	 *
+	 * @since 1.0.0
+	 * @var string Minimum Elementor version required to run the addon.
+	 */
+	const MINIMUM_ELEMENTOR_VERSION = '3.7.0';
+
+	/**
+	 * Minimum PHP Version
+	 *
+	 * @since 1.0.0
+	 * @var string Minimum PHP version required to run the addon.
+	 */
+	const MINIMUM_PHP_VERSION = '7.3';
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -54,7 +73,7 @@ class SpotifyWordpressElementorAdmin {
 		$options_panel = $this->get_options_page();
 		new SFWEOptionsPanel( $options_panel['args'], $options_panel['settings'] );
 
-		if ( $this->check_spotify_api_keys_empty() ) {
+		if ( SFWEHelper::check_spotify_api_keys_empty() ) {
 			add_action( 'admin_notices', array( $this, 'spotify_api_keys_empty_notice' ) );
 		}
 	}
@@ -96,8 +115,8 @@ class SpotifyWordpressElementorAdmin {
 				'user'        => wp_get_current_user(),
 				'user_avatar' => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
-					'client_id'     => $this->check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
-					'client_secret' => $this->check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
+					'client_id'     => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
+					'client_secret' => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
 					'show_id'       => get_option( 'sfwe_options' )['sfwe_show_id'],
 					'album_id'      => get_option( 'sfwe_options' )['sfwe_album_id'],
 				),
@@ -166,21 +185,6 @@ class SpotifyWordpressElementorAdmin {
 	}
 
 	/**
-	 * Check if the spotify client id and secret are set.
-	 *
-	 * @since    1.0.0
-	 * @access   public
-	 * @return boolean True if empty.
-	 */
-	public function check_spotify_api_keys_empty() {
-		$sfwe_options           = get_option( 'sfwe_options' );
-		$spotify_client_id      = $sfwe_options['sfwe_client_id'] ?? '';
-		$spotify_client_secret  = $sfwe_options['sfwe_client_secret'] ?? '';
-
-		return empty( $spotify_client_id ) || empty( $spotify_client_secret );
-	}
-
-	/**
 	 * Display notice if the spotify client id and secret are empty.
 	 *
 	 * @since    1.0.0
@@ -234,10 +238,110 @@ class SpotifyWordpressElementorAdmin {
 	 * @since    1.0.0
 	 */
 	public function register_block_script() {
-		if ( ! $this->check_spotify_api_keys_empty() ) {
+		if ( ! SFWEHelper::check_spotify_api_keys_empty() ) {
 			register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/list-embed' );
 			register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/album-embed' );
 		}
+	}
+
+	/**
+	 * Admin notice
+	 *
+	 * Warning when the site doesn't have Elementor installed or activated.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function admin_notice_missing_elementor_plugin() {
+
+		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+
+		$message = sprintf(
+		/* translators: 1: Plugin name 2: Elementor */
+			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'sfwe' ),
+			'<strong>' . esc_html__( 'Spotify For WordPress', 'sfwe' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'sfwe' ) . '</strong>'
+		);
+
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+
+	}
+
+	/**
+	 * Admin notice
+	 *
+	 * Warning when the site doesn't have a minimum required Elementor version.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function admin_notice_minimum_elementor_version() {
+
+		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+
+		$message = sprintf(
+		/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'sfwe' ),
+			'<strong>' . esc_html__( 'Spotify For WordPress', 'sfwe' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'sfwe' ) . '</strong>',
+			self::MINIMUM_ELEMENTOR_VERSION
+		);
+
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+
+	}
+
+	/**
+	 * Admin notice
+	 *
+	 * Warning when the site doesn't have a minimum required PHP version.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function admin_notice_minimum_php_version() {
+
+		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+
+		$message = sprintf(
+		/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'sfwe' ),
+			'<strong>' . esc_html__( 'Spotify For WordPress', 'sfwe' ) . '</strong>',
+			'<strong>' . esc_html__( 'PHP', 'sfwe' ) . '</strong>',
+			self::MINIMUM_PHP_VERSION
+		);
+
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+
+	}
+
+	/**
+	 * Initialize the widgets.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @return void Register widgets.
+	 */
+	public function init_widgets() {
+		add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
+	}
+
+	/**
+	 * Register Widgets
+	 *
+	 * Load widgets files and register new Elementor widgets.
+	 *
+	 * Fired by `elementor/widgets/register` action hook.
+	 *
+	 * @param \Elementor\Widgets_Manager $widgets_manager Elementor widgets manager.
+	 */
+	public function register_widgets( $widgets_manager ) {
+
+		if ( ! SFWEHelper::check_spotify_api_keys_empty() ) {
+			$widgets_manager->register( new SpotifyWordpressElementorPodcastWidget() );
+			$widgets_manager->register( new SpotifyWordpressElementorAlbumWidget() );
+		}
+
 	}
 
 }
