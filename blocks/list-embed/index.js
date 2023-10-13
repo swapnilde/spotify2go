@@ -34,7 +34,7 @@ registerBlockType(metadata, {
    */
   icon: {
     src: listEmbed,
-    foreground: '#0030aa',
+    foreground: '#2BA266',
   },
   /**
    * @see ./edit.js

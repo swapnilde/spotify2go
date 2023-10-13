@@ -20,7 +20,7 @@ import './style.scss';
 import albumEmbedEdit from './edit';
 import albumEmbedSave from './save';
 import metadata from './block.json';
-import { listEmbed } from '../../admin/js/block-icons';
+import { albumEmbed } from '../../admin/js/block-icons';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -33,8 +33,8 @@ registerBlockType(metadata, {
    * @see ../../admin/js/block-icons.js
    */
   icon: {
-    src: listEmbed,
-    foreground: '#0030aa',
+    src: albumEmbed,
+    foreground: '#2BA266',
   },
   /**
    * @see ./edit.js

@@ -35,14 +35,14 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	 * @inheritDoc
 	 */
 	public function get_title() {
-		return __( 'Spotify Album', 'sfwe' );
+		return __( 'Album & Tracks', 'sfwe' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function get_icon() {
-		return 'eicon-posts-grid';  //TODO: Change this icon for the podcast widget.
+		return 'eicon-play';  //TODO: Change this icon for the podcast widget.
 	}
 
 	/**

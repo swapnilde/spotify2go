@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "name": "spotify-wordpress-elementor/album-embed",
   "version": "1.0.0",
-  "title": "Album Tracks List",
+  "title": "Album & Tracks",
   "category": "spotify-wordpress-elementor",
   "description": "Display a list of album tracks to embed in your posts.",
   "keywords": [
