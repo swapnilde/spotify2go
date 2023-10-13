@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -36,14 +35,8 @@ define( 'SPOTIFY_WORDPRESS_ELEMENTOR_VERSION', '1.0.0' );
 define( 'SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH', plugin_dir_path( __FILE__ ) );
 define( 'SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH', plugin_dir_url( __FILE__ ) );
 
-// Composer autoloader.
-// require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'vendor/autoload.php';
-
 // SpotifyWPE autoloader.
 require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'includes/autoloader.php';
-
-// Initialize options framework.
-// require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'includes/options/SpotifyWPEOptionPages.php';
 
 /**
  * The code that runs during plugin activation.

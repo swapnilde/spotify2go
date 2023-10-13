@@ -22,9 +22,18 @@ use Elementor\Plugin;
 use Elementor\Utils;
 use SpotifyWPE\includes\SFWEHelper;
 
+/**
+ * SpotifyWordpressElementorAlbumWidget
+ *
+ * @since      1.0.0
+ * @package    Spotify_Wordpress_Elementor
+ * @subpackage Spotify_Wordpress_Elementor/widgets
+ */
 class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 
 	/**
+	 * Elementor Widget Name.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_name() {
@@ -32,6 +41,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget Title.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_title() {
@@ -39,6 +50,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget Icon.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_icon() {
@@ -46,6 +59,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget Categories.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_categories() {
@@ -53,6 +68,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget Keywords.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_keywords() {
@@ -60,6 +77,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget scripts.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_script_depends() {
@@ -67,6 +86,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget styles.
+	 *
 	 * @inheritDoc
 	 */
 	public function get_style_depends() {
@@ -74,12 +95,21 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	}
 
 	/**
+	 * Elementor Widget controls.
+	 *
 	 * @inheritDoc
 	 */
 	protected function register_controls() {
 		$this->register_content_controls();
 	}
 
+	/**
+	 * Elementor Widget content controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @return void
+	 */
 	protected function register_content_controls() {
 		$this->start_controls_section(
 			'sfwe_podcast_content_section',
@@ -120,6 +150,13 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Elementor Widget render.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @return void
+	 */
 	protected function render() {
 		$settings     = $this->get_settings_for_display();
 		$node_id      = $this->get_id();
@@ -136,32 +173,32 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 
 		?>
 
-		<div <?php echo $this->get_render_attribute_string( 'container' ); ?>>
+		<div <?php echo esc_attr( $this->get_render_attribute_string( 'container' ) ); ?>>
 			<?php if ( 'full' === $settings['sfwe_album_display_type'] ) : ?>
 				<iframe
-					id="sfwe-show-<?php esc_attr_e( $sfwe_options['sfwe_album_id'] ?? '' ); ?>"
+					id="sfwe-show-<?php echo esc_attr( $sfwe_options['sfwe_album_id'] ?? '' ); ?>"
 					frameBorder="0"
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 					loading="lazy" width="100%" height="380"
-					src="https://open.spotify.com/embed/album/<?php esc_attr_e( $sfwe_options['sfwe_album_id'] ?? '' ); ?>">
+					src="https://open.spotify.com/embed/album/<?php echo esc_attr( $sfwe_options['sfwe_album_id'] ?? '' ); ?>">
 				</iframe>
 			<?php endif; ?>
 
 			<?php if ( 'single' === $settings['sfwe_album_display_type'] && $settings['sfwe_album_list'] ) : ?>
 				<iframe
-					id="sfwe-episode-<?php esc_attr_e( $settings['sfwe_album_list'] ?? '' ); ?>"
+					id="sfwe-episode-<?php echo esc_attr( $settings['sfwe_album_list'] ?? '' ); ?>"
 					frameBorder="0"
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 					loading="lazy" width="100%" height="200"
-					src="https://open.spotify.com/embed/track/<?php esc_attr_e( $settings['sfwe_album_list'] ?? '' ); ?>">
+					src="https://open.spotify.com/embed/track/<?php echo esc_attr( $settings['sfwe_album_list'] ?? '' ); ?>">
 				</iframe>
 			<?php endif; ?>
 
 			<?php if ( $is_editor && 'single' === $settings['sfwe_album_display_type'] && empty( $settings['sfwe_album_list'] ) ) : ?>
 				<div class="sfwe-album-editor-placeholder elementor-panel-alert elementor-panel-alert-info">
-					<?php _e( 'Select a track to display.', 'sfwe' ); ?>
+					<?php esc_html_e( 'Select a track to display.', 'sfwe' ); ?>
 				</div>
 			<?php endif; ?>
 		</div>

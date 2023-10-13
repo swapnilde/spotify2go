@@ -178,7 +178,7 @@ class SpotifyWordpressElementorAdmin {
 					),
 					sprintf(
 						'<a href="%1$s">%2$s</a>',
-						admin_url( 'admin.php?page=sfwe-options-panel' ),
+						esc_url( admin_url( 'admin.php?page=sfwe-options-panel' ) ),
 						esc_html__( 'settings page', 'sfwe' )
 					)
 				);
@@ -227,8 +227,8 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function admin_notice_missing_elementor_plugin() {
 
-		if ( isset( $_GET['activate'] ) ) {
-			unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		$message = sprintf(
@@ -238,7 +238,7 @@ class SpotifyWordpressElementorAdmin {
 			'<strong>' . esc_html__( 'Elementor', 'sfwe' ) . '</strong>'
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
 
 	}
 
@@ -252,8 +252,8 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function admin_notice_minimum_elementor_version() {
 
-		if ( isset( $_GET['activate'] ) ) {
-			unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		$message = sprintf(
@@ -264,7 +264,7 @@ class SpotifyWordpressElementorAdmin {
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
 
 	}
 
@@ -278,8 +278,8 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function admin_notice_minimum_php_version() {
 
-		if ( isset( $_GET['activate'] ) ) {
-			unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		$message = sprintf(
@@ -290,7 +290,7 @@ class SpotifyWordpressElementorAdmin {
 			self::MINIMUM_PHP_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
 
 	}
 

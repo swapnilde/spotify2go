@@ -278,19 +278,19 @@ class SpotifyWordpressElementor {
 	 */
 	public function is_compatible() {
 
-		// Check if Elementor installed and activated
+		// Check if Elementor installed and activated.
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_missing_elementor_plugin' );
 			return false;
 		}
 
-		// Check for required Elementor version
+		// Check for required Elementor version.
 		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
 			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_minimum_elementor_version' );
 			return false;
 		}
 
-		// Check for required PHP version
+		// Check for required PHP version.
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
 			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_minimum_php_version' );
 			return false;
