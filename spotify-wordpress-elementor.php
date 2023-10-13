@@ -43,7 +43,7 @@ define( 'SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH', plugin_dir_url( __FILE__ ) );
 require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'includes/autoloader.php';
 
 // Initialize options framework.
-//require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'includes/options/SpotifyWPEOptionPages.php';
+// require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'includes/options/SpotifyWPEOptionPages.php';
 
 /**
  * The code that runs during plugin activation.

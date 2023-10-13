@@ -74,22 +74,49 @@ class SpotifyWordpressElementorFrontend {
 	 */
 	public function enqueue_scripts( $hook ) {
 
-		wp_enqueue_script( $this->plugin_name . '-manifest', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js', array(), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			$this->plugin_name . '-manifest',
+			SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js',
+			array(),
+			$this->version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
-		wp_enqueue_script( $this->plugin_name . '-vendor', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js', array(), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			$this->plugin_name . '-vendor',
+			SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js',
+			array(),
+			$this->version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
-		wp_enqueue_script( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/frontend/js/spotify-wordpress-elementor-public.js', array( 'jquery' ), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			$this->plugin_name,
+			SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/frontend/js/spotify-wordpress-elementor-public.js',
+			array( 'jquery' ),
+			$this->version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
 		wp_localize_script(
 			$this->plugin_name,
 			'SpotifyWPEFrontendVars',
 			array(
-				'home_url'    => get_home_url(),
-				'site_url'    => esc_url_raw( get_site_url() ),
-				'ajax_url'    => admin_url( 'admin-ajax.php' ),
-				'rest_url'    => esc_url_raw( get_rest_url() ),
-				'user'        => wp_get_current_user(),
-				'user_avatar' => get_avatar_url( wp_get_current_user()->ID ),
+				'home_url'     => get_home_url(),
+				'site_url'     => esc_url_raw( get_site_url() ),
+				'ajax_url'     => admin_url( 'admin-ajax.php' ),
+				'rest_url'     => esc_url_raw( get_rest_url() ),
+				'user'         => wp_get_current_user(),
+				'user_avatar'  => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
 					'client_id'     => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
 					'client_secret' => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],

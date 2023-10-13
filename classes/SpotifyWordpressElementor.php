@@ -162,8 +162,8 @@ class SpotifyWordpressElementor {
 	 */
 	private function load_dependencies() {
 
-		$this->loader = SpotifyWordpressElementorLoader::get_instance();
-		$this->plugin_admin = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
+		$this->loader        = SpotifyWordpressElementorLoader::get_instance();
+		$this->plugin_admin  = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
 		$this->plugin_public = new SpotifyWordpressElementorFrontend( $this->get_plugin_name(), $this->get_version() );
 
 	}

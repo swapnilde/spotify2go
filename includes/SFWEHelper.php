@@ -27,9 +27,9 @@ class SFWEHelper {
 	 * @return boolean True if empty.
 	 */
 	public static function check_spotify_api_keys_empty() {
-		$sfwe_options           = get_option( 'sfwe_options' );
-		$spotify_client_id      = $sfwe_options['sfwe_client_id'] ?? '';
-		$spotify_client_secret  = $sfwe_options['sfwe_client_secret'] ?? '';
+		$sfwe_options          = get_option( 'sfwe_options' );
+		$spotify_client_id     = $sfwe_options['sfwe_client_id'] ?? '';
+		$spotify_client_secret = $sfwe_options['sfwe_client_secret'] ?? '';
 
 		return empty( $spotify_client_id ) || empty( $spotify_client_secret );
 	}
@@ -44,9 +44,11 @@ class SFWEHelper {
 	public static function get_spotify_access_token() {
 		$url          = 'https://accounts.spotify.com/api/token';
 		$access_token = get_transient( 'sfwe_spotify_access_token' );
-		$sfwe_options           = get_option( 'sfwe_options' );
+		$sfwe_options = get_option( 'sfwe_options' );
 		if ( empty( $access_token ) ) {
-			$token_data = wp_remote_post( $url, array(
+			$token_data      = wp_remote_post(
+				$url,
+				array(
 					'body' => array(
 						'grant_type'    => 'client_credentials',
 						'client_id'     => $sfwe_options['sfwe_client_id'] ?? '',
@@ -70,18 +72,20 @@ class SFWEHelper {
 	 * @return  array    Episodes.
 	 */
 	public static function get_spotify_all_episodes() {
-		$sfwe_options           = get_option( 'sfwe_options' );
-		$spotify_show_id        = $sfwe_options['sfwe_show_id'] ?? '';
-		$url          = 'https://api.spotify.com/v1/shows/' . $spotify_show_id . '/episodes?market=US';
-		$access_token = self::get_spotify_access_token();
-		$show         = wp_remote_get( $url, array(
+		$sfwe_options    = get_option( 'sfwe_options' );
+		$spotify_show_id = $sfwe_options['sfwe_show_id'] ?? '';
+		$url             = 'https://api.spotify.com/v1/shows/' . $spotify_show_id . '/episodes?market=US';
+		$access_token    = self::get_spotify_access_token();
+		$show            = wp_remote_get(
+			$url,
+			array(
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $access_token,
 				),
 			)
 		);
-		$episodes     = json_decode( wp_remote_retrieve_body( $show ) );
-		$episodes_array = array();
+		$episodes        = json_decode( wp_remote_retrieve_body( $show ) );
+		$episodes_array  = array();
 		foreach ( $episodes->items as $episode ) {
 			$episodes_array[ $episode->id ] = $episode->name;
 		}
@@ -97,18 +101,20 @@ class SFWEHelper {
 	 * @return  array    Show tracks.
 	 */
 	public static function get_spotify_show_tracks() {
-		$sfwe_options           = get_option( 'sfwe_options' );
-		$spotify_show_id        = $sfwe_options['sfwe_album_id'] ?? '';
-		$url          = 'https://api.spotify.com/v1/albums/' . $spotify_show_id . '/tracks?market=US';
-		$access_token = self::get_spotify_access_token();
-		$show         = wp_remote_get( $url, array(
+		$sfwe_options    = get_option( 'sfwe_options' );
+		$spotify_show_id = $sfwe_options['sfwe_album_id'] ?? '';
+		$url             = 'https://api.spotify.com/v1/albums/' . $spotify_show_id . '/tracks?market=US';
+		$access_token    = self::get_spotify_access_token();
+		$show            = wp_remote_get(
+			$url,
+			array(
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $access_token,
 				),
 			)
 		);
-		$tracks     = json_decode( wp_remote_retrieve_body( $show ) );
-		$tracks_array = array();
+		$tracks          = json_decode( wp_remote_retrieve_body( $show ) );
+		$tracks_array    = array();
 		foreach ( $tracks->items as $track ) {
 			$tracks_array[ $track->id ] = $track->name;
 		}

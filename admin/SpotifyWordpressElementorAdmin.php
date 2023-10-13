@@ -79,7 +79,7 @@ class SpotifyWordpressElementorAdmin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-		$this->loader	   = SpotifyWordpressElementorLoader::get_instance();
+		$this->loader      = SpotifyWordpressElementorLoader::get_instance();
 
 	}
 
@@ -103,22 +103,49 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function enqueue_scripts( $hook ) {
 
-		wp_enqueue_script( $this->plugin_name . '-manifest', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js', array(), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			$this->plugin_name . '-manifest',
+			SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/manifest.js',
+			array(),
+			$this->version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
-		wp_enqueue_script( $this->plugin_name . '-vendor', SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js', array(), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			$this->plugin_name . '-vendor',
+			SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/vendor.js',
+			array(),
+			$this->version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
-		wp_enqueue_script( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/admin/js/spotify-wordpress-elementor-admin.js', array( 'jquery' ), $this->version, array( 'strategy'  => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script(
+			$this->plugin_name,
+			SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/admin/js/spotify-wordpress-elementor-admin.js',
+			array( 'jquery' ),
+			$this->version,
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
 
 		wp_localize_script(
 			$this->plugin_name,
 			'SpotifyWPEAdminVars',
 			array(
-				'home_url'    => get_home_url(),
-				'site_url'    => esc_url_raw( get_site_url() ),
-				'ajax_url'    => admin_url( 'admin-ajax.php' ),
-				'rest_url'    => esc_url_raw( get_rest_url() ),
-				'user'        => wp_get_current_user(),
-				'user_avatar' => get_avatar_url( wp_get_current_user()->ID ),
+				'home_url'     => get_home_url(),
+				'site_url'     => esc_url_raw( get_site_url() ),
+				'ajax_url'     => admin_url( 'admin-ajax.php' ),
+				'rest_url'     => esc_url_raw( get_rest_url() ),
+				'user'         => wp_get_current_user(),
+				'user_avatar'  => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
 					'client_id'     => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
 					'client_secret' => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
@@ -147,7 +174,7 @@ class SpotifyWordpressElementorAdmin {
 					esc_html__( '%1$sPlease set the Spotify Client ID and Client Secret in the %2$s.', 'sfwe' ),
 					sprintf(
 						'<strong>%1$s</strong>',
-						esc_html__( 'Spotify For Wordpress: ', 'sfwe' )
+						esc_html__( 'Spotify For WordPress: ', 'sfwe' )
 					),
 					sprintf(
 						'<a href="%1$s">%2$s</a>',
@@ -200,7 +227,9 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function admin_notice_missing_elementor_plugin() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: Elementor */
@@ -223,7 +252,9 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function admin_notice_minimum_elementor_version() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
@@ -247,7 +278,9 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function admin_notice_minimum_php_version() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: PHP 3: Required PHP version */

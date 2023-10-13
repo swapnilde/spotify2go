@@ -42,21 +42,21 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 	 * @inheritDoc
 	 */
 	public function get_icon() {
-		return 'eicon-video-playlist';  //TODO: Change this icon for the podcast widget.
+		return 'eicon-video-playlist';  // TODO: Change this icon for the podcast widget.
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function get_categories() {
-		return [ 'basic' ];
+		return array( 'basic' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function get_keywords() {
-		return [ 'spotify', 'podcast', 'show', 'embed' ];
+		return array( 'spotify', 'podcast', 'show', 'embed' );
 	}
 
 	/**
@@ -83,52 +83,52 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 	protected function register_content_controls() {
 		$this->start_controls_section(
 			'sfwe_podcast_content_section',
-			[
+			array(
 				'label' => __( 'Spotify Podcast', 'sfwe' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
+			)
 		);
 
 		$this->add_control(
 			'sfwe_podcast_display_type',
-			[
-				'label'   => __( 'Display Type', 'sfwe' ),
+			array(
+				'label'       => __( 'Display Type', 'sfwe' ),
 				'description' => __( 'Choose whether to display a full show or a single episode.', 'sfwe' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'full',
-				'options' => [
-					'full'    => __( 'Full Show', 'sfwe' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'full',
+				'options'     => array(
+					'full'   => __( 'Full Show', 'sfwe' ),
 					'single' => __( 'Single Episode', 'sfwe' ),
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'sfwe_podcast_list',
-			[
+			array(
 				'label'       => __( 'Select Podcast', 'sfwe' ),
 				'description' => __( 'Select the podcast you want to display.', 'sfwe' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
 				'options'     => SFWEHelper::get_spotify_all_episodes(),
-				'condition'   => [
+				'condition'   => array(
 					'sfwe_podcast_display_type' => 'single',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$node_id = $this->get_id();
-		$is_editor = Plugin::$instance->editor->is_edit_mode();
+		$settings     = $this->get_settings_for_display();
+		$node_id      = $this->get_id();
+		$is_editor    = Plugin::$instance->editor->is_edit_mode();
 		$sfwe_options = get_option( 'sfwe_options' );
 
 		$this->add_render_attribute( 'container', 'id', 'sfwe-podcast-' . $node_id );
 		$this->add_render_attribute( 'container', 'class', array( 'sfwe-podcast' ) );
-		$this->add_render_attribute( 'container', 'data-node-id', $node_id);
+		$this->add_render_attribute( 'container', 'data-node-id', $node_id );
 
 		if ( $is_editor ) {
 			$this->add_render_attribute( 'container', 'class', 'sfwe-podcast-editor' );
@@ -140,23 +140,23 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 			<?php if ( 'full' === $settings['sfwe_podcast_display_type'] ) : ?>
 				<iframe
 					id="sfwe-show-<?php esc_attr_e( $sfwe_options['sfwe_show_id'] ?? '' ); ?>"
-		            frameBorder="0"
-		            allowFullScreen=""
-		            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-		            loading="lazy" width="100%" height="200"
-		            src="https://open.spotify.com/embed/show/<?php esc_attr_e( $sfwe_options['sfwe_show_id'] ?? '' ); ?>">
-		        </iframe>
+					frameBorder="0"
+					allowFullScreen=""
+					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+					loading="lazy" width="100%" height="200"
+					src="https://open.spotify.com/embed/show/<?php esc_attr_e( $sfwe_options['sfwe_show_id'] ?? '' ); ?>">
+				</iframe>
 			<?php endif; ?>
 
 			<?php if ( 'single' === $settings['sfwe_podcast_display_type'] && $settings['sfwe_podcast_list'] ) : ?>
 				<iframe
 					id="sfwe-episode-<?php esc_attr_e( $settings['sfwe_podcast_list'] ?? '' ); ?>"
-		            frameBorder="0"
-		            allowFullScreen=""
-		            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-		            loading="lazy" width="100%" height="200"
-		            src="https://open.spotify.com/embed/episode/<?php esc_attr_e( $settings['sfwe_podcast_list'] ?? '' ); ?>">
-		        </iframe>
+					frameBorder="0"
+					allowFullScreen=""
+					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+					loading="lazy" width="100%" height="200"
+					src="https://open.spotify.com/embed/episode/<?php esc_attr_e( $settings['sfwe_podcast_list'] ?? '' ); ?>">
+				</iframe>
 			<?php endif; ?>
 
 			<?php if ( $is_editor && 'single' === $settings['sfwe_podcast_display_type'] && empty( $settings['sfwe_podcast_list'] ) ) : ?>
