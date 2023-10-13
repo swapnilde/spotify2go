@@ -115,4 +115,63 @@ class SFWEHelper {
 
 		return $tracks_array;
 	}
+
+	/**
+	 * Register menu, submenu, options pages .
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @return array Array of pages configuration.
+	 */
+	public static function get_options_page() {
+
+		// Page.
+		$panel_args = array(
+			'title'           => 'Spotify For WP',
+			'option_name'     => 'sfwe_options',
+			'slug'            => 'sfwe-options-panel',
+			'user_capability' => 'manage_options',
+			'tabs'            => array(
+				'sfwe-api-tab'         => esc_html__( 'API Keys', 'sfwe' ),
+				'sfwe-integration-tab' => esc_html__( 'Integrations', 'sfwe' ),
+			),
+			'icon_url'        => 'dashicons-easyproposal_admin_menu_icon',
+			'position'        => '59.1',
+		);
+
+		// Settings.
+		$panel_settings = array(
+			// Tab 1.
+			'sfwe_client_id'     => array(
+				'label'       => esc_html__( 'Client ID', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-api-tab',
+			),
+			'sfwe_client_secret' => array(
+				'label'       => esc_html__( 'Client Secret', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-api-tab',
+			),
+			// Tab 2.
+			'sfwe_show_id'       => array(
+				'label'       => esc_html__( 'Podcast Show ID', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-integration-tab',
+			),
+			'sfwe_album_id'      => array(
+				'label'       => esc_html__( 'Album ID', 'sfwe' ),
+				'type'        => 'text',
+				'description' => '',
+				'tab'         => 'sfwe-integration-tab',
+			),
+		);
+
+		return array(
+			'args'     => $panel_args,
+			'settings' => $panel_settings,
+		);
+	}
 }

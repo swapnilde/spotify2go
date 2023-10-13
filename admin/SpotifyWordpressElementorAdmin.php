@@ -9,7 +9,7 @@
 
 namespace SpotifyWPE\Admin;
 
-use SpotifyWPE\Includes\Options\SFWEOptionsPanel;
+use SpotifyWPE\Classes\SpotifyWordpressElementorLoader;
 use SpotifyWPE\includes\SFWEHelper;
 use SpotifyWPE\Widgets\SpotifyWordpressElementorAlbumWidget;
 use SpotifyWPE\Widgets\SpotifyWordpressElementorPodcastWidget;
@@ -59,6 +59,16 @@ class SpotifyWordpressElementorAdmin {
 	const MINIMUM_PHP_VERSION = '7.3';
 
 	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      SpotifyWordpressElementorLoader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	protected $loader;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -69,13 +79,8 @@ class SpotifyWordpressElementorAdmin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+		$this->loader	   = SpotifyWordpressElementorLoader::get_instance();
 
-		$options_panel = $this->get_options_page();
-		new SFWEOptionsPanel( $options_panel['args'], $options_panel['settings'] );
-
-		if ( SFWEHelper::check_spotify_api_keys_empty() ) {
-			add_action( 'admin_notices', array( $this, 'spotify_api_keys_empty_notice' ) );
-		}
 	}
 
 	/**
@@ -123,65 +128,6 @@ class SpotifyWordpressElementorAdmin {
 			)
 		);
 
-	}
-
-	/**
-	 * Register menu, submenu, options pages .
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @return array Array of pages configuration.
-	 */
-	private function get_options_page() {
-
-		// Page.
-		$panel_args = array(
-			'title'           => 'Spotify For WP',
-			'option_name'     => 'sfwe_options',
-			'slug'            => 'sfwe-options-panel',
-			'user_capability' => 'manage_options',
-			'tabs'            => array(
-				'sfwe-api-tab'         => esc_html__( 'API Keys', 'sfwe' ),
-				'sfwe-integration-tab' => esc_html__( 'Integrations', 'sfwe' ),
-			),
-			'icon_url'        => 'dashicons-easyproposal_admin_menu_icon',
-			'position'        => '59.1',
-		);
-
-		// Settings.
-		$panel_settings = array(
-			// Tab 1.
-			'sfwe_client_id'     => array(
-				'label'       => esc_html__( 'Client ID', 'sfwe' ),
-				'type'        => 'text',
-				'description' => '',
-				'tab'         => 'sfwe-api-tab',
-			),
-			'sfwe_client_secret' => array(
-				'label'       => esc_html__( 'Client Secret', 'sfwe' ),
-				'type'        => 'text',
-				'description' => '',
-				'tab'         => 'sfwe-api-tab',
-			),
-			// Tab 2.
-			'sfwe_show_id'       => array(
-				'label'       => esc_html__( 'Podcast Show ID', 'sfwe' ),
-				'type'        => 'text',
-				'description' => '',
-				'tab'         => 'sfwe-integration-tab',
-			),
-			'sfwe_album_id'      => array(
-				'label'       => esc_html__( 'Album ID', 'sfwe' ),
-				'type'        => 'text',
-				'description' => '',
-				'tab'         => 'sfwe-integration-tab',
-			),
-		);
-
-		return array(
-			'args'     => $panel_args,
-			'settings' => $panel_settings,
-		);
 	}
 
 	/**
@@ -323,7 +269,7 @@ class SpotifyWordpressElementorAdmin {
 	 * @return void Register widgets.
 	 */
 	public function init_widgets() {
-		add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
+		add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
 	}
 
 	/**

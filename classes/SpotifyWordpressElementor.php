@@ -20,6 +20,8 @@ use SpotifyWPE\Classes\SpotifyWordpressElementorLoader;
 use SpotifyWPE\Classes\SpotifyWordpressElementorI18n;
 use SpotifyWPE\Admin\SpotifyWordpressElementorAdmin;
 use SpotifyWPE\Frontend\SpotifyWordpressElementorFrontend;
+use SpotifyWPE\Includes\Options\SFWEOptionsPanel;
+use SpotifyWPE\includes\SFWEHelper;
 
 /**
  * The core plugin class.
@@ -85,6 +87,24 @@ class SpotifyWordpressElementor {
 	private static $instance;
 
 	/**
+	 * The unique identifier of the admin class.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      object    $plugin_admin    The string used to uniquely identify this plugin.
+	 */
+	protected $plugin_admin;
+
+	/**
+	 * The unique identifier of the public class.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      object    $plugin_public    The string used to uniquely identify this plugin.
+	 */
+	protected $plugin_public;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * @since    1.0.0
@@ -143,6 +163,8 @@ class SpotifyWordpressElementor {
 	private function load_dependencies() {
 
 		$this->loader = SpotifyWordpressElementorLoader::get_instance();
+		$this->plugin_admin = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
+		$this->plugin_public = new SpotifyWordpressElementorFrontend( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
@@ -169,20 +191,25 @@ class SpotifyWordpressElementor {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$options_panel = SFWEHelper::get_options_page();
+		new SFWEOptionsPanel( $options_panel['args'], $options_panel['settings'] );
+
+		if ( SFWEHelper::check_spotify_api_keys_empty() ) {
+			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'spotify_api_keys_empty_notice' );
+		}
 
 		// Add a custom category for our blocks.
-		$this->loader->add_filter( 'block_categories_all', $plugin_admin, 'add_block_categories', 10, 2 );
+		$this->loader->add_filter( 'block_categories_all', $this->plugin_admin, 'add_block_categories', 10, 2 );
 
 		// Register our block script with WordPress.
-		$this->loader->add_action( 'init', $plugin_admin, 'register_block_script' );
+		$this->loader->add_action( 'init', $this->plugin_admin, 'register_block_script' );
 
 		// Register elementor widget.
 		if ( $this->is_compatible() ) {
-			$this->loader->add_action( 'elementor/init', $plugin_admin, 'init_widgets' );
+			$this->loader->add_action( 'elementor/init', $this->plugin_admin, 'init_widgets' );
 		}
 
 	}
@@ -196,10 +223,8 @@ class SpotifyWordpressElementor {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new SpotifyWordpressElementorFrontend( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'enqueue_scripts' );
 
 	}
 
@@ -253,23 +278,21 @@ class SpotifyWordpressElementor {
 	 */
 	public function is_compatible() {
 
-		$plugin_admin = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
-
 		// Check if Elementor installed and activated
 		if ( ! did_action( 'elementor/loaded' ) ) {
-			$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice_missing_elementor_plugin' );
+			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_missing_elementor_plugin' );
 			return false;
 		}
 
 		// Check for required Elementor version
 		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
-			$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice_minimum_elementor_version' );
+			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_minimum_elementor_version' );
 			return false;
 		}
 
 		// Check for required PHP version
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
-			$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice_minimum_php_version' );
+			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_minimum_php_version' );
 			return false;
 		}
 
