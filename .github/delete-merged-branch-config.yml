@@ -1,0 +1,7 @@
+exclude:
+  - master
+  - main
+  - release-candidate
+  - next-release
+  - develop
+delete_closed_pr: true
