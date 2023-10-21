@@ -225,20 +225,26 @@ class SpotifyWordpressElementorAdmin {
 			unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
-		$message = printf(
-			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'sfwe' ),
-			sprintf(
-				'<strong>%1$s</strong>',
-				esc_html__( 'Spotify For WordPress', 'sfwe' )
-			),
-			sprintf(
-				'<strong>%1$s</strong>',
-				esc_html__( 'Elementor', 'sfwe' )
-			)
-		);
-
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
+		?>
+		<div class="notice notice-warning is-dismissible">
+			<p>
+				<?php
+					printf(
+					/* translators: 1: Plugin name 2: Elementor */
+						esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'sfwe' ),
+						sprintf(
+							'<strong>%1$s</strong>',
+							esc_html__( 'Spotify For WordPress', 'sfwe' )
+						),
+						sprintf(
+							'<strong>%1$s</strong>',
+							esc_html__( 'Elementor', 'sfwe' )
+						)
+					);
+				?>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
