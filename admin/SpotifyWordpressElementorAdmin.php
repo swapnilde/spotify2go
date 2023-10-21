@@ -80,28 +80,24 @@ class SpotifyWordpressElementorAdmin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		$this->loader      = SpotifyWordpressElementorLoader::get_instance();
-
 	}
 
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @param string $hook Name of the hook.
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles( $hook ) {
+	public function enqueue_styles() {
 
 		wp_enqueue_style( $this->plugin_name, SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH . 'assets/admin/css/spotify-wordpress-elementor-admin.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @param string $hook Name of the hook.
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts( $hook ) {
+	public function enqueue_scripts() {
 
 		wp_enqueue_script(
 			$this->plugin_name . '-manifest',
@@ -154,7 +150,6 @@ class SpotifyWordpressElementorAdmin {
 				),
 			)
 		);
-
 	}
 
 	/**
@@ -191,12 +186,11 @@ class SpotifyWordpressElementorAdmin {
 	/**
 	 * Add block categories.
 	 *
-	 * @param array  $block_categories Array of categories.
-	 * @param object $editor_context Post object.
+	 * @param array $block_categories Array of categories.
 	 * @since    1.0.0
 	 * @return array Array of categories.
 	 */
-	public function add_block_categories( $block_categories, $editor_context ) {
+	public function add_block_categories( $block_categories ) {
 		$block_categories[] = array(
 			'slug'  => 'spotify-wordpress-elementor',
 			'title' => __( 'Spotify For Wordpress', 'sfwe' ),
@@ -231,15 +225,20 @@ class SpotifyWordpressElementorAdmin {
 			unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
-		$message = sprintf(
-		/* translators: 1: Plugin name 2: Elementor */
+		$message = printf(
+			/* translators: 1: Plugin name 2: Elementor */
 			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'sfwe' ),
-			'<strong>' . esc_html__( 'Spotify For WordPress', 'sfwe' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'sfwe' ) . '</strong>'
+			sprintf(
+				'<strong>%1$s</strong>',
+				esc_html__( 'Spotify For WordPress', 'sfwe' )
+			),
+			sprintf(
+				'<strong>%1$s</strong>',
+				esc_html__( 'Elementor', 'sfwe' )
+			)
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
-
 	}
 
 	/**
@@ -265,7 +264,6 @@ class SpotifyWordpressElementorAdmin {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
-
 	}
 
 	/**
@@ -291,7 +289,6 @@ class SpotifyWordpressElementorAdmin {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', esc_html( $message ) );
-
 	}
 
 	/**
@@ -320,7 +317,5 @@ class SpotifyWordpressElementorAdmin {
 			$widgets_manager->register( new SpotifyWordpressElementorPodcastWidget() );
 			$widgets_manager->register( new SpotifyWordpressElementorAlbumWidget() );
 		}
-
 	}
-
 }
