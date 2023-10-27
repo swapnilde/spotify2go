@@ -30,6 +30,16 @@
     "currentEpisode": {
       "type": "object",
       "default": {}
+    },
+    "isVideo": {
+        "type": "boolean",
+        "default": false
+    },
+    "height": {
+        "type": "string"
+    },
+    "width": {
+        "type": "string"
     }
   },
   "textdomain": "sfwe",

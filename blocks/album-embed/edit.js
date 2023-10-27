@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, RadioControl } from '@wordpress/components';
+import { SelectControl, RadioControl, PanelBody, __experimentalUnitControl as UnitControl } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
 const { Component } = wp.element;
 
 import classnames from 'classnames';
@@ -127,12 +128,62 @@ export default class albumEmbedEdit extends Component {
 
   render() {
     const { attributes, setAttributes, className } = this.props;
-    const { blockID, albumArray, displayType, currentTrack } = attributes;
+    const { blockID, albumArray, displayType, currentTrack, height, width } = attributes;
 
     const classes = classnames(className, 'album-embed');
 
     return (
       <>
+        <InspectorControls>
+            <div className="sfwe-block-sidebar">
+                <PanelBody title={__('Settings', 'sfwe')} initialOpen={true}>
+                    <UnitControl
+                        __next40pxDefaultSize
+                        label="Height"
+                        onChange={(value) => {
+                            setAttributes({ height: value });
+                        }}
+                        units={[
+                            {
+                                a11yLabel: 'Pixels (px)',
+                                label: 'px',
+                                step: 1,
+                                value: 'px'
+                            },
+                            {
+                                a11yLabel: 'Percent (%)',
+                                label: '%',
+                                step: 1,
+                                value: '%'
+                            }
+                        ]}
+                        value={height}
+                    />
+                    <UnitControl
+                        __next40pxDefaultSize
+                        label="Width"
+                        onChange={(value) => {
+                            setAttributes({ width: value });
+                        }}
+                        units={[
+                            {
+                                a11yLabel: 'Pixels (px)',
+                                label: 'px',
+                                step: 1,
+                                value: 'px'
+                            },
+                            {
+                                a11yLabel: 'Percent (%)',
+                                label: '%',
+                                step: 1,
+                                value: '%'
+                            }
+                        ]}
+                        value={width}
+                    />
+                </PanelBody>
+            </div>
+        </InspectorControls>
         <div className={classes} id={blockID}>
           <div className="container">
               <RadioControl
@@ -169,7 +220,9 @@ export default class albumEmbedEdit extends Component {
                         frameBorder="0"
                         allowFullScreen=""
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy" width="100%" height="200"
+                        loading="lazy"
+                        width={width ? width : "100%"}
+                        height={height ? height : "200"}
                         src={"https://open.spotify.com/embed/track/" + currentTrack.id}>
                     </iframe>
                 )}
@@ -179,7 +232,9 @@ export default class albumEmbedEdit extends Component {
                         frameBorder="0"
                         allowFullScreen=""
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy" width="100%" height="380"
+                        loading="lazy"
+                        width={width ? width : "100%"}
+                        height={height ? height : "380"}
                         src={"https://open.spotify.com/embed/album/" + SpotifyWPEAdminVars.sfwe_options.album_id}>
                     </iframe>
                 )}

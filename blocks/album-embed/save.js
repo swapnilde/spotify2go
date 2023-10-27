@@ -10,7 +10,7 @@ import classnames from 'classnames';
  */
 export default function albumEmbedSave(props) {
   const { className, attributes } = props;
-  const { blockID, currentTrack, displayType } = attributes;
+  const { blockID, currentTrack, displayType, height, width } = attributes;
 
   const classes = classnames(className, 'album-embed');
 
@@ -24,7 +24,9 @@ export default function albumEmbedSave(props) {
                       frameBorder="0"
                       allowFullScreen=""
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy" width="100%" height="200"
+                      loading="lazy"
+                        width={width ? width : "100%"}
+                        height={height ? height : "200"}
                       src={"https://open.spotify.com/embed/track/" + currentTrack.id}>
                   </iframe>
               )}
@@ -34,7 +36,9 @@ export default function albumEmbedSave(props) {
                       frameBorder="0"
                       allowFullScreen=""
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy" width="100%" height="380"
+                      loading="lazy"
+                        width={width ? width : "100%"}
+                        height={height ? height : "380"}
                       src={"https://open.spotify.com/embed/album/" + SpotifyWPEAdminVars.sfwe_options.album_id}>
                   </iframe>
               )}

@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, RadioControl } from '@wordpress/components';
+import { SelectControl, RadioControl, ToggleControl, PanelBody, __experimentalUnitControl as UnitControl } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
 const { Component } = wp.element;
 
 import classnames from 'classnames';
@@ -131,12 +132,65 @@ export default class listEmbedEdit extends Component {
 
   render() {
     const { attributes, setAttributes, className } = this.props;
-    const { blockID, episodesArray, displayType, currentEpisode } = attributes;
+    const { blockID, episodesArray, displayType, currentEpisode, isVideo, height, width } = attributes;
 
     const classes = classnames(className, 'list-embed');
 
+    const video = isVideo ? 'video' : '';
+
     return (
       <>
+        <InspectorControls>
+            <div className="sfwe-block-sidebar">
+                <PanelBody title={__('Settings', 'sfwe')} initialOpen={true}>
+                    <UnitControl
+                        __next40pxDefaultSize
+                        label="Height"
+                        onChange={(value) => {
+                            setAttributes({ height: value });
+                        }}
+                        units={[
+                            {
+                                a11yLabel: 'Pixels (px)',
+                                label: 'px',
+                                step: 1,
+                                value: 'px'
+                            },
+                            {
+                                a11yLabel: 'Percent (%)',
+                                label: '%',
+                                step: 1,
+                                value: '%'
+                            }
+                        ]}
+                        value={height}
+                    />
+                    <UnitControl
+                        __next40pxDefaultSize
+                        label="Width"
+                        onChange={(value) => {
+                            setAttributes({ width: value });
+                        }}
+                        units={[
+                            {
+                                a11yLabel: 'Pixels (px)',
+                                label: 'px',
+                                step: 1,
+                                value: 'px'
+                            },
+                            {
+                                a11yLabel: 'Percent (%)',
+                                label: '%',
+                                step: 1,
+                                value: '%'
+                            }
+                        ]}
+                        value={width}
+                    />
+                </PanelBody>
+            </div>
+        </InspectorControls>
+
         <div className={classes} id={blockID}>
           <div className="container">
               <RadioControl
@@ -166,6 +220,18 @@ export default class listEmbedEdit extends Component {
                       }}
                   />
               )}
+              <br/>
+              {displayType === 'single' && (
+                  <ToggleControl
+                      __nextHasNoMarginBottom
+                      checked = {isVideo ? isVideo : false}
+                      help={__('Enable this option if this episode is a video.', 'sfwe')}
+                      label={__('Is this a video episode?', 'sfwe')}
+                      onChange={ ( state ) => {
+                          setAttributes({ isVideo: state });
+                      }}
+                  />
+              )}
             <div className={"sfwe-episode"}>
                 {displayType === 'single' && currentEpisode.id && (
                     <iframe
@@ -173,8 +239,10 @@ export default class listEmbedEdit extends Component {
                         frameBorder="0"
                         allowFullScreen=""
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy" width="100%" height="200"
-                        src={"https://open.spotify.com/embed/episode/" + currentEpisode.id}>
+                        loading="lazy"
+                        width={width ? width : "100%"}
+                        height={height ? height : "200"}
+                        src={"https://open.spotify.com/embed/episode/" + currentEpisode.id + "/" + video}>
                     </iframe>
                 )}
                 {displayType === 'full' && (
@@ -183,7 +251,9 @@ export default class listEmbedEdit extends Component {
                         frameBorder="0"
                         allowFullScreen=""
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy" width="100%" height="200"
+                        loading="lazy"
+                        width={width ? width : "100%"}
+                        height={height ? height : "200"}
                         src={"https://open.spotify.com/embed/show/" + SpotifyWPEAdminVars.sfwe_options.show_id}>
                     </iframe>
                 )}

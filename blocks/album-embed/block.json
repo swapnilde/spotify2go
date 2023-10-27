@@ -30,6 +30,12 @@
     "currentTrack": {
       "type": "object",
       "default": {}
+    },
+    "height": {
+      "type": "string"
+    },
+    "width": {
+      "type": "string"
     }
   },
   "textdomain": "sfwe",
