@@ -164,6 +164,64 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'sfwe_podcast_style_section',
+			array(
+				'label' => __( 'Styles', 'sfwe' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'sfwe_podcast_height',
+			array(
+				'label'      => esc_html__( 'Height', 'sfwe' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'min' => 0,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 200,
+				),
+			)
+		);
+
+		$this->add_control(
+			'sfwe_podcast_width',
+			array(
+				'label'      => esc_html__( 'Width', 'sfwe' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'min' => 0,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => '%',
+					'size' => 100,
+				),
+			)
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -187,7 +245,9 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 			$this->add_render_attribute( 'container', 'class', 'sfwe-podcast-editor' );
 		}
 
-		$video = 'yes' === $settings['sfwe_podcast_video'] ? 'video' : '';
+		$video  = 'yes' === $settings['sfwe_podcast_video'] ? 'video' : '';
+		$height = isset( $settings['sfwe_podcast_height']['size'], $settings['sfwe_podcast_height']['unit'] ) ? esc_attr( $settings['sfwe_podcast_height']['size'] . $settings['sfwe_podcast_height']['unit'] ) : '200';
+		$width  = isset( $settings['sfwe_podcast_width']['size'], $settings['sfwe_podcast_width']['unit'] ) ? esc_attr( $settings['sfwe_podcast_width']['size'] . $settings['sfwe_podcast_width']['unit'] ) : '100%';
 
 		?>
 
@@ -198,7 +258,9 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 					frameBorder="0"
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-					loading="lazy" width="100%" height="200"
+					loading="lazy"
+					width="<?php echo esc_attr( $width ); ?>"
+					height="<?php echo esc_attr( $height ); ?>"
 					src="https://open.spotify.com/embed/show/<?php echo esc_attr( $sfwe_options['sfwe_show_id'] ?? '' ); ?>">
 				</iframe>
 			<?php endif; ?>
@@ -209,7 +271,9 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 					frameBorder="0"
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-					loading="lazy" width="100%" height="200"
+					loading="lazy"
+					width="<?php echo esc_attr( $width ); ?>"
+					height="<?php echo esc_attr( $height ); ?>"
 					src="https://open.spotify.com/embed/episode/<?php echo esc_attr( $settings['sfwe_podcast_list'] ?? '' ); ?>/<?php echo esc_attr( $video ); ?>">
 				</iframe>
 			<?php endif; ?>

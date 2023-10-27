@@ -55,7 +55,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	 * @inheritDoc
 	 */
 	public function get_icon() {
-		return 'eicon-play';  // TODO: Change this icon for the podcast widget.
+		return 'eicon-play';  // TODO: Change this icon for the album widget.
 	}
 
 	/**
@@ -112,7 +112,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	 */
 	protected function register_content_controls() {
 		$this->start_controls_section(
-			'sfwe_podcast_content_section',
+			'sfwe_album_content_section',
 			array(
 				'label' => __( 'Spotify Album', 'sfwe' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -148,6 +148,64 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'sfwe_album_style_section',
+			array(
+				'label' => __( 'Styles', 'sfwe' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'sfwe_album_height',
+			array(
+				'label'      => esc_html__( 'Height', 'sfwe' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'min' => 0,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 200,
+				),
+			)
+		);
+
+		$this->add_control(
+			'sfwe_album_width',
+			array(
+				'label'      => esc_html__( 'Width', 'sfwe' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'min' => 0,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => '%',
+					'size' => 100,
+				),
+			)
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -171,6 +229,9 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 			$this->add_render_attribute( 'container', 'class', 'sfwe-album-editor' );
 		}
 
+		$height = isset( $settings['sfwe_album_height']['size'], $settings['sfwe_album_height']['unit'] ) ? esc_attr( $settings['sfwe_album_height']['size'] . $settings['sfwe_album_height']['unit'] ) : '200';
+		$width  = isset( $settings['sfwe_album_width']['size'], $settings['sfwe_album_width']['unit'] ) ? esc_attr( $settings['sfwe_album_width']['size'] . $settings['sfwe_album_width']['unit'] ) : '100%';
+
 		?>
 
 		<div <?php echo esc_attr( $this->get_render_attribute_string( 'container' ) ); ?>>
@@ -180,7 +241,9 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 					frameBorder="0"
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-					loading="lazy" width="100%" height="380"
+					loading="lazy"
+					width="<?php echo esc_attr( $width ); ?>"
+					height="<?php echo esc_attr( $height ); ?>"
 					src="https://open.spotify.com/embed/album/<?php echo esc_attr( $sfwe_options['sfwe_album_id'] ?? '' ); ?>">
 				</iframe>
 			<?php endif; ?>
@@ -191,7 +254,9 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 					frameBorder="0"
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-					loading="lazy" width="100%" height="200"
+					loading="lazy"
+					width="<?php echo esc_attr( $width ); ?>"
+					height="<?php echo esc_attr( $height ); ?>"
 					src="https://open.spotify.com/embed/track/<?php echo esc_attr( $settings['sfwe_album_list'] ?? '' ); ?>">
 				</iframe>
 			<?php endif; ?>
