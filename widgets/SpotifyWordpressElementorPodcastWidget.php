@@ -114,7 +114,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->start_controls_section(
 			'sfwe_podcast_content_section',
 			array(
-				'label' => __( 'Spotify Podcast', 'sfwe' ),
+				'label' => __( 'Content', 'sfwe' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -147,6 +147,22 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'sfwe_podcast_video',
+			array(
+				'label'        => __( 'Is this a video episode?', 'sfwe' ),
+				'description'  => __( 'Enable this option if this episode is a video.', 'sfwe' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Video', 'sfwe' ),
+				'label_off'    => __( 'Audio', 'sfwe' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+				'condition'    => array(
+					'sfwe_podcast_display_type' => 'single',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -171,6 +187,8 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 			$this->add_render_attribute( 'container', 'class', 'sfwe-podcast-editor' );
 		}
 
+		$video = 'yes' === $settings['sfwe_podcast_video'] ? 'video' : '';
+
 		?>
 
 		<div <?php echo esc_attr( $this->get_render_attribute_string( 'container' ) ); ?>>
@@ -192,7 +210,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 					allowFullScreen=""
 					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 					loading="lazy" width="100%" height="200"
-					src="https://open.spotify.com/embed/episode/<?php echo esc_attr( $settings['sfwe_podcast_list'] ?? '' ); ?>">
+					src="https://open.spotify.com/embed/episode/<?php echo esc_attr( $settings['sfwe_podcast_list'] ?? '' ); ?>/<?php echo esc_attr( $video ); ?>">
 				</iframe>
 			<?php endif; ?>
 
