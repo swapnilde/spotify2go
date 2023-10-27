@@ -28,21 +28,20 @@ import { albumEmbed } from '../../admin/js/block-icons';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType(metadata, {
+	/**
+	 * @see ../../admin/js/block-icons.js
+	 */
+	icon: {
+		src: albumEmbed,
+		foreground: '#2BA266',
+	},
+	/**
+	 * @see ./edit.js
+	 */
+	edit: albumEmbedEdit,
 
-  /**
-   * @see ../../admin/js/block-icons.js
-   */
-  icon: {
-    src: albumEmbed,
-    foreground: '#2BA266',
-  },
-  /**
-   * @see ./edit.js
-   */
-  edit: albumEmbedEdit,
-
-  /**
-   * @see ./save.js
-   */
-  save: albumEmbedSave,
+	/**
+	 * @see ./save.js
+	 */
+	save: albumEmbedSave,
 });

@@ -4,7 +4,9 @@
   "description": "Spotify For WordPress & Elementor help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
   "main": "index.js",
   "scripts": {
-    "block:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+    "blocks:start": "wp-scripts start --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+	"blocks:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+    "blocks:format": "wp-scripts format ./blocks",
     "dev": "mix",
     "watch": "mix watch",
     "prod": "mix --production",
@@ -14,7 +16,6 @@
     "pot": "gulp pot",
     "zip": "gulp zip",
     "bumpup": "gulp bumpup",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

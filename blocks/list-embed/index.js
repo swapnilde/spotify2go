@@ -28,21 +28,20 @@ import { listEmbed } from '../../admin/js/block-icons';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType(metadata, {
+	/**
+	 * @see ../../admin/js/block-icons.js
+	 */
+	icon: {
+		src: listEmbed,
+		foreground: '#2BA266',
+	},
+	/**
+	 * @see ./edit.js
+	 */
+	edit: listEmbedEdit,
 
-  /**
-   * @see ../../admin/js/block-icons.js
-   */
-  icon: {
-    src: listEmbed,
-    foreground: '#2BA266',
-  },
-  /**
-   * @see ./edit.js
-   */
-  edit: listEmbedEdit,
-
-  /**
-   * @see ./save.js
-   */
-  save: listEmbedSave,
+	/**
+	 * @see ./save.js
+	 */
+	save: listEmbedSave,
 });

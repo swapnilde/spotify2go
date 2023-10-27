@@ -9,41 +9,50 @@ import classnames from 'classnames';
  * @return {JSX} Element to render.
  */
 export default function listEmbedSave(props) {
-  const { className, attributes } = props;
-  const { blockID, currentEpisode, displayType, height, width } = attributes;
+	const { className, attributes } = props;
+	const { blockID, currentEpisode, displayType, height, width } = attributes;
 
-  const classes = classnames(className, 'list-embed');
+	const classes = classnames(className, 'list-embed');
 
-  return (
-    <div className={classes} id={blockID}>
-      <div className="container">
-          <div className={"sfwe-episode"}>
-              {displayType === 'single' && currentEpisode.id && (
-                  <iframe
-                      id={"sfwe-episode-" + currentEpisode.id}
-                      frameBorder="0"
-                      allowFullScreen=""
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"
-                        width={width ? width : "100%"}
-                        height={height ? height : "200"}
-                      src={"https://open.spotify.com/embed/episode/" + currentEpisode.id}>
-                  </iframe>
-              )}
-              {displayType === 'full' && (
-                  <iframe
-                      id={"sfwe-show-" + SpotifyWPEAdminVars.sfwe_options.show_id}
-                      frameBorder="0"
-                      allowFullScreen=""
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"
-                        width={width ? width : "100%"}
-                        height={height ? height : "200"}
-                      src={"https://open.spotify.com/embed/show/" + SpotifyWPEAdminVars.sfwe_options.show_id}>
-                  </iframe>
-              )}
-          </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className={classes} id={blockID}>
+			<div className="container">
+				<div className={'sfwe-episode'}>
+					{displayType === 'single' && currentEpisode.id && (
+						<iframe
+							id={'sfwe-episode-' + currentEpisode.id}
+							frameBorder="0"
+							allowFullScreen=""
+							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+							loading="lazy"
+							width={width ? width : '100%'}
+							height={height ? height : '200'}
+							src={
+								'https://open.spotify.com/embed/episode/' +
+								currentEpisode.id
+							}
+						></iframe>
+					)}
+					{displayType === 'full' && (
+						<iframe
+							id={
+								'sfwe-show-' +
+								SpotifyWPEAdminVars.sfwe_options.show_id
+							}
+							frameBorder="0"
+							allowFullScreen=""
+							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+							loading="lazy"
+							width={width ? width : '100%'}
+							height={height ? height : '200'}
+							src={
+								'https://open.spotify.com/embed/show/' +
+								SpotifyWPEAdminVars.sfwe_options.show_id
+							}
+						></iframe>
+					)}
+				</div>
+			</div>
+		</div>
+	);
 }
