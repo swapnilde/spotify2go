@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "blocks:start": "wp-scripts start --webpack-src-dir=blocks --output-path=assets/admin/blocks",
-	"blocks:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+	  "blocks:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
     "blocks:format": "wp-scripts format ./blocks",
     "dev": "mix",
     "watch": "mix watch",
@@ -15,7 +15,7 @@
     "domain": "gulp checkdomain",
     "pot": "gulp pot",
     "zip": "gulp zip",
-    "bumpup": "gulp bumpup",
+    "bumpup": "gulp bumpup"
   },
   "repository": {
     "type": "git",
