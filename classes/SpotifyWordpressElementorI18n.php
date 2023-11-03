@@ -28,7 +28,7 @@ class SpotifyWordpressElementorI18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'sfwe',
+			'spotify-wordpress-elementor',
 			false,
 			dirname( plugin_basename( __FILE__ ), 2 ) . '/languages/'
 		);

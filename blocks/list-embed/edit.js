@@ -181,7 +181,7 @@ export default class listEmbedEdit extends Component {
 				<InspectorControls>
 					<div className="sfwe-block-sidebar">
 						<PanelBody
-							title={__('Settings', 'sfwe')}
+							title={__('Settings', 'spotify-wordpress-elementor')}
 							initialOpen={true}
 						>
 							<UnitControl
@@ -235,7 +235,7 @@ export default class listEmbedEdit extends Component {
 				<div className={classes} id={blockID}>
 					<div className="container">
 						<RadioControl
-							label={__('Display Type', 'sfwe')}
+							label={__('Display Type', 'spotify-wordpress-elementor')}
 							help="Select the display type for the episode."
 							selected={displayType ? displayType : 'full'}
 							options={[
@@ -250,7 +250,7 @@ export default class listEmbedEdit extends Component {
 						{displayType === 'single' && (
 							<SelectControl
 								__nextHasNoMarginBottom
-								label={__('Select Episode', 'sfwe')}
+								label={__('Select Episode', 'spotify-wordpress-elementor')}
 								help="Selected episode will be displayed in the frontend."
 								value={
 									currentEpisode
@@ -279,9 +279,9 @@ export default class listEmbedEdit extends Component {
 								checked={isVideo ? isVideo : false}
 								help={__(
 									'Enable this option if this episode is a video.',
-									'sfwe'
+									'spotify-wordpress-elementor'
 								)}
-								label={__('Is this a video episode?', 'sfwe')}
+								label={__('Is this a video episode?', 'spotify-wordpress-elementor')}
 								onChange={(state) => {
 									setAttributes({ isVideo: state });
 								}}

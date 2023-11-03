@@ -138,8 +138,8 @@ class SFWEHelper {
 			'slug'            => 'sfwe-options-panel',
 			'user_capability' => 'manage_options',
 			'tabs'            => array(
-				'sfwe-api-tab'         => esc_html__( 'API Keys', 'sfwe' ),
-				'sfwe-integration-tab' => esc_html__( 'Integrations', 'sfwe' ),
+				'sfwe-api-tab'         => esc_html__( 'API Keys', 'spotify-wordpress-elementor' ),
+				'sfwe-integration-tab' => esc_html__( 'Integrations', 'spotify-wordpress-elementor' ),
 			),
 			'icon_url'        => 'dashicons-easyproposal_admin_menu_icon',
 			'position'        => '59.1',
@@ -149,26 +149,26 @@ class SFWEHelper {
 		$panel_settings = array(
 			// Tab 1.
 			'sfwe_client_id'     => array(
-				'label'       => esc_html__( 'Client ID', 'sfwe' ),
+				'label'       => esc_html__( 'Client ID', 'spotify-wordpress-elementor' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-api-tab',
 			),
 			'sfwe_client_secret' => array(
-				'label'       => esc_html__( 'Client Secret', 'sfwe' ),
+				'label'       => esc_html__( 'Client Secret', 'spotify-wordpress-elementor' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-api-tab',
 			),
 			// Tab 2.
 			'sfwe_show_id'       => array(
-				'label'       => esc_html__( 'Podcast Show ID', 'sfwe' ),
+				'label'       => esc_html__( 'Podcast Show ID', 'spotify-wordpress-elementor' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-integration-tab',
 			),
 			'sfwe_album_id'      => array(
-				'label'       => esc_html__( 'Album ID', 'sfwe' ),
+				'label'       => esc_html__( 'Album ID', 'spotify-wordpress-elementor' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-integration-tab',

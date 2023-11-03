@@ -46,7 +46,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 	 * @inheritDoc
 	 */
 	public function get_title() {
-		return __( 'Podcast & Episodes', 'sfwe' );
+		return __( 'Podcast & Episodes', 'spotify-wordpress-elementor' );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->start_controls_section(
 			'sfwe_podcast_content_section',
 			array(
-				'label' => __( 'Content', 'sfwe' ),
+				'label' => __( 'Content', 'spotify-wordpress-elementor' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -122,13 +122,13 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_podcast_display_type',
 			array(
-				'label'       => __( 'Display Type', 'sfwe' ),
-				'description' => __( 'Choose whether to display a full show or a single episode.', 'sfwe' ),
+				'label'       => __( 'Display Type', 'spotify-wordpress-elementor' ),
+				'description' => __( 'Choose whether to display a full show or a single episode.', 'spotify-wordpress-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'full',
 				'options'     => array(
-					'full'   => __( 'Full Show', 'sfwe' ),
-					'single' => __( 'Single Episode', 'sfwe' ),
+					'full'   => __( 'Full Show', 'spotify-wordpress-elementor' ),
+					'single' => __( 'Single Episode', 'spotify-wordpress-elementor' ),
 				),
 			)
 		);
@@ -136,8 +136,8 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_podcast_list',
 			array(
-				'label'       => __( 'Select Podcast', 'sfwe' ),
-				'description' => __( 'Select the podcast you want to display.', 'sfwe' ),
+				'label'       => __( 'Select Podcast', 'spotify-wordpress-elementor' ),
+				'description' => __( 'Select the podcast you want to display.', 'spotify-wordpress-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
 				'options'     => SFWEHelper::get_spotify_all_episodes(),
@@ -150,11 +150,11 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_podcast_video',
 			array(
-				'label'        => __( 'Is this a video episode?', 'sfwe' ),
-				'description'  => __( 'Enable this option if this episode is a video.', 'sfwe' ),
+				'label'        => __( 'Is this a video episode?', 'spotify-wordpress-elementor' ),
+				'description'  => __( 'Enable this option if this episode is a video.', 'spotify-wordpress-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Video', 'sfwe' ),
-				'label_off'    => __( 'Audio', 'sfwe' ),
+				'label_on'     => __( 'Video', 'spotify-wordpress-elementor' ),
+				'label_off'    => __( 'Audio', 'spotify-wordpress-elementor' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'condition'    => array(
@@ -168,7 +168,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->start_controls_section(
 			'sfwe_podcast_style_section',
 			array(
-				'label' => __( 'Styles', 'sfwe' ),
+				'label' => __( 'Styles', 'spotify-wordpress-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -176,7 +176,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_podcast_height',
 			array(
-				'label'      => esc_html__( 'Height', 'sfwe' ),
+				'label'      => esc_html__( 'Height', 'spotify-wordpress-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -200,7 +200,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_podcast_width',
 			array(
-				'label'      => esc_html__( 'Width', 'sfwe' ),
+				'label'      => esc_html__( 'Width', 'spotify-wordpress-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -280,7 +280,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 
 			<?php if ( $is_editor && 'single' === $settings['sfwe_podcast_display_type'] && empty( $settings['sfwe_podcast_list'] ) ) : ?>
 				<div class="sfwe-podcast-editor-placeholder elementor-panel-alert elementor-panel-alert-info">
-					<?php esc_html_e( 'Select a podcast to display.', 'sfwe' ); ?>
+					<?php esc_html_e( 'Select a podcast to display.', 'spotify-wordpress-elementor' ); ?>
 				</div>
 			<?php endif; ?>
 		</div>

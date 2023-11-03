@@ -104,7 +104,7 @@ class SFWEOptionsPanel {
 	public function __construct( array $args, array $settings ) {
 		$this->args              = $args;
 		$this->settings          = $settings;
-		$this->title             = $this->args['title'] ?? esc_html__( 'Options', 'sfwe' );
+		$this->title             = $this->args['title'] ?? esc_html__( 'Options', 'spotify-wordpress-elementor' );
 		$this->slug              = $this->args['slug'] ?? sanitize_key( $this->title );
 		$this->option_name       = $this->args['option_name'] ?? sanitize_key( $this->title );
 		$this->option_group_name = $this->option_name . '_group';
@@ -259,7 +259,7 @@ class SFWEOptionsPanel {
 			add_settings_error(
 				$this->option_name . '_mesages',
 				$this->option_name . '_message',
-				esc_html__( 'Settings Saved', 'sfwe' ),
+				esc_html__( 'Settings Saved', 'spotify-wordpress-elementor' ),
 				'updated'
 			);
 		}

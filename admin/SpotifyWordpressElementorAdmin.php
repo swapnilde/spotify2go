@@ -166,15 +166,15 @@ class SpotifyWordpressElementorAdmin {
 				<?php
 				printf(
 					/* translators: 1: Plugin name 2: Settings page link */
-					esc_html__( '%1$sPlease set the Spotify Client ID and Client Secret in the %2$s.', 'sfwe' ),
+					esc_html__( '%1$sPlease set the Spotify Client ID and Client Secret in the %2$s.', 'spotify-wordpress-elementor' ),
 					sprintf(
 						'<strong>%1$s</strong>',
-						esc_html__( 'Spotify For WordPress: ', 'sfwe' )
+						esc_html__( 'Spotify For WordPress: ', 'spotify-wordpress-elementor' )
 					),
 					sprintf(
 						'<a href="%1$s">%2$s</a>',
 						esc_url( admin_url( 'admin.php?page=sfwe-options-panel' ) ),
-						esc_html__( 'settings page', 'sfwe' )
+						esc_html__( 'settings page', 'spotify-wordpress-elementor' )
 					)
 				);
 				?>
@@ -193,7 +193,7 @@ class SpotifyWordpressElementorAdmin {
 	public function add_block_categories( $block_categories ) {
 		$block_categories[] = array(
 			'slug'  => 'spotify-wordpress-elementor',
-			'title' => __( 'Spotify For Wordpress', 'sfwe' ),
+			'title' => __( 'Spotify For Wordpress', 'spotify-wordpress-elementor' ),
 		);
 
 		return $block_categories;
@@ -231,14 +231,14 @@ class SpotifyWordpressElementorAdmin {
 				<?php
 					printf(
 					/* translators: 1: Plugin name 2: Elementor */
-						esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'sfwe' ),
+						esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'spotify-wordpress-elementor' ),
 						sprintf(
 							'<strong>%1$s</strong>',
-							esc_html__( 'Spotify For WordPress', 'sfwe' )
+							esc_html__( 'Spotify For WordPress', 'spotify-wordpress-elementor' )
 						),
 						sprintf(
 							'<strong>%1$s</strong>',
-							esc_html__( 'Elementor', 'sfwe' )
+							esc_html__( 'Elementor', 'spotify-wordpress-elementor' )
 						)
 					);
 				?>
@@ -263,9 +263,9 @@ class SpotifyWordpressElementorAdmin {
 
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'sfwe' ),
-			'<strong>' . esc_html__( 'Spotify For WordPress', 'sfwe' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'sfwe' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'spotify-wordpress-elementor' ),
+			'<strong>' . esc_html__( 'Spotify For WordPress', 'spotify-wordpress-elementor' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'spotify-wordpress-elementor' ) . '</strong>',
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
@@ -288,9 +288,9 @@ class SpotifyWordpressElementorAdmin {
 
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'sfwe' ),
-			'<strong>' . esc_html__( 'Spotify For WordPress', 'sfwe' ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', 'sfwe' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'spotify-wordpress-elementor' ),
+			'<strong>' . esc_html__( 'Spotify For WordPress', 'spotify-wordpress-elementor' ) . '</strong>',
+			'<strong>' . esc_html__( 'PHP', 'spotify-wordpress-elementor' ) . '</strong>',
 			self::MINIMUM_PHP_VERSION
 		);
 

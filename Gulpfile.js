@@ -108,7 +108,7 @@ gulp.task(
 		.pipe(
 			wpPot(
 				{
-					domain: 'sfwe',
+					domain: 'spotify-wordpress-elementor',
 					package: 'Spotify_Wordpress_Elementor'
 				}
 			)
@@ -126,7 +126,7 @@ gulp.task(
 		.pipe(
 			checktextdomain(
 				{
-					text_domain: 'sfwe', // Specify allowed domain(s).
+					text_domain: 'spotify-wordpress-elementor', // Specify allowed domain(s).
 					keywords: [ // List keyword specifications.
 					'__:1,2d',
 					'_e:1,2d',
