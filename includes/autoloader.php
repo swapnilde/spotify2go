@@ -4,7 +4,7 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
 // If this file is called directly, abort.
@@ -22,7 +22,7 @@ spl_autoload_register( 'sfwe_namespace_autoload' );
 function sfwe_namespace_autoload( $class_name ) {
 
 	// If the specified $class_name does not include our namespace, duck out.
-	if ( ! str_contains( $class_name, 'SpotifyWPE' ) ) {
+	if ( ! str_contains( $class_name, 'Spotify2Go' ) ) {
 		return;
 	}
 
@@ -44,7 +44,7 @@ function sfwe_namespace_autoload( $class_name ) {
 	}
 
 	// Now build a path to the file using mapping to the file location.
-	$filepath  = trailingslashit( dirname( __FILE__, 2 ) . $namespace );
+	$filepath  = trailingslashit( dirname( __DIR__, 1 ) . $namespace );
 	$filepath .= $file_name;
 
 	// If the file exists in the specified path, then include it.

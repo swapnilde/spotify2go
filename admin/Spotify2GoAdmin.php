@@ -4,15 +4,15 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
-namespace SpotifyWPE\Admin;
+namespace Spotify2Go\Admin;
 
-use SpotifyWPE\Classes\SpotifyWordpressElementorLoader;
-use SpotifyWPE\includes\SFWEHelper;
-use SpotifyWPE\Widgets\SpotifyWordpressElementorAlbumWidget;
-use SpotifyWPE\Widgets\SpotifyWordpressElementorPodcastWidget;
+use Spotify2Go\Classes\Spotify2GoLoader;
+use Spotify2Go\includes\SGOHelper;
+use Spotify2Go\Widgets\Spotify2GoAlbumWidget;
+use Spotify2Go\Widgets\Spotify2GoPodcastWidget;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The admin-specific functionality of the plugin.
  */
-class SpotifyWordpressElementorAdmin {
+class Spotify2GoAdmin {
 
 	/**
 	 * The ID of this plugin.
@@ -64,7 +64,7 @@ class SpotifyWordpressElementorAdmin {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      SpotifyWordpressElementorLoader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Spotify2GoLoader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -79,7 +79,7 @@ class SpotifyWordpressElementorAdmin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-		$this->loader      = SpotifyWordpressElementorLoader::get_instance();
+		$this->loader      = Spotify2GoLoader::get_instance();
 	}
 
 	/**
@@ -134,7 +134,7 @@ class SpotifyWordpressElementorAdmin {
 
 		wp_localize_script(
 			$this->plugin_name,
-			'SpotifyWPEAdminVars',
+			'Spotify2GoAdminVars',
 			array(
 				'home_url'     => get_home_url(),
 				'site_url'     => esc_url_raw( get_site_url() ),
@@ -143,8 +143,8 @@ class SpotifyWordpressElementorAdmin {
 				'user'         => wp_get_current_user(),
 				'user_avatar'  => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
-					'client_id'     => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
-					'client_secret' => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
+					'client_id'     => SGOHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
+					'client_secret' => SGOHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
 					'show_id'       => get_option( 'sfwe_options' )['sfwe_show_id'],
 					'album_id'      => get_option( 'sfwe_options' )['sfwe_album_id'],
 				),
@@ -205,7 +205,7 @@ class SpotifyWordpressElementorAdmin {
 	 * @since    1.0.0
 	 */
 	public function register_block_script() {
-		if ( ! SFWEHelper::check_spotify_api_keys_empty() ) {
+		if ( ! SGOHelper::check_spotify_api_keys_empty() ) {
 			register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/list-embed' );
 			register_block_type( SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'assets/admin/blocks/album-embed' );
 		}
@@ -319,9 +319,9 @@ class SpotifyWordpressElementorAdmin {
 	 */
 	public function register_widgets( $widgets_manager ) {
 
-		if ( ! SFWEHelper::check_spotify_api_keys_empty() ) {
-			$widgets_manager->register( new SpotifyWordpressElementorPodcastWidget() );
-			$widgets_manager->register( new SpotifyWordpressElementorAlbumWidget() );
+		if ( ! SGOHelper::check_spotify_api_keys_empty() ) {
+			$widgets_manager->register( new Spotify2GoPodcastWidget() );
+			$widgets_manager->register( new Spotify2GoAlbumWidget() );
 		}
 	}
 }

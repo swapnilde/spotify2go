@@ -58,9 +58,9 @@ export default class albumEmbedEdit extends Component {
 						querystring.stringify({
 							grant_type: 'client_credentials',
 							client_id:
-								SpotifyWPEAdminVars.sfwe_options.client_id,
+								Spotify2GoAdminVars.sfwe_options.client_id,
 							client_secret:
-								SpotifyWPEAdminVars.sfwe_options.client_secret,
+								Spotify2GoAdminVars.sfwe_options.client_secret,
 						}),
 						{
 							headers: {
@@ -94,9 +94,9 @@ export default class albumEmbedEdit extends Component {
 							querystring.stringify({
 								grant_type: 'client_credentials',
 								client_id:
-									SpotifyWPEAdminVars.sfwe_options.client_id,
+									Spotify2GoAdminVars.sfwe_options.client_id,
 								client_secret:
-									SpotifyWPEAdminVars.sfwe_options
+									Spotify2GoAdminVars.sfwe_options
 										.client_secret,
 							}),
 							{
@@ -125,7 +125,7 @@ export default class albumEmbedEdit extends Component {
 
 		axiosSpotifyInstance
 			.get(
-				`albums/${SpotifyWPEAdminVars.sfwe_options.album_id}/tracks?market=US&limit=50`
+				`albums/${Spotify2GoAdminVars.sfwe_options.album_id}/tracks?market=US&limit=50`
 			)
 			.then((response) => {
 				const { data } = response;
@@ -283,7 +283,7 @@ export default class albumEmbedEdit extends Component {
 								<iframe
 									id={
 										'sfwe-album-' +
-										SpotifyWPEAdminVars.sfwe_options
+										Spotify2GoAdminVars.sfwe_options
 											.album_id
 									}
 									frameBorder="0"
@@ -294,7 +294,7 @@ export default class albumEmbedEdit extends Component {
 									height={height ? height : '380'}
 									src={
 										'https://open.spotify.com/embed/album/' +
-										SpotifyWPEAdminVars.sfwe_options
+										Spotify2GoAdminVars.sfwe_options
 											.album_id
 									}
 								></iframe>

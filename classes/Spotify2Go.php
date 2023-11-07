@@ -5,33 +5,33 @@
  * @link       https://swapnild.com
  * @since      1.0.0
  *
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/includes
+ * @package    Spotify2Go
+ * @subpackage Spotify2Go/includes
  */
 
-namespace SpotifyWPE\Classes;
+namespace Spotify2Go\Classes;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-use SpotifyWPE\Classes\SpotifyWordpressElementorLoader;
-use SpotifyWPE\Classes\SpotifyWordpressElementorI18n;
-use SpotifyWPE\Admin\SpotifyWordpressElementorAdmin;
-use SpotifyWPE\Frontend\SpotifyWordpressElementorFrontend;
-use SpotifyWPE\Includes\Options\SFWEOptionsPanel;
-use SpotifyWPE\includes\SFWEHelper;
+use Spotify2Go\Classes\Spotify2GoLoader;
+use Spotify2Go\Classes\Spotify2GoI18N;
+use Spotify2Go\Admin\Spotify2GoAdmin;
+use Spotify2Go\Frontend\Spotify2GoFrontend;
+use Spotify2Go\Includes\Options\SGOptionsPanel;
+use Spotify2Go\includes\SGOHelper;
 
 /**
  * The core plugin class.
  *
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/includes
+ * @package    Spotify2Go
+ * @subpackage Spotify2Go/includes
  * @author     Swapnil Deshpande <hello@swapnild.com>
  */
-class SpotifyWordpressElementor {
+class Spotify2Go {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -39,7 +39,7 @@ class SpotifyWordpressElementor {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      SpotifyWordpressElementorLoader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Spotify2GoLoader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -78,11 +78,11 @@ class SpotifyWordpressElementor {
 	const MINIMUM_PHP_VERSION = '7.3';
 
 	/**
-	 * The current instance of the SpotifyWordpressElementor class.
+	 * The current instance of the Spotify2Go class.
 	 *
 	 * @since 1.0.0
 	 * @access private
-	 * @var object $instance The current instance of the SpotifyWordpressElementor class.
+	 * @var object $instance The current instance of the Spotify2Go class.
 	 */
 	private static $instance;
 
@@ -138,18 +138,18 @@ class SpotifyWordpressElementor {
 	 * @throws \Exception The exception class.
 	 */
 	public function __wakeup() {
-		throw new \Exception( 'Cannot unserialize singleton SpotifyWordpressElementor' );
+		throw new \Exception( 'Cannot unserialize singleton Spotify2Go' );
 	}
 
 	/**
-	 * This is the static method that controls the access to the SpotifyWordpressElementor class instance.
+	 * This is the static method that controls the access to the Spotify2Go class instance.
 	 *
-	 * @since 1.0.0
-	 * @return SpotifyWordpressElementor
+	 * @return Spotify2Go
+	 *@since 1.0.0
 	 */
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new SpotifyWordpressElementor();
+			self::$instance = new Spotify2Go();
 		}
 		return self::$instance;
 	}
@@ -162,9 +162,9 @@ class SpotifyWordpressElementor {
 	 */
 	private function load_dependencies() {
 
-		$this->loader        = SpotifyWordpressElementorLoader::get_instance();
-		$this->plugin_admin  = new SpotifyWordpressElementorAdmin( $this->get_plugin_name(), $this->get_version() );
-		$this->plugin_public = new SpotifyWordpressElementorFrontend( $this->get_plugin_name(), $this->get_version() );
+		$this->loader        = Spotify2GoLoader::get_instance();
+		$this->plugin_admin  = new Spotify2GoAdmin( $this->get_plugin_name(), $this->get_version() );
+		$this->plugin_public = new Spotify2GoFrontend( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
@@ -176,7 +176,7 @@ class SpotifyWordpressElementor {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new SpotifyWordpressElementorI18n();
+		$plugin_i18n = new Spotify2GoI18N();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -194,10 +194,10 @@ class SpotifyWordpressElementor {
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_scripts' );
 
-		$options_panel = SFWEHelper::get_options_page();
-		new SFWEOptionsPanel( $options_panel['args'], $options_panel['settings'] );
+		$options_panel = SGOHelper::get_options_page();
+		new SGOptionsPanel( $options_panel['args'], $options_panel['settings'] );
 
-		if ( SFWEHelper::check_spotify_api_keys_empty() ) {
+		if ( SGOHelper::check_spotify_api_keys_empty() ) {
 			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'spotify_api_keys_empty_notice' );
 		}
 
@@ -251,7 +251,7 @@ class SpotifyWordpressElementor {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @return    SpotifyWordpressElementorLoader    Orchestrates the hooks of the plugin.
+	 * @return    Spotify2GoLoader    Orchestrates the hooks of the plugin.
 	 * @since     1.0.0
 	 */
 	public function get_loader() {

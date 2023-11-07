@@ -21,7 +21,7 @@
  * @link       https://swapnild.com
  * @since      1.0.0
  *
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
 // If uninstall not called from WordPress, then exit.

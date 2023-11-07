@@ -1,15 +1,15 @@
 <?php
 /**
- * SpotifyWordpressElementorAlbumWidget
+ * Spotify2GoAlbumWidget
  *
  * @link       https://swapnild.com
  * @since      1.0.0
  *
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/widgets
+ * @package    Spotify2Go
+ * @subpackage Spotify2Go/widgets
  */
 
-namespace SpotifyWPE\Widgets;
+namespace Spotify2Go\Widgets;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -20,16 +20,16 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin;
 use Elementor\Utils;
-use SpotifyWPE\includes\SFWEHelper;
+use Spotify2Go\includes\SGOHelper;
 
 /**
- * SpotifyWordpressElementorAlbumWidget
+ * Spotify2GoAlbumWidget
  *
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/widgets
+ * @package    Spotify2Go
+ * @subpackage Spotify2Go/widgets
  */
-class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
+class Spotify2GoAlbumWidget extends Widget_Base {
 
 	/**
 	 * Elementor Widget Name.
@@ -140,7 +140,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 				'description' => __( 'Select the track you want to display.', 'spotify2go' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
-				'options'     => SFWEHelper::get_spotify_show_tracks(),
+				'options'     => SGOHelper::get_spotify_show_tracks(),
 				'condition'   => array(
 					'sfwe_album_display_type' => 'single',
 				),

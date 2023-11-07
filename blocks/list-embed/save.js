@@ -37,7 +37,7 @@ export default function listEmbedSave(props) {
 						<iframe
 							id={
 								'sfwe-show-' +
-								SpotifyWPEAdminVars.sfwe_options.show_id
+								Spotify2GoAdminVars.sfwe_options.show_id
 							}
 							frameBorder="0"
 							allowFullScreen=""
@@ -47,7 +47,7 @@ export default function listEmbedSave(props) {
 							height={height ? height : '200'}
 							src={
 								'https://open.spotify.com/embed/show/' +
-								SpotifyWPEAdminVars.sfwe_options.show_id
+								Spotify2GoAdminVars.sfwe_options.show_id
 							}
 						></iframe>
 					)}

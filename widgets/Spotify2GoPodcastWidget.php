@@ -1,15 +1,15 @@
 <?php
 /**
- * SpotifyWordpressElementorPodcastWidget
+ * Spotify2GoPodcastWidget
  *
  * @link       https://swapnild.com
  * @since      1.0.0
  *
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/widgets
+ * @package    Spotify2Go
+ * @subpackage Spotify2Go/widgets
  */
 
-namespace SpotifyWPE\Widgets;
+namespace Spotify2Go\Widgets;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -20,16 +20,16 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin;
 use Elementor\Utils;
-use SpotifyWPE\includes\SFWEHelper;
+use Spotify2Go\includes\SGOHelper;
 
 /**
- * SpotifyWordpressElementorPodcastWidget
+ * Spotify2GoPodcastWidget
  *
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
- * @subpackage Spotify_Wordpress_Elementor/widgets
+ * @package    Spotify2Go
+ * @subpackage Spotify2Go/widgets
  */
-class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
+class Spotify2GoPodcastWidget extends Widget_Base {
 
 	/**
 	 * Elementor Widget Name.
@@ -140,7 +140,7 @@ class SpotifyWordpressElementorPodcastWidget extends Widget_Base {
 				'description' => __( 'Select the podcast you want to display.', 'spotify2go' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
-				'options'     => SFWEHelper::get_spotify_all_episodes(),
+				'options'     => SGOHelper::get_spotify_all_episodes(),
 				'condition'   => array(
 					'sfwe_podcast_display_type' => 'single',
 				),

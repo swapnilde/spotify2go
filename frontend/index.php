@@ -2,7 +2,7 @@
 /**
  * Index file
  *
- * @package Spotify_Wordpress_Elementor
+ * @package Spotify2Go
  */
 
 /* Silence is golden, and we agree. */

@@ -4,10 +4,10 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
-namespace SpotifyWPE\Classes;
+namespace Spotify2Go\Classes;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  */
-class SpotifyWordpressElementorLoader {
+class Spotify2GoLoader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -42,11 +42,11 @@ class SpotifyWordpressElementorLoader {
 	protected $filters;
 
 	/**
-	 * The current instance of the SpotifyWordpressElementorLoader class.
+	 * The current instance of the Spotify2GoLoader class.
 	 *
 	 * @since 1.0.0
 	 * @access private
-	 * @var object $instance The current instance of the SpotifyWordpressElementorLoader class.
+	 * @var object $instance The current instance of the Spotify2GoLoader class.
 	 */
 	private static $instance;
 
@@ -76,18 +76,18 @@ class SpotifyWordpressElementorLoader {
 	 * @throws \Exception The exception class.
 	 */
 	public function __wakeup() {
-		throw new \Exception( 'Cannot unserialize singleton SpotifyWordpressElementorLoader' );
+		throw new \Exception( 'Cannot unserialize singleton Spotify2GoLoader' );
 	}
 
 	/**
-	 * This is the static method that controls the access to the SpotifyWordpressElementorLoader class instance.
+	 * This is the static method that controls the access to the Spotify2GoLoader class instance.
 	 *
+	 * @return Spotify2GoLoader
 	 * @since 1.0.0
-	 * @return SpotifyWordpressElementorLoader
 	 */
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new SpotifyWordpressElementorLoader();
+			self::$instance = new Spotify2GoLoader();
 		}
 		return self::$instance;
 	}

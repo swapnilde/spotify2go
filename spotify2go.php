@@ -4,7 +4,7 @@
  *
  * @link              https://swapnild.com
  * @since             1.0.0
- * @package           Spotify_Wordpress_Elementor
+ * @package           Spotify2Go
  *
  * @wordpress-plugin
  * Plugin Name:       Spotify2Go
@@ -19,9 +19,9 @@
  * Domain Path:       /languages
  */
 
-use SpotifyWPE\Classes\SpotifyWordpressElementor;
-use SpotifyWPE\Classes\SpotifyWordpressElementorActivator;
-use SpotifyWPE\Classes\SpotifyWordpressElementorDeactivator;
+use Spotify2Go\Classes\Spotify2Go;
+use Spotify2Go\Classes\Spotify2GoActivator;
+use Spotify2Go\Classes\Spotify2GoDeactivator;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -35,21 +35,21 @@ define( 'SPOTIFY_WORDPRESS_ELEMENTOR_VERSION', '1.0.0' );
 define( 'SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH', plugin_dir_path( __FILE__ ) );
 define( 'SPOTIFY_WORDPRESS_ELEMENTOR_URLPATH', plugin_dir_url( __FILE__ ) );
 
-// SpotifyWPE autoloader.
+// Spotify2Go autoloader.
 require_once SPOTIFY_WORDPRESS_ELEMENTOR_DIRPATH . 'includes/autoloader.php';
 
 /**
  * The code that runs during plugin activation.
  */
 function activate_spotify_wordpress_elementor() {
-	SpotifyWordpressElementorActivator::activate();
+	Spotify2GoActivator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  */
 function deactivate_spotify_wordpress_elementor() {
-	SpotifyWordpressElementorDeactivator::deactivate();
+	Spotify2GoDeactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_spotify_wordpress_elementor' );
@@ -62,7 +62,7 @@ register_deactivation_hook( __FILE__, 'deactivate_spotify_wordpress_elementor' )
  */
 function run_spotify_wordpress_elementor() {
 
-	$plugin = SpotifyWordpressElementor::get_instance();
+	$plugin = Spotify2Go::get_instance();
 	$plugin->run();
 
 }

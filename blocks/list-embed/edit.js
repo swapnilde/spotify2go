@@ -59,9 +59,9 @@ export default class listEmbedEdit extends Component {
 						querystring.stringify({
 							grant_type: 'client_credentials',
 							client_id:
-								SpotifyWPEAdminVars.sfwe_options.client_id,
+								Spotify2GoAdminVars.sfwe_options.client_id,
 							client_secret:
-								SpotifyWPEAdminVars.sfwe_options.client_secret,
+								Spotify2GoAdminVars.sfwe_options.client_secret,
 						}),
 						{
 							headers: {
@@ -95,9 +95,9 @@ export default class listEmbedEdit extends Component {
 							querystring.stringify({
 								grant_type: 'client_credentials',
 								client_id:
-									SpotifyWPEAdminVars.sfwe_options.client_id,
+									Spotify2GoAdminVars.sfwe_options.client_id,
 								client_secret:
-									SpotifyWPEAdminVars.sfwe_options
+									Spotify2GoAdminVars.sfwe_options
 										.client_secret,
 							}),
 							{
@@ -126,7 +126,7 @@ export default class listEmbedEdit extends Component {
 
 		axiosSpotifyInstance
 			.get(
-				`shows/${SpotifyWPEAdminVars.sfwe_options.show_id}/episodes?market=US&limit=50`
+				`shows/${Spotify2GoAdminVars.sfwe_options.show_id}/episodes?market=US&limit=50`
 			)
 			.then((response) => {
 				const { data } = response;
@@ -309,7 +309,7 @@ export default class listEmbedEdit extends Component {
 								<iframe
 									id={
 										'sfwe-show-' +
-										SpotifyWPEAdminVars.sfwe_options.show_id
+										Spotify2GoAdminVars.sfwe_options.show_id
 									}
 									frameBorder="0"
 									allowFullScreen=""
@@ -319,7 +319,7 @@ export default class listEmbedEdit extends Component {
 									height={height ? height : '200'}
 									src={
 										'https://open.spotify.com/embed/show/' +
-										SpotifyWPEAdminVars.sfwe_options.show_id
+										Spotify2GoAdminVars.sfwe_options.show_id
 									}
 								></iframe>
 							)}

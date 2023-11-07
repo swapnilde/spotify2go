@@ -4,10 +4,10 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
-namespace SpotifyWPE\includes;
+namespace Spotify2Go\includes;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Helper functions for the plugin.
  */
-class SFWEHelper {
+class SGOHelper {
 
 	/**
 	 * Check if the spotify client id and secret are set.

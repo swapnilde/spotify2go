@@ -37,7 +37,7 @@ export default function albumEmbedSave(props) {
 						<iframe
 							id={
 								'sfwe-album-' +
-								SpotifyWPEAdminVars.sfwe_options.album_id
+								Spotify2GoAdminVars.sfwe_options.album_id
 							}
 							frameBorder="0"
 							allowFullScreen=""
@@ -47,7 +47,7 @@ export default function albumEmbedSave(props) {
 							height={height ? height : '380'}
 							src={
 								'https://open.spotify.com/embed/album/' +
-								SpotifyWPEAdminVars.sfwe_options.album_id
+								Spotify2GoAdminVars.sfwe_options.album_id
 							}
 						></iframe>
 					)}

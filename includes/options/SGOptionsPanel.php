@@ -1,13 +1,13 @@
 <?php
 /**
- * Class SFWEOptionsPanel
+ * Class SGOptionsPanel
  *
  * @link https://swapnild.com
  * @since 1.0.0
- * @package Spotify_Wordpress_Elementor
+ * @package Spotify2Go
  */
 
-namespace SpotifyWPE\Includes\Options;
+namespace Spotify2Go\Includes\Options;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -15,11 +15,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Bootstrap class for the SpotifyWPE Options pages.
+ * Bootstrap class for the Spotify2Go Options pages.
  *
  * @since 1.0.0
  */
-class SFWEOptionsPanel {
+class SGOptionsPanel {
 
 	/**
 	 * Options panel arguments.

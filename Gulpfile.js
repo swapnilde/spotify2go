@@ -110,7 +110,7 @@ gulp.task(
 			wpPot(
 				{
 					domain: 'spotify2go',
-					package: 'Spotify_Wordpress_Elementor'
+					package: 'Spotify2Go'
 				}
 			)
 		)

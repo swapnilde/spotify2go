@@ -4,22 +4,22 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
-namespace SpotifyWPE\Frontend;
+namespace Spotify2Go\Frontend;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-use SpotifyWPE\includes\SFWEHelper;
+use Spotify2Go\includes\SGOHelper;
 
 /**
  * The public-facing functionality of the plugin.
  */
-class SpotifyWordpressElementorFrontend {
+class Spotify2GoFrontend {
 
 	/**
 	 * The ID of this plugin.
@@ -108,7 +108,7 @@ class SpotifyWordpressElementorFrontend {
 
 		wp_localize_script(
 			$this->plugin_name,
-			'SpotifyWPEFrontendVars',
+			'Spotify2GoFrontendVars',
 			array(
 				'home_url'     => get_home_url(),
 				'site_url'     => esc_url_raw( get_site_url() ),
@@ -117,8 +117,8 @@ class SpotifyWordpressElementorFrontend {
 				'user'         => wp_get_current_user(),
 				'user_avatar'  => get_avatar_url( wp_get_current_user()->ID ),
 				'sfwe_options' => array(
-					'client_id'     => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
-					'client_secret' => SFWEHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
+					'client_id'     => SGOHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_id'],
+					'client_secret' => SGOHelper::check_spotify_api_keys_empty() ? '' : get_option( 'sfwe_options' )['sfwe_client_secret'],
 					'show_id'       => get_option( 'sfwe_options' )['sfwe_show_id'],
 					'album_id'      => get_option( 'sfwe_options' )['sfwe_album_id'],
 				),

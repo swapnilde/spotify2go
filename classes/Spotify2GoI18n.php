@@ -4,10 +4,10 @@
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
-namespace SpotifyWPE\Classes;
+namespace Spotify2Go\Classes;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Define the internationalization functionality.
  */
-class SpotifyWordpressElementorI18n {
+class Spotify2GoI18N {
 
 
 	/**

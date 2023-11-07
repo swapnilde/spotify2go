@@ -1,12 +1,12 @@
-# Copyright (C) 2023 Spotify_Wordpress_Elementor
-# This file is distributed under the same license as the Spotify_Wordpress_Elementor package.
+# Copyright (C) 2023 Spotify2Go
+# This file is distributed under the same license as the Spotify2Go package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Spotify_Wordpress_Elementor\n"
+"Project-Id-Version: Spotify2Go\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-07 13:25+0000\n"
+"POT-Creation-Date: 2023-11-07 13:48+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -15,169 +15,169 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. translators: 1: Plugin name 2: Settings page link
-#: admin/SpotifyWordpressElementorAdmin.php:169
+#: admin/Spotify2GoAdmin.php:169
 msgid "%1$sPlease set the Spotify Client ID and Client Secret in the %2$s."
 msgstr ""
 
-#: admin/SpotifyWordpressElementorAdmin.php:172
+#: admin/Spotify2GoAdmin.php:172
 msgid "Spotify For WordPress: "
 msgstr ""
 
-#: admin/SpotifyWordpressElementorAdmin.php:177
+#: admin/Spotify2GoAdmin.php:177
 msgid "settings page"
 msgstr ""
 
-#: admin/SpotifyWordpressElementorAdmin.php:196
+#: admin/Spotify2GoAdmin.php:196
 msgid "Spotify For Wordpress"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor
-#: admin/SpotifyWordpressElementorAdmin.php:234
+#: admin/Spotify2GoAdmin.php:234
 msgid "\"%1$s\" requires \"%2$s\" to be installed and activated."
 msgstr ""
 
-#: admin/SpotifyWordpressElementorAdmin.php:237, admin/SpotifyWordpressElementorAdmin.php:267, admin/SpotifyWordpressElementorAdmin.php:292
+#: admin/Spotify2GoAdmin.php:237, admin/Spotify2GoAdmin.php:267, admin/Spotify2GoAdmin.php:292
 msgid "Spotify For WordPress"
 msgstr ""
 
-#: admin/SpotifyWordpressElementorAdmin.php:241, admin/SpotifyWordpressElementorAdmin.php:268
+#: admin/Spotify2GoAdmin.php:241, admin/Spotify2GoAdmin.php:268
 msgid "Elementor"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor 3: Required Elementor version
 #. translators: 1: Plugin name 2: PHP 3: Required PHP version
-#: admin/SpotifyWordpressElementorAdmin.php:266, admin/SpotifyWordpressElementorAdmin.php:291
+#: admin/Spotify2GoAdmin.php:266, admin/Spotify2GoAdmin.php:291
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
 msgstr ""
 
-#: admin/SpotifyWordpressElementorAdmin.php:293
+#: admin/Spotify2GoAdmin.php:293
 msgid "PHP"
 msgstr ""
 
-#: includes/SFWEHelper.php:141
+#: includes/SGOHelper.php:141
 msgid "API Keys"
 msgstr ""
 
-#: includes/SFWEHelper.php:142
+#: includes/SGOHelper.php:142
 msgid "Integrations"
 msgstr ""
 
-#: includes/SFWEHelper.php:152
+#: includes/SGOHelper.php:152
 msgid "Client ID"
 msgstr ""
 
-#: includes/SFWEHelper.php:158
+#: includes/SGOHelper.php:158
 msgid "Client Secret"
 msgstr ""
 
-#: includes/SFWEHelper.php:165
+#: includes/SGOHelper.php:165
 msgid "Podcast Show ID"
 msgstr ""
 
-#: includes/SFWEHelper.php:171
+#: includes/SGOHelper.php:171
 msgid "Album ID"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:49
+#: widgets/Spotify2GoAlbumWidget.php:49
 msgid "Album & Tracks"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:117
+#: widgets/Spotify2GoAlbumWidget.php:117
 msgid "Spotify Album"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:125, widgets/SpotifyWordpressElementorPodcastWidget.php:125
+#: widgets/Spotify2GoAlbumWidget.php:125, widgets/Spotify2GoPodcastWidget.php:125
 msgid "Display Type"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:126
+#: widgets/Spotify2GoAlbumWidget.php:126
 msgid "Choose whether to display a full album or a single track."
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:130
+#: widgets/Spotify2GoAlbumWidget.php:130
 msgid "Full Album"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:131
+#: widgets/Spotify2GoAlbumWidget.php:131
 msgid "Single Track"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:139
+#: widgets/Spotify2GoAlbumWidget.php:139
 msgid "Select Track"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:140
+#: widgets/Spotify2GoAlbumWidget.php:140
 msgid "Select the track you want to display."
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:155, widgets/SpotifyWordpressElementorPodcastWidget.php:171
+#: widgets/Spotify2GoAlbumWidget.php:155, widgets/Spotify2GoPodcastWidget.php:171
 msgid "Styles"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:163, widgets/SpotifyWordpressElementorPodcastWidget.php:179
+#: widgets/Spotify2GoAlbumWidget.php:163, widgets/Spotify2GoPodcastWidget.php:179
 msgid "Height"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:187, widgets/SpotifyWordpressElementorPodcastWidget.php:203
+#: widgets/Spotify2GoAlbumWidget.php:187, widgets/Spotify2GoPodcastWidget.php:203
 msgid "Width"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorAlbumWidget.php:266
+#: widgets/Spotify2GoAlbumWidget.php:266
 msgid "Select a track to display."
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:49
+#: widgets/Spotify2GoPodcastWidget.php:49
 msgid "Podcast & Episodes"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:117
+#: widgets/Spotify2GoPodcastWidget.php:117
 msgid "Content"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:126
+#: widgets/Spotify2GoPodcastWidget.php:126
 msgid "Choose whether to display a full show or a single episode."
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:130
+#: widgets/Spotify2GoPodcastWidget.php:130
 msgid "Full Show"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:131
+#: widgets/Spotify2GoPodcastWidget.php:131
 msgid "Single Episode"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:139
+#: widgets/Spotify2GoPodcastWidget.php:139
 msgid "Select Podcast"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:140
+#: widgets/Spotify2GoPodcastWidget.php:140
 msgid "Select the podcast you want to display."
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:153
+#: widgets/Spotify2GoPodcastWidget.php:153
 msgid "Is this a video episode?"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:154
+#: widgets/Spotify2GoPodcastWidget.php:154
 msgid "Enable this option if this episode is a video."
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:156
+#: widgets/Spotify2GoPodcastWidget.php:156
 msgid "Video"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:157
+#: widgets/Spotify2GoPodcastWidget.php:157
 msgid "Audio"
 msgstr ""
 
-#: widgets/SpotifyWordpressElementorPodcastWidget.php:283
+#: widgets/Spotify2GoPodcastWidget.php:283
 msgid "Select a podcast to display."
 msgstr ""
 
-#: includes/options/SFWEOptionsPanel.php:107
+#: includes/options/SGOptionsPanel.php:107
 msgid "Options"
 msgstr ""
 
-#: includes/options/SFWEOptionsPanel.php:262
+#: includes/options/SGOptionsPanel.php:262
 msgid "Settings Saved"
 msgstr ""
