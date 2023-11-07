@@ -1,11 +1,11 @@
 {
   "name": "spotify-wordpress-elementor",
   "version": "1.0.0",
-  "description": "Spotify For WordPress & Elementor help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
+  "description": "Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio and video content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
   "main": "index.js",
   "scripts": {
     "blocks:start": "wp-scripts start --webpack-src-dir=blocks --output-path=assets/admin/blocks",
-	  "blocks:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+    "blocks:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
     "blocks:format": "wp-scripts format ./blocks",
     "dev": "mix",
     "watch": "mix watch",
@@ -15,7 +15,8 @@
     "domain": "gulp checkdomain",
     "pot": "gulp pot",
     "zip": "gulp zip",
-    "bumpup": "gulp bumpup"
+    "bumpup": "gulp bumpup",
+    "readme": "gulp readme"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "gulp-checktextdomain": "^2.2.2",
     "gulp-eslint": "^6.0.0",
     "gulp-prompt": "^1.2.0",
+    "gulp-readme-to-markdown": "^0.2.1",
     "gulp-replace": "^1.1.3",
     "gulp-stylelint": "^13.0.0",
     "gulp-wait": "^0.0.2",

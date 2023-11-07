@@ -10,6 +10,7 @@ const bump            = require( 'gulp-bump' );
 const replace         = require( 'gulp-replace' );
 const prompt          = require( 'gulp-prompt' );
 const wait            = require( 'gulp-wait' );
+const readme          = require( 'gulp-readme-to-markdown' );
 
 var getPkgInfo = function () {
 	return JSON.parse( fs.readFileSync( './package.json', 'utf8' ) );
@@ -254,9 +255,26 @@ gulp.task(
 	}
 );
 
+gulp.task(
+	'readme',
+	function (cb) {
+		return gulp.src( 'readme.txt' )
+		.pipe( readme( { 
+			details: true,
+			screenshot_ext: ['jpg', 'jpg', 'png'],
+			extract: {
+				'changelog': 'CHANGELOG',
+			}
+		} ) )
+		.pipe( gulp.dest( './' ) );
+		cb();
+	}
+);
+
 gulp.task( 'lintcss', gulp.series( 'admin-css-lint','public-css-lint' ) );
 gulp.task( 'lintjs', gulp.parallel( 'admin-js-lint','public-js-lint' ) );
 gulp.task( 'checkdomain', gulp.series( 'checktextdomain' ) );
 gulp.task( 'pot', gulp.series( 'wp-pot' ) );
 gulp.task( 'zip', gulp.series( 'clean', 'zip' ) );
 gulp.task( 'bumpup', gulp.series( 'bump', 'plugin-version', 'plugin-comment' ) );
+gulp.task( 'readme', gulp.series( 'readme' ) );

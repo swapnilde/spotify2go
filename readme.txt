@@ -1,49 +1,49 @@
-# Spotify2Go #
-**Contributors:** [swapnilde](https://profiles.wordpress.org/swapnilde/)
-**Donate link:** https://paypal.me/SwapnilDeshpandeIN
-**Tags:** spotify, podcast, album, embed, audio, video player, wordpress, elementor
-**Requires at least:** 4.4
-**Tested up to:** 6.3
-**Stable tag:** 1.0.0
-**Requires PHP:** 7.2
-**License:** GPLv2 or later
-**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
+=== Spotify2Go ===
+Contributors: [swapnilde](https://profiles.wordpress.org/swapnilde/)
+Donate link: https://paypal.me/SwapnilDeshpandeIN
+Tags: spotify, podcast, album, embed, audio, video player, wordpress, elementor
+Requires at least: 4.4
+Tested up to: 6.3
+Stable tag: 1.0.0
+Requires PHP: 7.2
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio and video content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
 
 
-## Description ##
+== Description ==
 
 Spotify For WordPress & Elementor help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
 
 
-## Installation ##
+== Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/spotify2go` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Use the Settings->Spotify2Go screen to configure the plugin.
 
-## Frequently Asked Questions ##
+== Frequently Asked Questions ==
 
-### Does this plugin support gutenberg? ###
+= Does this plugin support gutenberg? =
 Yes, this plugin supports gutenberg. You can use the Spotify2Go blocks in gutenberg.
     - Blocks available in gutenberg:
         - Podcast & Episodes
         - Album & Tracks
 
-### Does this plugin require or support Elementor? ###
+= Does this plugin require or support Elementor? =
 No, this plugin works without Elementor as well. But if you want to use it with Elementor, you can use the Spotify2Go widgets in Elementor.
     - Widgets available in Elementor:
         - Podcast & Episodes
         - Album & Tracks
 
-### Does this plugin require Elementor Pro? ###
+= Does this plugin require Elementor Pro? =
 No, this plugin works with Elementor Free as well.
 
-### Does this plugin require Spotify Developer Account? ###
+= Does this plugin require Spotify Developer Account? =
 Yes, you need to create a Spotify Developer Account to get the Client ID and Client Secret. You can create a Spotify Developer Account here - https://developer.spotify.com/dashboard/login
 
-### How to get Spotify Client ID and Client Secret? ###
+= How to get Spotify Client ID and Client Secret? =
 1. Go to https://developer.spotify.com/dashboard/applications
 2. Click on Create an app
 3. Fill in the details and click on Create/Save button.
@@ -51,7 +51,7 @@ Yes, you need to create a Spotify Developer Account to get the Client ID and Cli
 5. Copy the Client ID and Client Secret and paste it in the Spotify2Go settings page
 6. Click on Save Settings button.
 
-### How to get Spotify Album ID? ###
+= How to get Spotify Album ID? =
 1. Open Spotify and go to the album you want to embed
 2. Now copy the id from the url in the address bar:
     - e.g. If the url is like this - https://open.spotify.com/album/0sNOF9WDwdfwdcDfdPD3Baj
@@ -59,7 +59,7 @@ Yes, you need to create a Spotify Developer Account to get the Client ID and Cli
 4. Now copy and paste the id in the Spotify2Go settings page
 5. Click on Save Settings button.
 
-### How to get Spotify Podcast ID? ###
+= How to get Spotify Podcast ID? =
 1. Open Spotify and go to the podcast you want to embed
 2. Now copy the id from the url in the address bar:
     - e.g. If the url is like this - https://open.spotify.com/show/0sNOF9WDwdfwdcDfdPD3Baj
@@ -68,8 +68,13 @@ Yes, you need to create a Spotify Developer Account to get the Client ID and Cli
 5. Click on Save Settings button.
 
 
-## Screenshots ##
+== Screenshots ==
 
 
+== Changelog ==
 
-## Upgrade Notice ##
+= 1.0.0 =
+* Initial release
+
+
+== Upgrade Notice ==
