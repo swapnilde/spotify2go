@@ -14,7 +14,7 @@ Spotify2Go help you share interactive content from Spotify on your website. Embe
 
 == Description ==
 
-Spotify For WordPress & Elementor help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
+Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
 
 
 == Installation ==

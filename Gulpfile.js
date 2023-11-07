@@ -109,12 +109,12 @@ gulp.task(
 		.pipe(
 			wpPot(
 				{
-					domain: 'spotify-wordpress-elementor',
+					domain: 'spotify2go',
 					package: 'Spotify_Wordpress_Elementor'
 				}
 			)
 		)
-		.pipe( gulp.dest( 'languages/spotify-wordpress-elementor.pot' ) );
+		.pipe( gulp.dest( 'languages/spotify2go.pot' ) );
 		cb();
 	}
 );
@@ -127,7 +127,7 @@ gulp.task(
 		.pipe(
 			checktextdomain(
 				{
-					text_domain: 'spotify-wordpress-elementor', // Specify allowed domain(s).
+					text_domain: 'spotify2go', // Specify allowed domain(s).
 					keywords: [ // List keyword specifications.
 					'__:1,2d',
 					'_e:1,2d',
@@ -236,7 +236,7 @@ gulp.task(
 gulp.task(
 	'plugin-version',
 	function (cb) {
-		return gulp.src( 'spotify-wordpress-elementor.php' )
+		return gulp.src( 'spotify2go.php' )
 		.pipe( replace( /Version: \d{1,2}\.\d{1,2}\.\d{1,2}/g, 'Version: ' + getPkgInfo().version ) )
 		.pipe( replace( /SPOTIFY_WORDPRESS_ELEMENTOR_VERSION', '.*?'/g, 'SPOTIFY_WORDPRESS_ELEMENTOR_VERSION\', \'' + getPkgInfo().version + '\'' ) )
 		.pipe( gulp.dest( './' ) )

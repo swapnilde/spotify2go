@@ -133,13 +133,13 @@ class SFWEHelper {
 
 		// Page.
 		$panel_args = array(
-			'title'           => 'Spotify For WP',
+			'title'           => 'Spotify2Go',
 			'option_name'     => 'sfwe_options',
 			'slug'            => 'sfwe-options-panel',
 			'user_capability' => 'manage_options',
 			'tabs'            => array(
-				'sfwe-api-tab'         => esc_html__( 'API Keys', 'spotify-wordpress-elementor' ),
-				'sfwe-integration-tab' => esc_html__( 'Integrations', 'spotify-wordpress-elementor' ),
+				'sfwe-api-tab'         => esc_html__( 'API Keys', 'spotify2go' ),
+				'sfwe-integration-tab' => esc_html__( 'Integrations', 'spotify2go' ),
 			),
 			'icon_url'        => 'dashicons-easyproposal_admin_menu_icon',
 			'position'        => '59.1',
@@ -149,26 +149,26 @@ class SFWEHelper {
 		$panel_settings = array(
 			// Tab 1.
 			'sfwe_client_id'     => array(
-				'label'       => esc_html__( 'Client ID', 'spotify-wordpress-elementor' ),
+				'label'       => esc_html__( 'Client ID', 'spotify2go' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-api-tab',
 			),
 			'sfwe_client_secret' => array(
-				'label'       => esc_html__( 'Client Secret', 'spotify-wordpress-elementor' ),
+				'label'       => esc_html__( 'Client Secret', 'spotify2go' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-api-tab',
 			),
 			// Tab 2.
 			'sfwe_show_id'       => array(
-				'label'       => esc_html__( 'Podcast Show ID', 'spotify-wordpress-elementor' ),
+				'label'       => esc_html__( 'Podcast Show ID', 'spotify2go' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-integration-tab',
 			),
 			'sfwe_album_id'      => array(
-				'label'       => esc_html__( 'Album ID', 'spotify-wordpress-elementor' ),
+				'label'       => esc_html__( 'Album ID', 'spotify2go' ),
 				'type'        => 'text',
 				'description' => '',
 				'tab'         => 'sfwe-integration-tab',

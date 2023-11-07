@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "spotify-wordpress-elementor/album-embed",
+	"name": "spotify2go/album-embed",
 	"version": "1.0.0",
 	"title": "Album & Tracks",
-	"category": "spotify-wordpress-elementor",
+	"category": "spotify2go",
 	"description": "Display a list of album tracks to embed in your posts.",
 	"keywords": ["spotify", "album", "track", "embed"],
 	"supports": {
@@ -33,7 +33,7 @@
 			"type": "string"
 		}
 	},
-	"textdomain": "spotify-wordpress-elementor",
+	"textdomain": "spotify2go",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",

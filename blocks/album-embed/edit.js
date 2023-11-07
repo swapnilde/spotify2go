@@ -173,7 +173,7 @@ export default class albumEmbedEdit extends Component {
 				<InspectorControls>
 					<div className="sfwe-block-sidebar">
 						<PanelBody
-							title={__('Settings', 'spotify-wordpress-elementor')}
+							title={__('Settings', 'spotify2go')}
 							initialOpen={true}
 						>
 							<UnitControl
@@ -226,7 +226,7 @@ export default class albumEmbedEdit extends Component {
 				<div className={classes} id={blockID}>
 					<div className="container">
 						<RadioControl
-							label={__('Display Type', 'spotify-wordpress-elementor')}
+							label={__('Display Type', 'spotify2go')}
 							help="Select the display type for the album."
 							selected={displayType ? displayType : 'full'}
 							options={[
@@ -241,7 +241,7 @@ export default class albumEmbedEdit extends Component {
 						{displayType === 'single' && (
 							<SelectControl
 								__nextHasNoMarginBottom
-								label={__('Select Track', 'spotify-wordpress-elementor')}
+								label={__('Select Track', 'spotify2go')}
 								help="Selected track will be displayed in the frontend."
 								value={
 									currentTrack

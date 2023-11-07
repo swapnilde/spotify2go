@@ -7,7 +7,7 @@
  * @package           Spotify_Wordpress_Elementor
  *
  * @wordpress-plugin
- * Plugin Name:       Spotify For WordPress & Elementor
+ * Plugin Name:       Spotify2Go
  * Plugin URI:        https://swapnild.com
  * Description:       Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio and video content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
  * Version:           1.0.0
@@ -15,7 +15,7 @@
  * Author URI:        https://swapnild.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       spotify-wordpress-elementor
+ * Text Domain:       spotify2go
  * Domain Path:       /languages
  */
 

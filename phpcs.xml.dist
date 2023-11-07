@@ -2,7 +2,7 @@
 <ruleset>
 
 	<file>.</file>
-	<file>spotify-wordpress-elementor.php</file>
+	<file>spotify2go.php</file>
 
 	<!-- Show progress and sniff codes in all reports. -->
 	<arg value="s"/>

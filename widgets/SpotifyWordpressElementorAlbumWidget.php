@@ -46,7 +46,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	 * @inheritDoc
 	 */
 	public function get_title() {
-		return __( 'Album & Tracks', 'spotify-wordpress-elementor' );
+		return __( 'Album & Tracks', 'spotify2go' );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 	 * @inheritDoc
 	 */
 	public function get_categories() {
-		return array( 'basic' );
+		return array( 'general' );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->start_controls_section(
 			'sfwe_album_content_section',
 			array(
-				'label' => __( 'Spotify Album', 'spotify-wordpress-elementor' ),
+				'label' => __( 'Spotify Album', 'spotify2go' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -122,13 +122,13 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_album_display_type',
 			array(
-				'label'       => __( 'Display Type', 'spotify-wordpress-elementor' ),
-				'description' => __( 'Choose whether to display a full album or a single track.', 'spotify-wordpress-elementor' ),
+				'label'       => __( 'Display Type', 'spotify2go' ),
+				'description' => __( 'Choose whether to display a full album or a single track.', 'spotify2go' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'full',
 				'options'     => array(
-					'full'   => __( 'Full Album', 'spotify-wordpress-elementor' ),
-					'single' => __( 'Single Track', 'spotify-wordpress-elementor' ),
+					'full'   => __( 'Full Album', 'spotify2go' ),
+					'single' => __( 'Single Track', 'spotify2go' ),
 				),
 			)
 		);
@@ -136,8 +136,8 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_album_list',
 			array(
-				'label'       => __( 'Select Track', 'spotify-wordpress-elementor' ),
-				'description' => __( 'Select the track you want to display.', 'spotify-wordpress-elementor' ),
+				'label'       => __( 'Select Track', 'spotify2go' ),
+				'description' => __( 'Select the track you want to display.', 'spotify2go' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
 				'options'     => SFWEHelper::get_spotify_show_tracks(),
@@ -152,7 +152,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->start_controls_section(
 			'sfwe_album_style_section',
 			array(
-				'label' => __( 'Styles', 'spotify-wordpress-elementor' ),
+				'label' => __( 'Styles', 'spotify2go' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -160,7 +160,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_album_height',
 			array(
-				'label'      => esc_html__( 'Height', 'spotify-wordpress-elementor' ),
+				'label'      => esc_html__( 'Height', 'spotify2go' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -184,7 +184,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 		$this->add_control(
 			'sfwe_album_width',
 			array(
-				'label'      => esc_html__( 'Width', 'spotify-wordpress-elementor' ),
+				'label'      => esc_html__( 'Width', 'spotify2go' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -263,7 +263,7 @@ class SpotifyWordpressElementorAlbumWidget extends Widget_Base {
 
 			<?php if ( $is_editor && 'single' === $settings['sfwe_album_display_type'] && empty( $settings['sfwe_album_list'] ) ) : ?>
 				<div class="sfwe-album-editor-placeholder elementor-panel-alert elementor-panel-alert-info">
-					<?php esc_html_e( 'Select a track to display.', 'spotify-wordpress-elementor' ); ?>
+					<?php esc_html_e( 'Select a track to display.', 'spotify2go' ); ?>
 				</div>
 			<?php endif; ?>
 		</div>

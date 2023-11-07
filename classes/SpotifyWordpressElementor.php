@@ -115,7 +115,7 @@ class SpotifyWordpressElementor {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'spotify-wordpress-elementor';
+		$this->plugin_name = 'spotify2go';
 
 		$this->load_dependencies();
 		$this->set_locale();
