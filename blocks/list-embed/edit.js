@@ -184,6 +184,66 @@ export default class listEmbedEdit extends Component {
 							title={__('Settings', 'spotify2go')}
 							initialOpen={true}
 						>
+							<RadioControl
+								label={__('Display Type', 'spotify2go')}
+								help="Select the display type for the episode."
+								selected={displayType ? displayType : 'full'}
+								options={[
+									{ label: 'Full Show', value: 'full' },
+									{
+										label: 'Single Episode',
+										value: 'single',
+									},
+								]}
+								onChange={(type) => {
+									setAttributes({ displayType: type });
+								}}
+							/>
+
+							{displayType === 'single' && (
+								<SelectControl
+									__nextHasNoMarginBottom
+									label={__('Select Episode', 'spotify2go')}
+									help="Selected episode will be displayed in the frontend."
+									value={
+										currentEpisode
+											? currentEpisode.id
+											: episodesArray[0].id
+									}
+									options={episodesArray.map((episode) => {
+										return {
+											label: episode.name,
+											value: episode.id,
+										};
+									})}
+									onChange={(id) => {
+										setAttributes({
+											currentEpisode: episodesArray.find(
+												(episode) => episode.id === id
+											),
+										});
+									}}
+								/>
+							)}
+
+							{displayType === 'single' && (
+								<ToggleControl
+									__nextHasNoMarginBottom
+									checked={isVideo ? isVideo : false}
+									help={__(
+										'Enable this option if this episode is a video.',
+										'spotify2go'
+									)}
+									label={__(
+										'Is this a video episode?',
+										'spotify2go'
+									)}
+									onChange={(state) => {
+										setAttributes({ isVideo: state });
+									}}
+								/>
+							)}
+
 							<UnitControl
 								__next40pxDefaultSize
 								label="Height"
@@ -234,60 +294,20 @@ export default class listEmbedEdit extends Component {
 
 				<div className={classes} id={blockID}>
 					<div className="container">
-						<RadioControl
-							label={__('Display Type', 'spotify2go')}
-							help="Select the display type for the episode."
-							selected={displayType ? displayType : 'full'}
-							options={[
-								{ label: 'Full Show', value: 'full' },
-								{ label: 'Single Episode', value: 'single' },
-							]}
-							onChange={(type) => {
-								setAttributes({ displayType: type });
-							}}
-						/>
-						<br />
-						{displayType === 'single' && (
-							<SelectControl
-								__nextHasNoMarginBottom
-								label={__('Select Episode', 'spotify2go')}
-								help="Selected episode will be displayed in the frontend."
-								value={
-									currentEpisode
-										? currentEpisode.id
-										: episodesArray[0].id
-								}
-								options={episodesArray.map((episode) => {
-									return {
-										label: episode.name,
-										value: episode.id,
-									};
-								})}
-								onChange={(id) => {
-									setAttributes({
-										currentEpisode: episodesArray.find(
-											(episode) => episode.id === id
-										),
-									});
-								}}
-							/>
-						)}
-						<br />
-						{displayType === 'single' && (
-							<ToggleControl
-								__nextHasNoMarginBottom
-								checked={isVideo ? isVideo : false}
-								help={__(
-									'Enable this option if this episode is a video.',
-									'spotify2go'
-								)}
-								label={__('Is this a video episode?', 'spotify2go')}
-								onChange={(state) => {
-									setAttributes({ isVideo: state });
-								}}
-							/>
-						)}
 						<div className={'sfwe-episode'}>
+							{displayType === 'single' && !currentEpisode.id && (
+								<div className="notice notice-info alt">
+									<p>
+										<i>
+											{__(
+												'Please select an episode from the block settings.',
+												'spotify2go'
+											)}
+										</i>
+									</p>
+								</div>
+							)}
+
 							{displayType === 'single' && currentEpisode.id && (
 								<iframe
 									id={'sfwe-episode-' + currentEpisode.id}

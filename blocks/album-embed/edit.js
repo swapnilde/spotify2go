@@ -176,6 +176,45 @@ export default class albumEmbedEdit extends Component {
 							title={__('Settings', 'spotify2go')}
 							initialOpen={true}
 						>
+							<RadioControl
+								label={__('Display Type', 'spotify2go')}
+								help="Select the display type for the album."
+								selected={displayType ? displayType : 'full'}
+								options={[
+									{ label: 'Full Album', value: 'full' },
+									{ label: 'Single Track', value: 'single' },
+								]}
+								onChange={(type) => {
+									setAttributes({ displayType: type });
+								}}
+							/>
+
+							{displayType === 'single' && (
+								<SelectControl
+									__nextHasNoMarginBottom
+									label={__('Select Track', 'spotify2go')}
+									help="Selected track will be displayed in the frontend."
+									value={
+										currentTrack
+											? currentTrack.id
+											: albumArray[0].id
+									}
+									options={albumArray.map((episode) => {
+										return {
+											label: episode.name,
+											value: episode.id,
+										};
+									})}
+									onChange={(id) => {
+										setAttributes({
+											currentTrack: albumArray.find(
+												(episode) => episode.id === id
+											),
+										});
+									}}
+								/>
+							)}
+
 							<UnitControl
 								__next40pxDefaultSize
 								label="Height"
@@ -225,45 +264,20 @@ export default class albumEmbedEdit extends Component {
 				</InspectorControls>
 				<div className={classes} id={blockID}>
 					<div className="container">
-						<RadioControl
-							label={__('Display Type', 'spotify2go')}
-							help="Select the display type for the album."
-							selected={displayType ? displayType : 'full'}
-							options={[
-								{ label: 'Full Album', value: 'full' },
-								{ label: 'Single Track', value: 'single' },
-							]}
-							onChange={(type) => {
-								setAttributes({ displayType: type });
-							}}
-						/>
-						<br />
-						{displayType === 'single' && (
-							<SelectControl
-								__nextHasNoMarginBottom
-								label={__('Select Track', 'spotify2go')}
-								help="Selected track will be displayed in the frontend."
-								value={
-									currentTrack
-										? currentTrack.id
-										: albumArray[0].id
-								}
-								options={albumArray.map((episode) => {
-									return {
-										label: episode.name,
-										value: episode.id,
-									};
-								})}
-								onChange={(id) => {
-									setAttributes({
-										currentTrack: albumArray.find(
-											(episode) => episode.id === id
-										),
-									});
-								}}
-							/>
-						)}
 						<div className={'sfwe-episode'}>
+							{displayType === 'single' && !currentTrack.id && (
+								<div className="notice notice-info alt">
+									<p>
+										<i>
+											{__(
+												'Please select a track from the block settings.',
+												'spotify2go'
+											)}
+										</i>
+									</p>
+								</div>
+							)}
+
 							{displayType === 'single' && currentTrack.id && (
 								<iframe
 									id={'sfwe-track-' + currentTrack.id}
