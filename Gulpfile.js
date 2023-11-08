@@ -262,9 +262,6 @@ gulp.task(
 		.pipe( readme( { 
 			details: true,
 			screenshot_ext: ['jpg', 'jpg', 'png'],
-			extract: {
-				'changelog': 'CHANGELOG',
-			}
 		} ) )
 		.pipe( gulp.dest( './' ) );
 		cb();
