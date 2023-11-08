@@ -1,6 +1,6 @@
 === Spotify2Go ===
 Contributors: [swapnilde](https://profiles.wordpress.org/swapnilde/)  
-Donate link: https://paypal.me/SwapnilDeshpandeIN 
+Donate link: https://paypal.me/SwapnilDeshpandeIN  
 Tags: spotify, podcast, album, embed, audio, video player, wordpress, elementor  
 Requires at least: 4.4  
 Tested up to: 6.3  
