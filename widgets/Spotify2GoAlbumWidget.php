@@ -263,7 +263,7 @@ class Spotify2GoAlbumWidget extends Widget_Base {
 
 			<?php if ( $is_editor && 'single' === $settings['sfwe_album_display_type'] && empty( $settings['sfwe_album_list'] ) ) : ?>
 				<div class="sfwe-album-editor-placeholder elementor-panel-alert elementor-panel-alert-info">
-					<?php esc_html_e( 'Select a track to display.', 'spotify2go' ); ?>
+					<?php esc_html_e( 'Please select a track from the widget settings.', 'spotify2go' ); ?>
 				</div>
 			<?php endif; ?>
 		</div>

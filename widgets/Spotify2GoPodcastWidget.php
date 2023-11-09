@@ -280,7 +280,7 @@ class Spotify2GoPodcastWidget extends Widget_Base {
 
 			<?php if ( $is_editor && 'single' === $settings['sfwe_podcast_display_type'] && empty( $settings['sfwe_podcast_list'] ) ) : ?>
 				<div class="sfwe-podcast-editor-placeholder elementor-panel-alert elementor-panel-alert-info">
-					<?php esc_html_e( 'Select a podcast to display.', 'spotify2go' ); ?>
+					<?php esc_html_e( 'Please select an episode from the widget settings', 'spotify2go' ); ?>
 				</div>
 			<?php endif; ?>
 		</div>
