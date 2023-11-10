@@ -141,7 +141,7 @@ class SGOHelper {
 				'sfwe-api-tab'         => esc_html__( 'API Keys', 'spotify2go' ),
 				'sfwe-integration-tab' => esc_html__( 'Integrations', 'spotify2go' ),
 			),
-			'icon_url'        => 'dashicons-easyproposal_admin_menu_icon',
+			'icon_url'        => 'dashicons-spotify2go_menu_icon',
 			'position'        => '59.1',
 		);
 
