@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Define the internationalization functionality.
  */
-class Spotify2GoI18N {
+class Spotify2GoI18n {
 
 
 	/**

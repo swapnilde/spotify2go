@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 use Spotify2Go\Classes\Spotify2GoLoader;
-use Spotify2Go\Classes\Spotify2GoI18N;
+use Spotify2Go\Classes\Spotify2GoI18n;
 use Spotify2Go\Admin\Spotify2GoAdmin;
 use Spotify2Go\Frontend\Spotify2GoFrontend;
 use Spotify2Go\Includes\Options\SGOptionsPanel;
@@ -176,7 +176,7 @@ class Spotify2Go {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Spotify2GoI18N();
+		$plugin_i18n = new Spotify2GoI18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
