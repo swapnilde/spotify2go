@@ -201,7 +201,7 @@ gulp.task(
 			"!blocks{,/**}",
 			]
 		)
-		.pipe( zip( getPkgInfo().name + '-' + getPkgInfo().version + '.zip' ) )
+		.pipe( zip( getPkgInfo().name + '.zip' ) )
 		.pipe( gulp.dest( './' ) );
 		cb();
 	}
