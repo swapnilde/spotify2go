@@ -67,6 +67,11 @@ Yes, you need to create a Spotify Developer Account to get the Client ID and Cli
 
 == Screenshots ==
 
+1. Spotify2Go Settings Page - Here you can add your Spotify Client ID and Client Secret.
+2. Spotify2Go Settings Page - Here you can add your Spotify Album ID and Podcast ID.
+3. Block editor - Here you can add the Spotify2Go blocks in block editor.
+4. Elementor - Here you can add the Spotify2Go widgets in Elementor.
+
 == Changelog ==
 
 = 1.0.0 =
