@@ -1,5 +1,5 @@
 {
-  "name": "spotify-wordpress-elementor",
+  "name": "spotify2go",
   "version": "1.0.0",
   "description": "Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio and video content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
   "main": "index.js",
@@ -16,7 +16,9 @@
     "pot": "gulp pot",
     "zip": "gulp zip",
     "bumpup": "gulp bumpup",
-    "readme": "gulp readme"
+    "readme": "gulp readme",
+    "build": "npm run blocks:build && npm run prod && npm run domain && npm run pot && npm run readme",
+    "release": "npm run build && npm run zip"
   },
   "repository": {
     "type": "git",

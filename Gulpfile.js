@@ -183,7 +183,6 @@ gulp.task(
 			"!gulpfile.babel.js",
 			"!package.json",
 			"!package-lock.json",
-			"!LICENSE.txt",
 			"!composer.json",
 			"!composer.lock",
 			"!vendor{,/**}",
