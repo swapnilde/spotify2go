@@ -13,7 +13,7 @@ Spotify2Go help you share interactive content from Spotify on your website. Embe
 
 ## Description ##
 
-Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
+Spotify2Go provides wordpress blocks and elementor widgets to embed Spotify content on your website. You can embed podcast, an album, or other audio and video content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.
 
 ## Installation ##
 
