@@ -145,7 +145,7 @@ class Spotify2Go {
 	 * This is the static method that controls the access to the Spotify2Go class instance.
 	 *
 	 * @return Spotify2Go
-	 *@since 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
