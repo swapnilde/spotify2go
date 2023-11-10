@@ -19,7 +19,6 @@ if ( ! defined( 'WPINC' ) ) {
 use Spotify2Go\Classes\Spotify2GoLoader;
 use Spotify2Go\Classes\Spotify2GoI18n;
 use Spotify2Go\Admin\Spotify2GoAdmin;
-use Spotify2Go\Frontend\Spotify2GoFrontend;
 use Spotify2Go\Includes\Options\SGOptionsPanel;
 use Spotify2Go\includes\SGOHelper;
 
@@ -120,8 +119,6 @@ class Spotify2Go {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -162,10 +159,8 @@ class Spotify2Go {
 	 */
 	private function load_dependencies() {
 
-		$this->loader        = Spotify2GoLoader::get_instance();
-		$this->plugin_admin  = new Spotify2GoAdmin( $this->get_plugin_name(), $this->get_version() );
-		$this->plugin_public = new Spotify2GoFrontend( $this->get_plugin_name(), $this->get_version() );
-
+		$this->loader       = Spotify2GoLoader::get_instance();
+		$this->plugin_admin = new Spotify2GoAdmin( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	/**
@@ -179,7 +174,6 @@ class Spotify2Go {
 		$plugin_i18n = new Spotify2GoI18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -211,21 +205,6 @@ class Spotify2Go {
 		if ( $this->is_compatible() ) {
 			$this->loader->add_action( 'elementor/init', $this->plugin_admin, 'init_widgets' );
 		}
-
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -280,7 +259,7 @@ class Spotify2Go {
 
 		// Check if Elementor installed and activated.
 		if ( ! did_action( 'elementor/loaded' ) ) {
-			// $this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_missing_elementor_plugin' );
+			// Call admin_notice_missing_elementor_plugin() on admin_notices hook if Elementor is not installed.
 			return false;
 		}
 
@@ -297,7 +276,5 @@ class Spotify2Go {
 		}
 
 		return true;
-
 	}
-
 }
