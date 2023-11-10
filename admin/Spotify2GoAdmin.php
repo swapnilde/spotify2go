@@ -319,7 +319,7 @@ class Spotify2GoAdmin {
 	 */
 	public function register_widgets( $widgets_manager ) {
 
-		if ( ! SGOHelper::check_spotify_api_keys_empty() ) {
+		if ( ! SGOHelper::check_spotify_api_keys_empty() || did_action( 'elementor/loaded' ) ) {
 			$widgets_manager->register( new Spotify2GoPodcastWidget() );
 			$widgets_manager->register( new Spotify2GoAlbumWidget() );
 		}

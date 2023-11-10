@@ -280,7 +280,7 @@ class Spotify2Go {
 
 		// Check if Elementor installed and activated.
 		if ( ! did_action( 'elementor/loaded' ) ) {
-			$this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_missing_elementor_plugin' );
+			// $this->loader->add_action( 'admin_notices', $this->plugin_admin, 'admin_notice_missing_elementor_plugin' );
 			return false;
 		}
 
