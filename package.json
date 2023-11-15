@@ -1,9 +1,12 @@
 {
-  "name": "spotify-wordpress-elementor",
+  "name": "spotify2go",
   "version": "1.0.0",
-  "description": "Spotify For WordPress & Elementor help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
+  "description": "Spotify2Go help you share interactive content from Spotify on your website. Embed podcast, an album, or other audio and video content to your website and promote your music, share your new podcast episodes with fans, or highlight your favourite album or playlist.",
   "main": "index.js",
   "scripts": {
+    "blocks:start": "wp-scripts start --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+    "blocks:build": "wp-scripts build --webpack-src-dir=blocks --output-path=assets/admin/blocks",
+    "blocks:format": "wp-scripts format ./blocks",
     "dev": "mix",
     "watch": "mix watch",
     "prod": "mix --production",
@@ -13,7 +16,9 @@
     "pot": "gulp pot",
     "zip": "gulp zip",
     "bumpup": "gulp bumpup",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "readme": "gulp readme",
+    "build": "npm run blocks:build && npm run prod && npm run domain && npm run pot && npm run readme",
+    "release": "npm run build && npm run zip"
   },
   "repository": {
     "type": "git",
@@ -29,6 +34,8 @@
     "> 0.25%, last 2 versions, Firefox ESR, not dead, not IE 11"
   ],
   "devDependencies": {
+    "@wordpress/scripts": "^26.13.0",
+    "classnames": "^2.3.2",
     "del": "^6.0.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -37,6 +44,7 @@
     "gulp-checktextdomain": "^2.2.2",
     "gulp-eslint": "^6.0.0",
     "gulp-prompt": "^1.2.0",
+    "gulp-readme-to-markdown": "^0.2.1",
     "gulp-replace": "^1.1.3",
     "gulp-stylelint": "^13.0.0",
     "gulp-wait": "^0.0.2",
@@ -46,6 +54,7 @@
     "less": "^4.1.3",
     "less-loader": "^11.1.0",
     "postcss": "^8.3.5",
+    "querystring-es3": "^0.2.1",
     "rtlcss": "^3.5.0",
     "stylelint": "^13.13.1",
     "stylelint-no-unsupported-browser-features": "^5.0.3"

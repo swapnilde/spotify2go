@@ -1,0 +1,43 @@
+name: Release PR Update
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+    update-pr:
+      name: Update PR
+      if: ${{ github.event.label.name == 'release' }}
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check Branch
+          id: check_branch
+          run: |
+            if [[ ${{ github.base_ref }} == master || ${{ github.base_ref }} == release-candidate || ${{ github.base_ref }} == next-release || ${{ github.base_ref }} == develop ]]; then
+              echo ::set-output name=match::true
+            fi
+        - uses: actions/checkout@v2
+          if: steps.check_branch.outputs.match == 'true'
+          with:
+            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            base-branch-regex: '[A-Za-z\d-_.\\/]+'
+            head-branch-regex: '[A-Za-z\d-_.\\/]+'
+            title-template: 'Build: Release PR'
+            body-template: |
+              ### Release PR
+                This PR has been updated by the release workflow. Please review the changes and merge if you are happy.
+              ---
+              ### Release Notes
+                - [ ] Update changelog
+                - [ ] Update readme
+                - [ ] Update plugin version
+                - [ ] Update plugin tested up to version
+                - [ ] Update plugin requires at least version
+                - [ ] Update plugin requires PHP version
+                - [ ] Update Elementor compatibility tags to match latest version.
+                - [ ] Update POT file
+                - [ ] Update phpcs
+                - [ ] Update draft github tag
+            body-update-action: 'prefix'
+            title-update-action: 'prefix'
+            body-uppercase-base-match: false

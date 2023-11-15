@@ -2,7 +2,7 @@
 <ruleset>
 
 	<file>.</file>
-	<file>spotify-wordpress-elementor.php</file>
+	<file>spotify2go.php</file>
 
 	<!-- Show progress and sniff codes in all reports. -->
 	<arg value="s"/>
@@ -33,5 +33,6 @@
 
 	<exclude-pattern>node_modules/*</exclude-pattern>
     <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>assets/*</exclude-pattern>
 
 </ruleset>

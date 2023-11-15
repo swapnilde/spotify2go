@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "spotify2go/album-embed",
+	"version": "1.0.0",
+	"title": "Album & Tracks",
+	"category": "spotify2go",
+	"description": "Display a list of album tracks to embed in your posts.",
+	"keywords": ["spotify", "album", "track", "embed"],
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"blockID": {
+			"type": "string",
+			"default": ""
+		},
+		"albumArray": {
+			"type": "array",
+			"default": []
+		},
+		"displayType": {
+			"type": "string",
+			"default": "full"
+		},
+		"currentTrack": {
+			"type": "object",
+			"default": {}
+		},
+		"height": {
+			"type": "string"
+		},
+		"width": {
+			"type": "string"
+		}
+	},
+	"textdomain": "spotify2go",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

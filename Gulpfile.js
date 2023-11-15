@@ -10,6 +10,7 @@ const bump            = require( 'gulp-bump' );
 const replace         = require( 'gulp-replace' );
 const prompt          = require( 'gulp-prompt' );
 const wait            = require( 'gulp-wait' );
+const readme          = require( 'gulp-readme-to-markdown' );
 
 var getPkgInfo = function () {
 	return JSON.parse( fs.readFileSync( './package.json', 'utf8' ) );
@@ -108,12 +109,12 @@ gulp.task(
 		.pipe(
 			wpPot(
 				{
-					domain: 'sfwe',
-					package: 'Spotify_Wordpress_Elementor'
+					domain: 'spotify2go',
+					package: 'Spotify2Go'
 				}
 			)
 		)
-		.pipe( gulp.dest( 'languages/spotify-wordpress-elementor.pot' ) );
+		.pipe( gulp.dest( 'languages/spotify2go.pot' ) );
 		cb();
 	}
 );
@@ -126,7 +127,7 @@ gulp.task(
 		.pipe(
 			checktextdomain(
 				{
-					text_domain: 'sfwe', // Specify allowed domain(s).
+					text_domain: 'spotify2go', // Specify allowed domain(s).
 					keywords: [ // List keyword specifications.
 					'__:1,2d',
 					'_e:1,2d',
@@ -182,7 +183,6 @@ gulp.task(
 			"!gulpfile.babel.js",
 			"!package.json",
 			"!package-lock.json",
-			"!LICENSE.txt",
 			"!composer.json",
 			"!composer.lock",
 			"!vendor{,/**}",
@@ -197,10 +197,11 @@ gulp.task(
 			"!**/*.LICENSE.txt",
 			"!mix-manifest.json",
 			"!app{,/**}",
-			"!tailwind.config.js"
+			"!tailwind.config.js",
+			"!blocks{,/**}",
 			]
 		)
-		.pipe( zip( getPkgInfo().name + '-' + getPkgInfo().version + '.zip' ) )
+		.pipe( zip( getPkgInfo().name + '.zip' ) )
 		.pipe( gulp.dest( './' ) );
 		cb();
 	}
@@ -234,7 +235,7 @@ gulp.task(
 gulp.task(
 	'plugin-version',
 	function (cb) {
-		return gulp.src( 'spotify-wordpress-elementor.php' )
+		return gulp.src( 'spotify2go.php' )
 		.pipe( replace( /Version: \d{1,2}\.\d{1,2}\.\d{1,2}/g, 'Version: ' + getPkgInfo().version ) )
 		.pipe( replace( /SPOTIFY_WORDPRESS_ELEMENTOR_VERSION', '.*?'/g, 'SPOTIFY_WORDPRESS_ELEMENTOR_VERSION\', \'' + getPkgInfo().version + '\'' ) )
 		.pipe( gulp.dest( './' ) )
@@ -253,9 +254,23 @@ gulp.task(
 	}
 );
 
+gulp.task(
+	'readme',
+	function (cb) {
+		return gulp.src( 'readme.txt' )
+		.pipe( readme( { 
+			details: true,
+			screenshot_ext: ['jpg', 'jpg', 'png'],
+		} ) )
+		.pipe( gulp.dest( './' ) );
+		cb();
+	}
+);
+
 gulp.task( 'lintcss', gulp.series( 'admin-css-lint','public-css-lint' ) );
 gulp.task( 'lintjs', gulp.parallel( 'admin-js-lint','public-js-lint' ) );
 gulp.task( 'checkdomain', gulp.series( 'checktextdomain' ) );
 gulp.task( 'pot', gulp.series( 'wp-pot' ) );
 gulp.task( 'zip', gulp.series( 'clean', 'zip' ) );
 gulp.task( 'bumpup', gulp.series( 'bump', 'plugin-version', 'plugin-comment' ) );
+gulp.task( 'readme', gulp.series( 'readme' ) );

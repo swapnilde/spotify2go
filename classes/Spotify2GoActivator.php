@@ -1,14 +1,13 @@
 <?php
-
 /**
  * Fired during plugin activation
  *
  * @link       https://swapnild.com
  * @since      1.0.0
- * @package    Spotify_Wordpress_Elementor
+ * @package    Spotify2Go
  */
 
-namespace SpotifyWPE\Classes;
+namespace Spotify2Go\Classes;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -22,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since      1.0.0
  */
-class SpotifyWordpressElementorActivator {
+class Spotify2GoActivator {
 
 	/**
 	 * Activation function.
